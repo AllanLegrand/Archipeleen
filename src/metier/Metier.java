@@ -35,13 +35,13 @@ public class Metier
     {
         try
 		{
-			Scanner sc = new Scanner ( new FileInputStream ( "./donnees/plan.txt" ) );
+			Scanner sc = new Scanner ( new FileInputStream ( "./donnees/data.csv" ) );
 
             // Ajout des sommets
 			sc.nextLine();
 			while ( sc.hasNextLine() )
 			{       
-			    ArrayList<String> tabS = decomposer(sc.nextLine());
+			    ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
 			    
 			    // Quand il y a une ligne vide, on passe aux regions
 			    if ( tabS.size() == 1 )
@@ -54,7 +54,7 @@ public class Metier
             sc.nextLine();
             while ( sc.hasNextLine() )
             {       
-                ArrayList<String> tabS = decomposer(sc.nextLine());
+                ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
                 
                 // Quand il y a une ligne vide, on passe aux arêtes
                 if ( tabS.size() == 1 )
@@ -74,7 +74,7 @@ public class Metier
 
 			while ( sc.hasNextLine() )
             {
-                ArrayList<String> tabS = decomposer( sc.nextLine() );
+                ArrayList<String> tabS = decomposer( sc.nextLine(), ',' );
                  
                 for(int cpt = 1; cpt < tabS.size()-1; cpt++ )
                 {
@@ -88,14 +88,14 @@ public class Metier
 		catch (Exception e){ e.printStackTrace(); }
     }
 
-	private static ArrayList<String> decomposer(String chaine)
+	private static ArrayList<String> decomposer(String chaine, char dec)
     {
         ArrayList<String> tabS = new ArrayList<String>();
         
         String mot = "";
         for(int cpt = 0; cpt < chaine.length(); cpt++)
         {
-            if ( chaine.charAt(cpt) == '\t' )
+            if ( chaine.charAt(cpt) == dec )
             {
                 tabS.add(mot);
                 mot = "";
