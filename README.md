@@ -1,6 +1,6 @@
 # Archipeleen
 
-﻿<a name="br1"></a> 
+<a name="br1"></a> 
 
 Bivono ati Cinke Tera
 
