@@ -27,7 +27,7 @@ public class PanelGraph extends JPanel
 	{
 		this.ctrl = ctrl;
 
-		this.setBackground(Color.WHITE);
+		this.setBackground(new Color(192, 216, 226));
 
 		this.addMouseListener(new GereSelection(ctrl, this));
 	}
