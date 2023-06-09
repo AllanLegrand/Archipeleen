@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 import java.io.FileInputStream;
-
 import javax.swing.JOptionPane;
 import java.util.HashMap;
 
@@ -20,25 +19,16 @@ public class Metier
 
 	private int tour;
 
-	private static int[] tabColor = {255, 16711680};
-
-	private static HashMap<String,Integer> tabCardColor = new HashMap<String, Integer>() 
-	{{
-    	put("Jaune", 12560217);
-    	put("Rouge", 5214316);
-		put("Vert", 9276528);
-		put("Brun", 10321545);
-	}};
+	private static int[] tabColor = {ColorGraph.BLUE.getVal(), ColorGraph.RED.getVal()};
 
 	public Metier()
 	{
 		this.g = new Graph();
 
 
-		this.discard = new ArrayList<Card>((this.tabCardColor.size()+1)*2);
-		this.deck    = new ArrayList<Card>((this.tabCardColor.size()+1)*2);
+		this.discard = new ArrayList<Card>(10);
+		this.deck    = new ArrayList<Card>(10);
 
-		this.discard.put(new Card(false, null));
 
 		this.generer();	
 	}
@@ -58,14 +48,8 @@ public class Metier
 			    // Quand il y a une ligne vide, on passe aux regions
 			    if ( tabS.size() == 1 )
 			        break;
-
-				if(!existCard(tabCardColor.get(tabS.get(1))))
-				{
-					this.discard.add(new Card(false, tabCardColor.get(tabS.get(1))));
-					this.discard.add(new Card(true, tabCardColor.get(tabS.get(1))));
-				}
 			    
-				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(1)), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), Integer.parseInt(tabS.get(4)), Integer.parseInt(tabS.get(5)));
+				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(1)), Integer.parseInt(tabS.get(2)));
 			}
 			
 			// Ajout des regions
@@ -105,14 +89,6 @@ public class Metier
 		}
 		catch (Exception e){ e.printStackTrace(); }
     }
-
-	private boolean existCard(int color)
-	{
-		for (Card card : this.deck) 
-			if (card.getColor() == color)
-				return true;
-		return false;
-	}
 
 	private static ArrayList<String> decomposer(String chaine, char dec)
     {
@@ -209,7 +185,6 @@ public class Metier
 		return this.g.coloring(edge);
 	}
 
-
 	public void calculNbTurn()
 	{
 		int nbTurn = 0;
@@ -218,6 +193,7 @@ public class Metier
 			if ( card.isPrimary() ) nbTurn++;
 		
 		if ( nbTurn == 5 ) this.endGame();
+		else this.tour++;
 	}
 
 	public void endGame()
