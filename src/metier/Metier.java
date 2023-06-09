@@ -37,8 +37,8 @@ public class Metier
 		this.g = new Graph();
 
 
-		this.discard = new ArrayList<Card>((this.tabCardColor.size()+1)*2);
-		this.deck    = new ArrayList<Card>((this.tabCardColor.size()+1)*2);
+		this.discard = new ArrayList<Card>((Metier.tabCardColor.size()+1)*2);
+		this.deck    = new ArrayList<Card>((Metier.tabCardColor.size()+1)*2);
 
 		this.discard.add(new Card(false, null));
 
@@ -55,6 +55,7 @@ public class Metier
             sc.nextLine();
             sc.nextLine();
 
+<<<<<<< HEAD
             ArrayList<Node> lstNode = new ArrayList<Node>();
             String nomReg = sc.nextLine();
             while ( sc.hasNextLine() )
@@ -70,6 +71,28 @@ public class Metier
                         break;
                     continue;
                 }
+=======
+			ArrayList<Node> lstNode = new ArrayList<Node>();
+			String nomReg = sc.nextLine();
+			while ( sc.hasNextLine() )
+			{       
+			    ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
+			    // Quand il y a une ligne vide, on change de région
+			    if ( tabS.size() == 1 )
+			        break;
+				}
+
+
+				if(!existCard(tabCardColor.get(tabS.get(1))))
+				{
+					this.discard.add( new Card( false, tabCardColor.get(tabS.get(1)) ));
+					this.discard.add( new Card( true , tabCardColor.get(tabS.get(1)) ));
+				}
+			    
+				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(1)), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), Integer.parseInt(tabS.get(4)), Integer.parseInt(tabS.get(5)));
+			}
+			
+>>>>>>> 4c635e8349e2ab650099a703701fd5238b308315
 
                 
                 if(!existCard(tabCardColor.get(tabS.get(1))))
@@ -78,7 +101,41 @@ public class Metier
                     this.discard.add(new Card(true, tabCardColor.get(tabS.get(1))));
                 }
 
+<<<<<<< HEAD
                 this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), Metier.tabCardColor.get(tabS.get(1)), Integer.parseInt(tabS.get(4)), Integer.parseInt(tabS.get(5)));
+=======
+				String node1 = tabS.get(0);
+				String node2 = tabS.get(1);
+
+				this.g.addEdge(node1 + "-" + node2, this.g.getNode(node1), this.g.getNode(node2), 1);
+			}
+
+
+			sc.close();
+		} catch (Exception e){ e.printStackTrace(); }
+    }
+
+	private boolean existCard(int color)
+	{
+		for (Card card : this.deck) 
+			if( card.getColor() == color )
+				return true;
+
+		return false;
+	}
+
+	private static ArrayList<String> decomposer(String chaine, char dec)
+    {
+        ArrayList<String> tabS = new ArrayList<String>();
+        
+        String mot = "";
+        for(int cpt = 0; cpt < chaine.length(); cpt++)
+        {
+            if ( chaine.charAt(cpt) == dec )
+            {
+                tabS.add(mot);
+                mot = "";
+>>>>>>> 4c635e8349e2ab650099a703701fd5238b308315
             }
             
 
