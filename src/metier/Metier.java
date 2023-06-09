@@ -2,6 +2,7 @@ package metier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 import java.io.FileInputStream;
 import javax.swing.JOptionPane;
@@ -15,8 +16,7 @@ public class Metier
 	private Graph g;
 
 	private int nbTurn;
-	private int cptTurn;
-
+	
 	private ArrayList<Carte> deck;
 	private ArrayList<Carte> discard;
 
@@ -42,7 +42,7 @@ public class Metier
 		this.nbColor = 0;
 
 
-		this.random();
+		this.nbTurn = 5;
 	}
 
 	private void generer()
@@ -109,6 +109,10 @@ public class Metier
 		{
 			Carte card = this.deck.remove( 0 );
 			this.discard.add ( card );
+
+			if ( !card.isPrimary() ) increment( true );
+			else increment( false );
+
 			return card;
 		}
 
@@ -162,39 +166,29 @@ public class Metier
 	}
 
 	public ArrayList<Node> getLstNode() { return this.g.getLstNode(); }
-    public ArrayList<Edge> getLstEdge() { return this.g.getLstEdge(); }
+	public ArrayList<Edge> getLstEdge() { return this.g.getLstEdge(); }
 
 	public boolean coloring(Edge edge)
 	{
 		return this.g.coloring(edge);
 	}
 
-	public void random()
+	public boolean increment( boolean addTurn ) 
 	{
-		if(this.nbColor >= 2)
+		if( addTurn )
 		{
-			JOptionPane.showMessageDialog(null, "La partie est finie\nVotre score est : " + this.getFinalScore());// ajouté un recap de la partie
-			PanelGraph.color = 0;
+			this.nbTurn++;
 		}
-		else
+		else 
 		{
-			this.nbTurn  = (int) (Math.random() * 5) + 5;
-			System.out.println(this.nbTurn);
-			this.nbColor++;
-			this.cptTurn = 0;
-		}
-	}
-
-	public boolean increment() 
-	{
-		if(this.nbTurn - 1 == this.cptTurn)
-		{
-			this.random();
-			return false;
+			this.nbTurn--;
+			if ( this.nbTurn <= 0 )
+			{
+				JOptionPane.showMessageDialog(null, "La partie est finie\nVotre score est : " + this.getFinalScore());
+				PanelGraph.color = 0;
+			}
 		}
 
-		this.cptTurn++;
-		
 		return true;
 	}
 }

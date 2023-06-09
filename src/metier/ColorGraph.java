@@ -2,10 +2,10 @@ package metier;
 
 public enum ColorGraph
 {
-	YELLOW (12560217),
-	GREEN  (5214316),
-	GREY   (9276528),
-	PURPLE (10321545),
+	JAUNE  (12560217),
+	VERT  (5214316),
+	BRUN   (9276528),
+	ROUGE (10321545),
 	MULTICOLOR(null),
 
 	RED(16711680),
