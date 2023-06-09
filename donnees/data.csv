@@ -1,6 +1,6 @@
 ,,Centre,,,Position image,
 ,,x,y,,x,y
-Tavula,Rouge,135,125,42,75
+Tavula,Rouge,135,125,42,75,
 Tokha,Vert,170,310,86,258
 Tiamù,Jaune,290,80,222,36
 Ticó,Brun,320,250,277,182
@@ -35,3 +35,16 @@ Tokha,Ticó
 Tokha,Laçao
 Tiamù,Ticó
 Ticó,Kita
+Ticó,Laçao
+Kosa,Kita
+Kosa,Khont-Rolah
+Kosa,Kiola
+Kita,Khont-Rolah
+Kita,Kiola
+Khont-Rolah,Kiola
+Khont-Rolah,Milaù
+Khont-Rolah,Mutaa
+Khont-Rolah,Fuego
+Kiola,Fuego
+Loümu,Laçao
+Loümu,

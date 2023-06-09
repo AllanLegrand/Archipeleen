@@ -23,7 +23,7 @@ public class Metier
 
 	private int tour;
 
-	private static int[] tabColor = {255, 16711680};
+	private static int[] tabColor = {ColorGraph.BLUE.getVal(), ColorGraph.RED.getVal()};
 
 	public Metier()
 	{

@@ -6,7 +6,10 @@ public enum ColorGraph
 	GREEN  (5214316),
 	GREY   (9276528),
 	PURPLE (10321545),
-	MULTICOLOR(null);
+	MULTICOLOR(null),
+
+	RED(16711680),
+	BLUE(255);
 
 
 	private Integer val;
