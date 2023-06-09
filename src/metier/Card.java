@@ -3,7 +3,7 @@ package metier;
 public class Card
 {
     private boolean isPrimary;
-    private int color;
+    private Integer color;
 
     public Card ( boolean isPrimary, Integer color)
     {

@@ -37,10 +37,10 @@ public class Metier
 		this.g = new Graph();
 
 
-		this.discard = new ArrayList<Card>((this.tabCardColor.size()+1)*2);
-		this.deck    = new ArrayList<Card>((this.tabCardColor.size()+1)*2);
+		this.discard = new ArrayList<Card>((Metier.tabCardColor.size()+1)*2);
+		this.deck    = new ArrayList<Card>((Metier.tabCardColor.size()+1)*2);
 
-		this.discard.put(new Card(false, null));
+		this.discard.add(new Card(false, null));
 
 		this.generer();	
 	}
@@ -79,7 +79,7 @@ public class Metier
 					this.discard.add(new Card(true, tabCardColor.get(tabS.get(1))));
 				}
 
-				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), ColorGraph.valueOf(tabS.get(1).toUpperCase()).getVal());
+				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), Metier.tabCardColor.get(tabS.get(1)), Integer.parseInt(tabS.get(4)), Integer.parseInt(tabS.get(5)));
 			}
 			
 

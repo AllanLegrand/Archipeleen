@@ -38,9 +38,9 @@ public class Controleur
 		return this.metier.coloring(edge);
 	}
 
-	public void increment(boolean b)
+	public void calculNbTurn()
 	{
-		this.metier.increment(b);
+		this.metier.calculNbTurn();
 		
 		this.metier.changeColor();
 	}

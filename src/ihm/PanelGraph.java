@@ -138,7 +138,7 @@ class GereSelection extends MouseAdapter
 							edge.setColor(PanelGraph.color);
 
 							this.deselect();
-							this.ctrl.increment(true);
+							this.ctrl.calculNbTurn();
 						}
 					}
 				}	
