@@ -4,9 +4,15 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Polygon;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -27,8 +33,6 @@ public class PanelGraph extends JPanel
 	public PanelGraph(Controleur ctrl)
 	{
 		this.ctrl = ctrl;
-
-		this.setBackground(new Color(192, 216, 226));
 
 		this.addMouseListener(new GereSelection(ctrl, this));
 	}
@@ -99,6 +103,28 @@ class GereSelection extends MouseAdapter
 		this.node2 = null;
 	}
 
+	public boolean estCompris(int x, int y, Node node)
+	{
+		Color color = null;
+		try
+		{
+			Robot robot = new Robot();
+	
+			BufferedImage screenshot = robot.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+
+			color = new Color(screenshot.getRGB(x, y));
+		}
+		catch(Exception e){e.printStackTrace();}
+
+		ImageIcon image = new ImageIcon("./donnees/images/" + node.getId() + ".png");
+
+		Rectangle rect = new Rectangle(node.getPosXImg(), node.getPosYImg(), image.getIconWidth(), image.getIconHeight());
+
+		System.out.println(color);
+
+		return color != null && ! color.equals(new Color(0)) && ! color.equals(new Color(192, 216, 226)) && rect.contains(x, y);
+	}
+
 	public void mouseClicked(MouseEvent e)
 	{
 		boolean nodeSelected = false;
@@ -116,8 +142,9 @@ class GereSelection extends MouseAdapter
 
 			
 
-			if(Point2D.distance(posX, posY, e.getX(), e.getY()) < PanelGraph.radius )
+			if(this.estCompris(e.getXOnScreen(), e.getYOnScreen(), node))
 			{
+				System.out.println("test");
 				if(this.node1 == node)
 					return;
 
