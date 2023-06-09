@@ -27,7 +27,8 @@ public class FrameGraph extends JFrame
 		this.setLocation(width/2 - (int) (width/3), height/2 - (int) (height/3));
 
 		
-		this.setBackground(Color.WHITE);
+		this.setBackground(new Color(192, 216, 226));
+
 
 		this.setLayout(new GridLayout());
 
