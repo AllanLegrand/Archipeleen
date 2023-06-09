@@ -21,18 +21,23 @@ public class Metier
 
 	private int nbColor;
 
-
 	private static int[] tabColor = {255, 16711680};
 
 	public Metier()
 	{
 		this.g = new Graph();
 
-		this.generer();	
-		this.nbColor = 0;
 
 		this.discard = new ArrayList<Carte>(10);
 		this.deck    = new ArrayList<Carte>(10);
+
+		for(int cpt = 0; cpt < 10; cpt++)
+			if ( cpt % 2 != 0 ) this.deck.add( new Carte( true, /* coul */));
+			else this.deck.add( new Carte( false, /* coul */));
+
+		this.generer();	
+		this.nbColor = 0;
+
 
 		this.random();
 	}
@@ -159,8 +164,7 @@ public class Metier
 
 	public void changeColor()
 	{
-		if(this.nbColor-1 < tabColor.length)
-			PanelGraph.color = tabColor[this.nbColor-1];
+		PanelGraph.color = tabColor[tour];
 	}
 
 	public ArrayList<Node> getLstNode() { return this.g.getLstNode(); }
