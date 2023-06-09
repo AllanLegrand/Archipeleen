@@ -60,7 +60,6 @@ public class Metier
 			while ( sc.hasNextLine() )
 			{       
 			    ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
-			    System.out.println(tabS);
 			    // Quand il y a une ligne vide, on change de région
 			    if ( tabS.size() == 1 )
 				{

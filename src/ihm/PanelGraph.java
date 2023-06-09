@@ -43,15 +43,16 @@ public class PanelGraph extends JPanel
 
 		Graphics2D g2 = (Graphics2D) g;
 
+		
 		for (Edge edge : this.ctrl.getLstEdge()) 
 		{
 			Node node1 = edge.getNode1();
 			Node node2 = edge.getNode2();
 			
-			int xStart = node1.getPosX() * (this.getWidth()  / 100);
-			int yStart = node1.getPosY() * (this.getHeight() / 100);
-			int xEnd   = node2.getPosX() * (this.getWidth()  / 100);
-			int yEnd   = node2.getPosY() * (this.getHeight() / 100);
+			int xStart = node1.getPosX() ;
+			int yStart = node1.getPosY() ;
+			int xEnd   = node2.getPosX() ;
+			int yEnd   = node2.getPosY() ;
 
 
 			g2.setColor(new Color(edge.getColor()));
@@ -66,13 +67,13 @@ public class PanelGraph extends JPanel
 
 
 			g2.setColor(Color.BLACK);
-			g2.drawImage(new ImageIcon("./donnees/images/" + node.getId() + ".png").getImage(), node.getPosX(), node.getPosY(), null);
+			g2.drawImage(new ImageIcon("./donnees/images/" + node.getId() + ".png").getImage(), node.getPosXImg(), node.getPosYImg(), null);
 
 			if(node.isSelected())
 			{
 				g2.setStroke(new BasicStroke(3F));
-				g2.setColor(Color.GRAY);
-				g2.drawOval(posX - (PanelGraph.radius / 2), posY - (PanelGraph.radius / 2), PanelGraph.radius, PanelGraph.radius);
+				g2.setColor(Color.YELLOW);
+				g2.fillRect(posX, posY, new ImageIcon("./donnees/images/" + node.getId() + ".png").getIconWidth(), new ImageIcon("./donnees/images/" + node.getId() + ".png").getIconWidth());
 			}
 		}
 	}
@@ -110,10 +111,12 @@ class GereSelection extends MouseAdapter
 				return;
 			}
 
-			int posX = node.getPosX() * (this.panel.getWidth()  / 100);
-			int posY = node.getPosY() * (this.panel.getHeight() / 100);
+			int posX = node.getPosX() ;
+			int posY = node.getPosY() ;
 
-			if(Point2D.distance(posX, posY, e.getX(), e.getY()) < PanelGraph.radius)
+			
+
+			if(Point2D.distance(posX, posY, e.getX(), e.getY()) < PanelGraph.radius )
 			{
 				if(this.node1 == node)
 					return;
