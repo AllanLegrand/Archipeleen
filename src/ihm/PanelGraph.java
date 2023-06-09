@@ -110,7 +110,6 @@ class GereSelection extends MouseAdapter
 				return;
 			}
 
-
 			int posX = node.getPosX() * (this.panel.getWidth()  / 100);
 			int posY = node.getPosY() * (this.panel.getHeight() / 100);
 

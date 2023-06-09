@@ -7,15 +7,19 @@ public class Node
     private String id;
     private int posX;
     private int posY;
+    private int posXImg;
+    private int posYImg;
     private int color;
     private ArrayList<Edge> lstEdge;
     private boolean isSelected;
 
-    public Node(String id, int posX, int posY, int color)
+    public Node(String id, int posX, int posY, int posXImg, int posYImg, int color)
     {
         this.id = id;
         this.posX = posX;
         this.posY = posY;
+        this.posXImg = posXImg;
+        this.posYImg = posYImg;
         this.lstEdge = new ArrayList<>();
         this.isSelected = false;
 
@@ -26,6 +30,9 @@ public class Node
 
     public int getPosX() { return this.posX; }
     public int getPosY() { return this.posY; }
+
+    public int getPosXImg() { return this.posXImg; }
+    public int getPosYImg() { return this.posYImg; }
 
     public ArrayList<Edge> getLstEdge() { return this.lstEdge; }
 

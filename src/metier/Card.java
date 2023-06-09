@@ -1,11 +1,11 @@
 package metier;
 
-public class Carte 
+public class Card
 {
     private boolean isPrimary;
     private int color;
 
-    public Carte ( boolean isPrimary, int color)
+    public Card ( boolean isPrimary, Integer color)
     {
         this.isPrimary = isPrimary;
         this.color = color;

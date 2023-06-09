@@ -16,35 +16,33 @@ import ihm.PanelGraph;
 public class Metier 
 {
 	private Graph g;
-
-	private int nbTurn;
 	
-	private ArrayList<Carte> deck;
-	private ArrayList<Carte> discard;
-
-	private int nbColor;
+	private ArrayList<Card> deck;
+	private ArrayList<Card> discard;
 
 	private int tour;
 
-	private static int[] tabColor = {ColorGraph.BLUE.getVal(), ColorGraph.RED.getVal()};
+	private static int[] tabColor = {255, 16711680};
+
+	private static HashMap<String,Integer> tabCardColor = new HashMap<String, Integer>() 
+	{{
+    	put("Jaune", 12560217);
+    	put("Rouge", 5214316);
+		put("Vert", 9276528);
+		put("Brun", 10321545);
+	}};
 
 	public Metier()
 	{
 		this.g = new Graph();
 
 
-		this.discard = new ArrayList<Carte>(10);
-		this.deck    = new ArrayList<Carte>(10);
+		this.discard = new ArrayList<Card>((this.tabCardColor.size()+1)*2);
+		this.deck    = new ArrayList<Card>((this.tabCardColor.size()+1)*2);
 
-		for(int cpt = 0; cpt < 10; cpt++)
-			if ( cpt % 2 != 0 ) this.deck.add( new Carte( true, 0/* coul */));
-			else this.deck.add( new Carte( false, 1/* coul */));
+		this.discard.put(new Card(false, null));
 
 		this.generer();	
-		this.nbColor = 0;
-
-
-		this.nbTurn = 5;
 	}
 
 	private void generer()
@@ -74,6 +72,13 @@ public class Metier
 					continue;
 				}
 
+				
+				if(!existCard(tabCardColor.get(tabS.get(1))))
+				{
+					this.discard.add(new Card(false, tabCardColor.get(tabS.get(1))));
+					this.discard.add(new Card(true, tabCardColor.get(tabS.get(1))));
+				}
+
 				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), ColorGraph.valueOf(tabS.get(1).toUpperCase()).getVal());
 			}
 			
@@ -93,6 +98,14 @@ public class Metier
 		}
 		catch (Exception e){ e.printStackTrace(); }
     }
+
+	private boolean existCard(int color)
+	{
+		for (Card card : this.deck) 
+			if (card.getColor() == color)
+				return true;
+		return false;
+	}
 
 	private static ArrayList<String> decomposer(String chaine, char dec)
     {
@@ -118,17 +131,16 @@ public class Metier
 	
 	/**
 	 * Cette méthode retourne la carte piochée
-	 * @return Carte
+	 * @return Card
 	 */
-	public Carte drawCard()
+	public Card drawCard()
 	{
 		if ( !this.deck.isEmpty() )
 		{
-			Carte card = this.deck.remove( 0 );
+			Card card = this.deck.remove( 0 );
 			this.discard.add ( card );
 
-			if ( !card.isPrimary() ) increment( true );
-			else increment( false );
+			this.calculNbTurn();
 
 			return card;
 		}
@@ -190,20 +202,20 @@ public class Metier
 		return this.g.coloring(edge);
 	}
 
-	public void increment(boolean addTurn) 
+
+	public void calculNbTurn()
 	{
-		if( addTurn )
-		{
-			this.nbTurn++;
-		}
-		else 
-		{
-			this.nbTurn--;
-			if ( this.nbTurn <= 0 )
-			{
-				JOptionPane.showMessageDialog(null, "La partie est finie\nVotre score est : " + this.getFinalScore());
-				PanelGraph.color = 0;
-			}
-		}
+		int nbTurn = 0;
+
+		for ( Card card : this.discard )
+			if ( card.isPrimary() ) nbTurn++;
+		
+		if ( nbTurn == 5 ) this.endGame();
+	}
+
+	public void endGame()
+	{
+		JOptionPane.showMessageDialog(null, "La partie est finie\nVotre score est : " + this.getFinalScore());
+		PanelGraph.color = 0;
 	}
 }
