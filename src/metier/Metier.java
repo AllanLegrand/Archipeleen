@@ -134,8 +134,7 @@ public class Metier
 			Carte card = this.deck.remove( 0 );
 			this.discard.add ( card );
 
-			if ( !card.isPrimary() ) increment( true );
-			else increment( false );
+			this.calculNbTurn();
 
 			return card;
 		}
@@ -197,22 +196,21 @@ public class Metier
 		return this.g.coloring(edge);
 	}
 
-	public boolean increment( boolean addTurn ) 
-	{
-		if( addTurn )
-		{
-			this.nbTurn++;
-		}
-		else 
-		{
-			this.nbTurn--;
-			if ( this.nbTurn <= 0 )
-			{
-				JOptionPane.showMessageDialog(null, "La partie est finie\nVotre score est : " + this.getFinalScore());
-				PanelGraph.color = 0;
-			}
-		}
 
-		return true;
+	public void calculNbTurn()
+	{
+		int nbTurn = 0;
+
+		for ( Carte card : this.discard )
+			if ( card.isPrimary() ) nbTurn++;
+		
+		if ( nbTurn == 5 ) this.endGame();
+	}
+
+	public void endGame()
+	{
+		JOptionPane.showMessageDialog(null, "La partie est finie\nVotre score est : " + this.getFinalScore());
+		PanelGraph.color = 0;
+		
 	}
 }
