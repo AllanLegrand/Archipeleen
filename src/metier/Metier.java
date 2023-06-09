@@ -17,6 +17,7 @@ public class Metier
 	private int cptTurn;
 
 	private int nbColor;
+	
 
 	private static int[] tabColor = {255, 16711680};
 

@@ -7,6 +7,7 @@ public class Node
     private String id;
     private int posX;
     private int posY;
+    private int color;
     private ArrayList<Edge> lstEdge;
     private boolean isSelected;
 
@@ -34,6 +35,9 @@ public class Node
                     return e;
         return null;
     }
+
+    public void setColor( int color ) { this.color = color; }
+    public int  getColor() { return this.color; }
 
     public void addEdge(Edge e) { this.lstEdge.add(e); }
 
