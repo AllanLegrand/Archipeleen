@@ -22,7 +22,8 @@ public class Metier
 
 	private static int[] tabColor = {255, 16711680};
 
-	private static HashMap<String,Integer> tabCardColor = new HashMap<String, Integer>() {{
+	private static HashMap<String,Integer> tabCardColor = new HashMap<String, Integer>() 
+	{{
     	put("Jaune", 12560217);
     	put("Rouge", 5214316);
 		put("Vert", 9276528);
@@ -34,8 +35,10 @@ public class Metier
 		this.g = new Graph();
 
 
-		this.discard = new ArrayList<Card>(10);
-		this.deck    = new ArrayList<Card>(10);
+		this.discard = new ArrayList<Card>((this.tabCardColor.size()+1)*2);
+		this.deck    = new ArrayList<Card>((this.tabCardColor.size()+1)*2);
+
+		this.discard.put(new Card(false, null));
 
 		this.generer();	
 	}
@@ -56,10 +59,10 @@ public class Metier
 			    if ( tabS.size() == 1 )
 			        break;
 
-				if(!existCard(tabS.get(1)))
+				if(!existCard(tabCardColor.get(tabS.get(1))))
 				{
-					this.discard.add(new Card(false, tabS.get(1)));
-					this.discard.add(new Card(true, tabS.get(1)));
+					this.discard.add(new Card(false, tabCardColor.get(tabS.get(1))));
+					this.discard.add(new Card(true, tabCardColor.get(tabS.get(1))));
 				}
 			    
 				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(1)), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), Integer.parseInt(tabS.get(4)), Integer.parseInt(tabS.get(5)));

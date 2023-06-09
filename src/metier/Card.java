@@ -5,7 +5,7 @@ public class Card
     private boolean isPrimary;
     private int color;
 
-    public Card ( boolean isPrimary, int color)
+    public Card ( boolean isPrimary, Integer color)
     {
         this.isPrimary = isPrimary;
         this.color = color;
