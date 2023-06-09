@@ -81,17 +81,18 @@ public class Metier
 				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), Metier.tabCardColor.get(tabS.get(1)), Integer.parseInt(tabS.get(4)), Integer.parseInt(tabS.get(5)));
 			}
 			
-
 			while(sc.hasNextLine())
-			{
-				ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
+            {
+                ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
 
-				String node1 = tabS.get(0);
-				String node2 = tabS.get(1);
+                String node1 = tabS.get(0);
+                String node2 = tabS.get(1);
 
-				this.g.addEdge(node1 + "-" + node2, this.g.getNode(node1), this.g.getNode(node2), 1);
-			}
+                int cost = 0;
+                if(tabS.size() > 2) cost = 1;
 
+                this.g.addEdge(node1 + "-" + node2, this.g.getNode(node1), this.g.getNode(node2), cost);
+            }
 
 			sc.close();
 		}
@@ -129,10 +130,10 @@ public class Metier
     }
 	
 	/**
-	 * Cette méthode retourne la carte piochée
-	 * @return Card
+	 * Cette méthode retourne la couleur de la carte piochée
+	 * @return Integer
 	 */
-	public Card drawCard()
+	public Integer drawCard()
 	{
 		if ( !this.deck.isEmpty() )
 		{
@@ -141,7 +142,7 @@ public class Metier
 
 			this.calculNbTurn();
 
-			return card;
+			return card.getColor();
 		}
 
 		return null;	
