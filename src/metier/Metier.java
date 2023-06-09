@@ -18,11 +18,18 @@ public class Metier
 
 	private int nbColor;
 
+	private int tour;
+
+	private ArrayList<Carte> pioche;
+	private ArrayList<Carte> defausse;
+
 	private static int[] tabColor = {255, 16711680};
 
 	public Metier()
 	{
 		this.g = new Graph();
+
+		for(int cpt = 0; cpt < 10; cpt++)
 
 		this.generer();	
 
@@ -153,8 +160,7 @@ public class Metier
 
 	public void changeColor()
 	{
-		if(this.nbColor-1 < tabColor.length)
-			PanelGraph.color = tabColor[this.nbColor-1];
+		PanelGraph.color = tabColor[tour];
 	}
 
 	public ArrayList<Node> getLstNode() { return this.g.getLstNode(); }
