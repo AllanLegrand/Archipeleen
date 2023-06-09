@@ -16,6 +16,9 @@ public class Metier
 	private int nbTurn;
 	private int cptTurn;
 
+	private ArrayList<Carte> deck;
+	private ArrayList<Carte> discard;
+
 	private int nbColor;
 
 	private int tour;
@@ -29,9 +32,17 @@ public class Metier
 	{
 		this.g = new Graph();
 
-		this.generer();	
 
+		this.discard = new ArrayList<Carte>(10);
+		this.deck    = new ArrayList<Carte>(10);
+
+		for(int cpt = 0; cpt < 10; cpt++)
+			if ( cpt % 2 != 0 ) this.deck.add( new Carte( true, /* coul */));
+			else this.deck.add( new Carte( false, /* coul */));
+
+		this.generer();	
 		this.nbColor = 0;
+
 
 		this.random();
 	}
