@@ -29,7 +29,7 @@ public class Graph
 
     
 
-    public void addNode(String id, int posX, int posY, int color) { this.lstNode.add(new Node(id, posX, posY, color)); }
+    public void addNode(String id, int color, int posX, int posY, int posXImage, int posYImage) { this.lstNode.add(new Node(id, posX, posY, posXImage, posYImage, color)); }
     public void addEdge(String id, Node n1, Node n2, int cost) { this.lstEdge.add(new Edge(id, n1, n2, cost)); }
 
     public Node getNode(int index) { return this.lstNode.get(1); }

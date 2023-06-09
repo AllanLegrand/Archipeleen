@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 import java.io.FileInputStream;
+
 import javax.swing.JOptionPane;
 import java.util.HashMap;
 
@@ -14,29 +15,29 @@ public class Metier
 {
 	private Graph g;
 	
-	private ArrayList<Carte> deck;
-	private ArrayList<Carte> discard;
-
-	private int nbColor;
+	private ArrayList<Card> deck;
+	private ArrayList<Card> discard;
 
 	private int tour;
 
-	private static int[] tabColor = {ColorGraph.BLUE.getVal(), ColorGraph.RED.getVal()};
+	private static int[] tabColor = {255, 16711680};
+
+	private static HashMap<String,Integer> tabCardColor = new HashMap<String, Integer>() {{
+    	put("Jaune", 12560217);
+    	put("Rouge", 5214316);
+		put("Vert", 9276528);
+		put("Brun", 10321545);
+	}};
 
 	public Metier()
 	{
 		this.g = new Graph();
 
 
-		this.discard = new ArrayList<Carte>(10);
-		this.deck    = new ArrayList<Carte>(10);
-
-		for(int cpt = 0; cpt < 10; cpt++)
-			if ( cpt % 2 != 0 ) this.deck.add( new Carte( true, /* coul */));
-			else this.deck.add( new Carte( false, /* coul */));
+		this.discard = new ArrayList<Card>(10);
+		this.deck    = new ArrayList<Card>(10);
 
 		this.generer();	
-		this.nbColor = 0;
 	}
 
 	private void generer()
@@ -54,8 +55,14 @@ public class Metier
 			    // Quand il y a une ligne vide, on passe aux regions
 			    if ( tabS.size() == 1 )
 			        break;
+
+				if(!existCard(tabS.get(1)))
+				{
+					this.discard.add(new Card(false, tabS.get(1)));
+					this.discard.add(new Card(true, tabS.get(1)));
+				}
 			    
-				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(1)), Integer.parseInt(tabS.get(2)));
+				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(1)), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), Integer.parseInt(tabS.get(4)), Integer.parseInt(tabS.get(5)));
 			}
 			
 			// Ajout des regions
@@ -96,6 +103,14 @@ public class Metier
 		catch (Exception e){ e.printStackTrace(); }
     }
 
+	private boolean existCard(int color)
+	{
+		for (Card card : this.deck) 
+			if (card.getColor() == color)
+				return true;
+		return false;
+	}
+
 	private static ArrayList<String> decomposer(String chaine, char dec)
     {
         ArrayList<String> tabS = new ArrayList<String>();
@@ -120,13 +135,13 @@ public class Metier
 	
 	/**
 	 * Cette méthode retourne la carte piochée
-	 * @return Carte
+	 * @return Card
 	 */
-	public Carte drawCard()
+	public Card drawCard()
 	{
 		if ( !this.deck.isEmpty() )
 		{
-			Carte card = this.deck.remove( 0 );
+			Card card = this.deck.remove( 0 );
 			this.discard.add ( card );
 
 			this.calculNbTurn();
@@ -196,7 +211,7 @@ public class Metier
 	{
 		int nbTurn = 0;
 
-		for ( Carte card : this.discard )
+		for ( Card card : this.discard )
 			if ( card.isPrimary() ) nbTurn++;
 		
 		if ( nbTurn == 5 ) this.endGame();
