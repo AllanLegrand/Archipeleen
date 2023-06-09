@@ -140,8 +140,6 @@ public class Metier
 			Card card = this.deck.remove( 0 );
 			this.discard.add ( card );
 
-			this.calculNbTurn();
-
 			return card.getColor();
 		}
 
