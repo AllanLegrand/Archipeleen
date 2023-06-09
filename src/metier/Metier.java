@@ -24,9 +24,6 @@ public class Metier
 
 	private int tour;
 
-	private ArrayList<Carte> pioche;
-	private ArrayList<Carte> defausse;
-
 	private static int[] tabColor = {255, 16711680};
 
 	public Metier()
@@ -134,6 +131,22 @@ public class Metier
         tabS.add(mot);
         return tabS;
     }
+	
+	/**
+	 * Cette méthode retourne la carte piochée
+	 * @return Carte
+	 */
+	public Carte drawCard()
+	{
+		if ( !this.deck.isEmpty() )
+		{
+			Carte card = this.deck.remove( 0 );
+			this.discard.add ( card );
+			return card;
+		}
+
+		return null;	
+	}
 	
 	public int getFinalScore()
 	{

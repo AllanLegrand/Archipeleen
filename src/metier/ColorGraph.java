@@ -2,11 +2,11 @@ package metier;
 
 public enum ColorGraph
 {
-	JAUNE (0),
-	VERT  (1),
-	GRIS  (2),
-	VIOLET(3),
-	MULTICOLORE(null);
+	YELLOW (12560217),
+	GREEN  (5214316),
+	GREY   (9276528),
+	PURPLE (10321545),
+	MULTICOLOR(null);
 
 
 	private Integer val;
