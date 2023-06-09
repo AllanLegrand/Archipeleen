@@ -5,8 +5,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 import java.io.FileInputStream;
+
 import javax.swing.JOptionPane;
 import java.util.HashMap;
+import java.util.List;
 
 import ihm.PanelGraph;
 
@@ -34,9 +36,10 @@ public class Metier
 		this.g = new Graph();
 
 
-		this.discard = new ArrayList<Card>(10);
-		this.deck    = new ArrayList<Card>(10);
+		this.discard = new ArrayList<Card>((this.tabCardColor.size()+1)*2);
+		this.deck    = new ArrayList<Card>((this.tabCardColor.size()+1)*2);
 
+		this.discard.put(new Card(false, null));
 
 		this.generer();	
 	}
@@ -45,53 +48,41 @@ public class Metier
     {
         try
 		{
-			Scanner sc = new Scanner ( new FileInputStream ( "./donnees/data.csv" ) );
+			Scanner sc = new Scanner ( new FileInputStream ( "./donnees/data.csv" ), Charset.forName("UTF-8") );
 
             // Ajout des sommets
 			sc.nextLine();
+			sc.nextLine();
+
+			ArrayList<Node> lstNode = new ArrayList<Node>();
+			String nomReg = sc.nextLine();
 			while ( sc.hasNextLine() )
 			{       
 			    ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
-			    
-			    // Quand il y a une ligne vide, on passe aux regions
+			    // Quand il y a une ligne vide, on change de région
 			    if ( tabS.size() == 1 )
 			        break;
+
+				if(!existCard(tabCardColor.get(tabS.get(1))))
+				{
+					this.discard.add(new Card(false, tabCardColor.get(tabS.get(1))));
+					this.discard.add(new Card(true, tabCardColor.get(tabS.get(1))));
+				}
 			    
-				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(1)), Integer.parseInt(tabS.get(2)));
+				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(1)), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), Integer.parseInt(tabS.get(4)), Integer.parseInt(tabS.get(5)));
 			}
 			
-			// Ajout des regions
-            sc.nextLine();
-            while ( sc.hasNextLine() )
-            {       
-                ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
-                
-                // Quand il y a une ligne vide, on passe aux arêtes
-                if ( tabS.size() == 1 )
-                    break;
 
-				ArrayList <Node> lstNode = new ArrayList <Node>();
+			while(sc.hasNextLine())
+			{
+				ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
 
-                for(int cpt = 2; cpt < tabS.size(); cpt++ )
-                {
-                    this.g.getNode(tabS.get(cpt)).setColor(Integer.parseInt(tabS.get(1)));
+				String node1 = tabS.get(0);
+				String node2 = tabS.get(1);
 
-					lstNode.add( this.g.getNode(tabS.get(cpt)) );
-                }
+				this.g.addEdge(node1 + "-" + node2, this.g.getNode(node1), this.g.getNode(node2), 1);
+			}
 
-				this.g.ensRegion.put(tabS.get(0), lstNode);
-            }
-
-			while ( sc.hasNextLine() )
-            {
-                ArrayList<String> tabS = decomposer( sc.nextLine(), ',' );
-                 
-                for(int cpt = 1; cpt < tabS.size()-1; cpt++ )
-                {
-                    this.g.addEdge(tabS.get(cpt)+""+tabS.get(cpt+1), this.g.getNode(tabS.get(cpt)),  this.g.getNode(tabS.get(cpt+1)),
-                                 Integer.parseInt( tabS.get(0)) );
-                } 
-            }  		
 
 			sc.close();
 		}
