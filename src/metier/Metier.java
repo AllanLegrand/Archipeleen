@@ -29,8 +29,6 @@ public class Metier
 	{
 		this.g = new Graph();
 
-		for(int cpt = 0; cpt < 10; cpt++)
-
 		this.generer();	
 
 		this.nbColor = 0;
