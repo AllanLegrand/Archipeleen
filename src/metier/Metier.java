@@ -37,8 +37,8 @@ public class Metier
 		this.g = new Graph();
 
 
-		this.discard = new ArrayList<Card>((this.tabCardColor.size()+1)*2);
-		this.deck    = new ArrayList<Card>((this.tabCardColor.size()+1)*2);
+		this.discard = new ArrayList<Card>((Metier.tabCardColor.size()+1)*2);
+		this.deck    = new ArrayList<Card>((Metier.tabCardColor.size()+1)*2);
 
 		this.discard.add(new Card(false, null));
 
@@ -63,24 +63,16 @@ public class Metier
 			    // Quand il y a une ligne vide, on change de région
 			    if ( tabS.size() == 1 )
 			        break;
+				}
+
 
 				if(!existCard(tabCardColor.get(tabS.get(1))))
 				{
-					this.discard.add(new Card(false, tabCardColor.get(tabS.get(1))));
-					this.discard.add(new Card(true, tabCardColor.get(tabS.get(1))));
+					this.discard.add( new Card( false, tabCardColor.get(tabS.get(1)) ));
+					this.discard.add( new Card( true , tabCardColor.get(tabS.get(1)) ));
 				}
-
-				if ( tabS.size() == 1 )
-                {
-                    this.g.ensRegion.put(nomReg + "", lstNode);
-                    lstNode.clear();
-                    nomReg = sc.nextLine();
-                    if(nomReg.equals("ARETE"))
-                        break;
-                    continue;
-                }
 			    
-				this.g.addNode(tabS.get(0), tabCardColor.get(tabS.get(1)), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), Integer.parseInt(tabS.get(4)), Integer.parseInt(tabS.get(5)));
+				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(1)), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), Integer.parseInt(tabS.get(4)), Integer.parseInt(tabS.get(5)));
 			}
 			
 
@@ -96,8 +88,7 @@ public class Metier
 
 
 			sc.close();
-		}
-		catch (Exception e){ e.printStackTrace(); }
+		} catch (Exception e){ e.printStackTrace(); }
     }
 
 	private boolean existCard(int color)
