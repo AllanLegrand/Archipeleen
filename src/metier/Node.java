@@ -7,7 +7,6 @@ public class Node
     private String id;
     private int posX;
     private int posY;
-    private int color;
     private ArrayList<Edge> lstEdge;
     private boolean isSelected;
 
@@ -21,18 +20,9 @@ public class Node
     }
 
     public String getId() { return this.id; }
-    public int getColor() { return this.color; }
 
     public int getPosX() { return this.posX; }
     public int getPosY() { return this.posY; }
-
-    public void setColor(int color)
-    {
-        if( color >= 0 && color <= 255*256*256+255*256+255)
-        {
-            this.color = color;
-        }
-    }
 
     public ArrayList<Edge> getLstEdge() { return this.lstEdge; }
 
