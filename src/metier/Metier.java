@@ -13,8 +13,6 @@ import ihm.PanelGraph;
 public class Metier 
 {
 	private Graph g;
-
-	private int nbTurn;
 	
 	private ArrayList<Carte> deck;
 	private ArrayList<Carte> discard;
@@ -39,9 +37,6 @@ public class Metier
 
 		this.generer();	
 		this.nbColor = 0;
-
-
-		this.nbTurn = 5;
 	}
 
 	private void generer()
@@ -211,6 +206,5 @@ public class Metier
 	{
 		JOptionPane.showMessageDialog(null, "La partie est finie\nVotre score est : " + this.getFinalScore());
 		PanelGraph.color = 0;
-		
 	}
 }
