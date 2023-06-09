@@ -10,7 +10,6 @@ public class Node
     private int color;
     private ArrayList<Edge> lstEdge;
     private boolean isSelected;
-    private int color;
 
     public Node(String id, int posX, int posY, int color)
     {

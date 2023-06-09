@@ -35,8 +35,8 @@ public class Metier
 		this.deck    = new ArrayList<Carte>(10);
 
 		for(int cpt = 0; cpt < 10; cpt++)
-			if ( cpt % 2 != 0 ) this.deck.add( new Carte( true, /* coul */));
-			else this.deck.add( new Carte( false, /* coul */));
+			if ( cpt % 2 != 0 ) this.deck.add( new Carte( true, 0/* coul */));
+			else this.deck.add( new Carte( false, 1/* coul */));
 
 		this.generer();	
 		this.nbColor = 0;
@@ -55,13 +55,13 @@ public class Metier
 			sc.nextLine();
 			sc.nextLine();
 
-			List<Node> lstNode = new ArrayList<Node>();
+			ArrayList<Node> lstNode = new ArrayList<Node>();
 			int cpt = 0;
 			while ( sc.hasNextLine() )
 			{       
 			    ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
 			    
-			    // Quand il y a une ligne vide, on passe aux regions
+			    // Quand il y a une ligne vide, on change de région
 			    if ( tabS.size() == 1 )
 				{
 			        this.g.ensRegion.put(cpt++ + "", lstNode);
@@ -69,42 +69,9 @@ public class Metier
 					continue;
 				}
 			    
-				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(1)), Integer.parseInt(tabS.get(2)));
+				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), ColorGraph.valueOf(tabS.get(1).toUpperCase()).getVal());
 			}
 			
-			// Ajout des regions
-            sc.nextLine();
-            while ( sc.hasNextLine() )
-            {       
-                ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
-                
-                // Quand il y a une ligne vide, on passe aux arêtes
-                if ( tabS.size() == 1 )
-                    break;
-
-				ArrayList <Node> lstNode = new ArrayList <Node>();
-
-                for(int cpt = 2; cpt < tabS.size(); cpt++ )
-                {
-                    this.g.getNode(tabS.get(cpt)).setColor(Integer.parseInt(tabS.get(1)));
-
-					lstNode.add( this.g.getNode(tabS.get(cpt)) );
-                }
-
-				this.g.ensRegion.put(tabS.get(0), lstNode);
-            }
-
-			while ( sc.hasNextLine() )
-            {
-                ArrayList<String> tabS = decomposer( sc.nextLine(), ',' );
-                 
-                for(int cpt = 1; cpt < tabS.size()-1; cpt++ )
-                {
-                    this.g.addEdge(tabS.get(cpt)+""+tabS.get(cpt+1), this.g.getNode(tabS.get(cpt)),  this.g.getNode(tabS.get(cpt+1)),
-                                 Integer.parseInt( tabS.get(0)) );
-                } 
-            }  		
-
 			sc.close();
 		}
 		catch (Exception e){ e.printStackTrace(); }
