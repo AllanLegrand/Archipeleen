@@ -31,7 +31,7 @@ public class Metier
 		put("Vert", 9276528);
 		put("Brun", 10321545);
 	}};
-	
+
 	public Metier()
 	{
 		this.g = new Graph();
@@ -62,17 +62,23 @@ public class Metier
 			    ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
 			    // Quand il y a une ligne vide, on change de région
 			    if ( tabS.size() == 1 )
-			        break;
+				{
+			        this.g.ensRegion.put(nomReg + "", lstNode);
+					lstNode.clear();
+					nomReg = sc.nextLine();
+					if(nomReg.equals("ARETE"))
+						break;
+					continue;
 				}
 
-
+				
 				if(!existCard(tabCardColor.get(tabS.get(1))))
 				{
-					this.discard.add( new Card( false, tabCardColor.get(tabS.get(1)) ));
-					this.discard.add( new Card( true , tabCardColor.get(tabS.get(1)) ));
+					this.discard.add(new Card(false, tabCardColor.get(tabS.get(1))));
+					this.discard.add(new Card(true, tabCardColor.get(tabS.get(1))));
 				}
-			    
-				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(1)), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), Integer.parseInt(tabS.get(4)), Integer.parseInt(tabS.get(5)));
+
+				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), Metier.tabCardColor.get(tabS.get(1)), Integer.parseInt(tabS.get(4)), Integer.parseInt(tabS.get(5)));
 			}
 			
 
@@ -83,20 +89,21 @@ public class Metier
 				String node1 = tabS.get(0);
 				String node2 = tabS.get(1);
 
+
 				this.g.addEdge(node1 + "-" + node2, this.g.getNode(node1), this.g.getNode(node2), 1);
 			}
 
 
 			sc.close();
-		} catch (Exception e){ e.printStackTrace(); }
+		}
+		catch (Exception e){ e.printStackTrace(); }
     }
 
 	private boolean existCard(int color)
 	{
 		for (Card card : this.deck) 
-			if( card.getColor() == color )
+			if (card.getColor() == color)
 				return true;
-
 		return false;
 	}
 
@@ -195,6 +202,7 @@ public class Metier
 		return this.g.coloring(edge);
 	}
 
+
 	public void calculNbTurn()
 	{
 		int nbTurn = 0;
@@ -203,7 +211,6 @@ public class Metier
 			if ( card.isPrimary() ) nbTurn++;
 		
 		if ( nbTurn == 5 ) this.endGame();
-		else this.tour++;
 	}
 
 	public void endGame()
