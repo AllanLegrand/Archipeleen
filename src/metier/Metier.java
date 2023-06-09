@@ -19,8 +19,16 @@ public class Metier
 
 	private int tour;
 
-	private static int[] tabColor = {ColorGraph.BLUE.getVal(), ColorGraph.RED.getVal()};
+	private static int[] tabColor = {255, 16711680};
 
+	private static HashMap<String,Integer> tabCardColor = new HashMap<String, Integer>() 
+	{{
+    	put("Jaune", 12560217);
+    	put("Rouge", 5214316);
+		put("Vert", 9276528);
+		put("Brun", 10321545);
+	}};
+	
 	public Metier()
 	{
 		this.g = new Graph();
