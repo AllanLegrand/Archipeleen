@@ -64,7 +64,7 @@ public class PanelGraph extends JPanel
 			int posY = node.getPosY() * (this.getHeight() / 100);
 
 
-			g2.setColor(new Color(node.getColor()));
+			g2.setColor(Color.BLACK);
 			g2.fillOval(posX - (PanelGraph.radius / 2), posY - (PanelGraph.radius / 2), PanelGraph.radius, PanelGraph.radius);
 		
 			if(node.isSelected())
