@@ -58,7 +58,7 @@ public class Graph
         String n1 = edge.getNode1().getId();
 
         String islDep = "Mutaa"; 
-        // ile de départ, Mutaa pour J-bleu et Tico pour J-Rouge
+        // ile de départ, Mutaa pour J-Bleu
 
         if(!firstColored && n2.equals( islDep ) || n1.equals( islDep ) )
         {
