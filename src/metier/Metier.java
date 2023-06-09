@@ -16,8 +16,11 @@ public class Metier
 	private int nbTurn;
 	private int cptTurn;
 
+	private ArrayList<Carte> deck;
+	private ArrayList<Carte> discard;
+
 	private int nbColor;
-	
+
 
 	private static int[] tabColor = {255, 16711680};
 
@@ -26,8 +29,10 @@ public class Metier
 		this.g = new Graph();
 
 		this.generer();	
-
 		this.nbColor = 0;
+
+		this.discard = new ArrayList<Carte>(10);
+		this.deck    = new ArrayList<Carte>(10);
 
 		this.random();
 	}
