@@ -68,22 +68,4 @@ public class Edge
 
         return false;
     }
-
-    public boolean isCyclic(Node node, ArrayList<Node> lstNodeVisited)
-    {
-        lstNodeVisited.add(node);
-        if(node.equals(this.n2))
-            return true;
-            
-
-        for (Edge e : node.getLstEdge()) 
-        {
-            Node tmp = e.getNode1().equals(node) ? e.getNode2() : e.getNode1();
-            if ( e.color == PanelGraph.color && !lstNodeVisited.contains(tmp))
-                if (isCyclic(tmp, lstNodeVisited))
-                    return true;
-        }
-
-        return false;
-    }
 }

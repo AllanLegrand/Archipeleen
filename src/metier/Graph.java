@@ -57,7 +57,7 @@ public class Graph
             return true;
         }
 
-        if ( edge.isCyclic(edge.getNode1(), new ArrayList<Node>()) ) return false; 
+        if ( edge.getNode1().hasEdgeColor(PanelGraph.color) || edge.getNode2().hasEdgeColor(PanelGraph.color) ) return false; 
 
         if ( !( edge.getNode1().hasEdgeColor() || edge.getNode2().hasEdgeColor() ) ) return false;
 
