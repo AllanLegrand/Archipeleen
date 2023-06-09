@@ -1,6 +1,6 @@
 ,,Centre,,,Position image,
 ,,x,y,,x,y
-Tavula,Rouge,135,125,42,75,
+Tavula,Rouge,135,125,42,75
 Tokha,Vert,170,310,86,258
 Tiamù,Jaune,290,80,222,36
 Ticó,Brun,320,250,277,182
@@ -47,4 +47,24 @@ Khont-Rolah,Mutaa
 Khont-Rolah,Fuego
 Kiola,Fuego
 Loümu,Laçao
-Loümu,
+Loümu,Lokha
+Loümu,Loà
+Laçao,Lokha
+Laçao,Loà
+Laçao,Milaù
+Loà,Milaù
+Milaù,Massao
+Milaù,Mutaa
+Milaù,Mokah
+Massao,Mutaa
+Massao,Maÿa
+Mutaa,Mokah
+Mutaa,Maÿa
+Mokah,Maÿa
+Mokah,Fuego
+Mokah,Fissah
+Fuego,Fama
+Fuego,Fissah
+Fama,Finista
+Fama,Fissah
+Finista,Fissah
