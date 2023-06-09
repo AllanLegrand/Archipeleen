@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import controleur.Controleur;
@@ -65,8 +66,8 @@ public class PanelGraph extends JPanel
 
 
 			g2.setColor(Color.BLACK);
-			g2.fillOval(posX - (PanelGraph.radius / 2), posY - (PanelGraph.radius / 2), PanelGraph.radius, PanelGraph.radius);
-		
+			g2.drawImage(new ImageIcon("./donnees/images/" + node.getId() + ".png").getImage(), node.getPosX(), node.getPosY(), null);
+
 			if(node.isSelected())
 			{
 				g2.setStroke(new BasicStroke(3F));
@@ -138,7 +139,7 @@ class GereSelection extends MouseAdapter
 							edge.setColor(PanelGraph.color);
 
 							this.deselect();
-							this.ctrl.increment();
+							this.ctrl.increment(true);
 						}
 					}
 				}	

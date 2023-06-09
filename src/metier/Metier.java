@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 import java.io.FileInputStream;
+import java.nio.charset.Charset;
+
 import javax.swing.JOptionPane;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +51,7 @@ public class Metier
     {
         try
 		{
-			Scanner sc = new Scanner ( new FileInputStream ( "./donnees/data.csv" ) );
+			Scanner sc = new Scanner ( new FileInputStream ( "./donnees/data.csv" ), Charset.forName("UTF-8") );
 
             // Ajout des sommets
 			sc.nextLine();
@@ -60,18 +62,17 @@ public class Metier
 			while ( sc.hasNextLine() )
 			{       
 			    ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
-			    
+			    System.out.println(tabS);
 			    // Quand il y a une ligne vide, on change de région
 			    if ( tabS.size() == 1 )
 				{
 			        this.g.ensRegion.put(nomReg + "", lstNode);
 					lstNode.clear();
 					nomReg = sc.nextLine();
+					if(nomReg.equals("ARETE"))
+						break;
 					continue;
 				}
-				
-				if(tabS.get(0).equals("ARETE"))
-					break;
 
 				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), ColorGraph.valueOf(tabS.get(1).toUpperCase()).getVal());
 			}

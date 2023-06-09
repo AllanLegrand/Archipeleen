@@ -23,10 +23,9 @@ public class FrameGraph extends JFrame
 
 		this.setTitle("Graph");
 
-		this.setSize((int) (height*0.8), (int) (height*0.8));
+		this.setSize((int) (height*1.8), (int) (height*1.8));
 		this.setLocation(width/2 - (int) (width/3), height/2 - (int) (height/3));
 
-		this.setResizable(false);
 		
 		this.setBackground(Color.WHITE);
 
@@ -40,6 +39,7 @@ public class FrameGraph extends JFrame
 		this.add(this.panelGraph);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
 		this.setVisible(true);
 	}
