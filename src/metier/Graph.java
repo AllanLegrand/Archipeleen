@@ -54,7 +54,13 @@ public class Graph
 
         if ( edge.isCrossed(this.lstEdge)) return false;
 
-        if(!firstColored)
+        String n2 = edge.getNode2().getId();
+        String n1 = edge.getNode1().getId();
+
+        String islDep = "Mutaa"; 
+        // ile de départ, Mutaa pour J-bleu et Tico pour J-Rouge
+
+        if(!firstColored && n2.equals( islDep ) || n1.equals( islDep ) )
         {
             this.firstColored = true;
             return true;
