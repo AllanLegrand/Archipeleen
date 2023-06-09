@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 import java.io.FileInputStream;
+import java.nio.charset.Charset;
 
 import javax.swing.JOptionPane;
 import java.util.HashMap;
@@ -39,7 +40,7 @@ public class Metier
 		this.discard = new ArrayList<Card>((this.tabCardColor.size()+1)*2);
 		this.deck    = new ArrayList<Card>((this.tabCardColor.size()+1)*2);
 
-		this.discard.put(new Card(false, null));
+		this.discard.add(new Card(false, null));
 
 		this.generer();	
 	}
