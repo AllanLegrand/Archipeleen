@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.io.FileInputStream;
 import javax.swing.JOptionPane;
 import java.util.HashMap;
+import java.util.List;
 
 import ihm.PanelGraph;
 
@@ -55,13 +56,21 @@ public class Metier
 
             // Ajout des sommets
 			sc.nextLine();
+			sc.nextLine();
+
+			List<Node> lstNode = new ArrayList<Node>();
+			int cpt = 0;
 			while ( sc.hasNextLine() )
 			{       
 			    ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
 			    
 			    // Quand il y a une ligne vide, on passe aux regions
 			    if ( tabS.size() == 1 )
-			        break;
+				{
+			        this.g.ensRegion.put(cpt++ + "", lstNode);
+					lstNode.clear();
+					continue;
+				}
 			    
 				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(1)), Integer.parseInt(tabS.get(2)));
 			}
