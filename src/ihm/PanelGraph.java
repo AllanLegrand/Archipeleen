@@ -71,13 +71,13 @@ public class PanelGraph extends JPanel
 
 
 			g2.setColor(Color.BLACK);
-			g2.drawImage(new ImageIcon("./donnees/images/" + node.getId() + ".png").getImage(), node.getPosXImg(), node.getPosYImg(), null);
+			g2.drawImage(new ImageIcon("./donnees/images/iles 70%" + node.getId() + ".png").getImage(), node.getPosXImg(), node.getPosYImg(), null);
 
 			if(node.isSelected())
 			{
 				g2.setStroke(new BasicStroke(3F));
 				g2.setColor(Color.YELLOW);
-				g2.fillRect(posX, posY, new ImageIcon("./donnees/images/" + node.getId() + ".png").getIconWidth(), new ImageIcon("./donnees/images/" + node.getId() + ".png").getIconWidth());
+				g2.fillRect(posX, posY, new ImageIcon("./donnees/images/iles 70%" + node.getId() + ".png").getIconWidth(), new ImageIcon("./donnees/images/iles 70%" + node.getId() + ".png").getIconWidth());
 			}
 		}
 	}
@@ -116,7 +116,7 @@ class GereSelection extends MouseAdapter
 		}
 		catch(Exception e){e.printStackTrace();}
 
-		ImageIcon image = new ImageIcon("./donnees/images/" + node.getId() + ".png");
+		ImageIcon image = new ImageIcon("./donnees/images/iles 70%" + node.getId() + ".png");
 
 		Rectangle rect = new Rectangle(node.getPosXImg(), node.getPosYImg(), image.getIconWidth(), image.getIconHeight());
 
