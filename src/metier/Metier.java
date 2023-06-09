@@ -39,7 +39,7 @@ public class Metier
 		this.discard = new ArrayList<Card>((this.tabCardColor.size()+1)*2);
 		this.deck    = new ArrayList<Card>((this.tabCardColor.size()+1)*2);
 
-		this.discard.put(new Card(false, null));
+		this.discard.add(new Card(false, null));
 
 		this.generer();	
 	}
@@ -88,6 +88,15 @@ public class Metier
 		}
 		catch (Exception e){ e.printStackTrace(); }
     }
+
+	private boolean existCard(int color)
+	{
+		for (Card card : this.deck) 
+			if( card.getColor() == color )
+				return true;
+
+		return false;
+	}
 
 	private static ArrayList<String> decomposer(String chaine, char dec)
     {
