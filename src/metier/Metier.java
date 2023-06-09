@@ -21,6 +21,11 @@ public class Metier
 
 	private int nbColor;
 
+	private int tour;
+
+	private ArrayList<Carte> pioche;
+	private ArrayList<Carte> defausse;
+
 	private static int[] tabColor = {255, 16711680};
 
 	public Metier()

@@ -2,8 +2,6 @@ package metier;
 
 import java.util.ArrayList;
 
-import ihm.PanelGraph;
-
 public class Edge
 {
     private String id;

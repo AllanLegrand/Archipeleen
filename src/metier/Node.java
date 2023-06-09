@@ -10,14 +10,17 @@ public class Node
     private int color;
     private ArrayList<Edge> lstEdge;
     private boolean isSelected;
+    private int color;
 
-    public Node(String id, int posX, int posY)
+    public Node(String id, int posX, int posY, int color)
     {
         this.id = id;
         this.posX = posX;
         this.posY = posY;
         this.lstEdge = new ArrayList<>();
         this.isSelected = false;
+
+        this.color = color;
     }
 
     public String getId() { return this.id; }
