@@ -38,13 +38,11 @@ public class Controleur
 		return this.metier.coloring(edge);
 	}
 
-	public boolean increment()
+	public void increment(boolean b)
 	{
-		boolean bTmp = this.metier.increment();
+		this.metier.increment(b);
 		
 		this.metier.changeColor();
-		
-		return bTmp;
 	}
 
 	public static void main(String args[]) 

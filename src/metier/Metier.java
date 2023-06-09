@@ -56,7 +56,7 @@ public class Metier
 			sc.nextLine();
 
 			ArrayList<Node> lstNode = new ArrayList<Node>();
-			int cpt = 0;
+			String nomReg = sc.nextLine();
 			while ( sc.hasNextLine() )
 			{       
 			    ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
@@ -64,14 +64,30 @@ public class Metier
 			    // Quand il y a une ligne vide, on change de région
 			    if ( tabS.size() == 1 )
 				{
-			        this.g.ensRegion.put(cpt++ + "", lstNode);
+			        this.g.ensRegion.put(nomReg + "", lstNode);
 					lstNode.clear();
+					nomReg = sc.nextLine();
 					continue;
 				}
-			    
+				
+				if(tabS.get(0).equals("ARETE"))
+					break;
+
 				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), ColorGraph.valueOf(tabS.get(1).toUpperCase()).getVal());
 			}
 			
+
+			while(sc.hasNextLine())
+			{
+				ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
+
+				String node1 = tabS.get(0);
+				String node2 = tabS.get(1);
+
+				this.g.addEdge(node1 + "-" + node2, this.g.getNode(node1), this.g.getNode(node2), 1);
+			}
+
+
 			sc.close();
 		}
 		catch (Exception e){ e.printStackTrace(); }
@@ -173,7 +189,7 @@ public class Metier
 		return this.g.coloring(edge);
 	}
 
-	public boolean increment( boolean addTurn ) 
+	public void increment(boolean addTurn) 
 	{
 		if( addTurn )
 		{
@@ -188,7 +204,5 @@ public class Metier
 				PanelGraph.color = 0;
 			}
 		}
-
-		return true;
 	}
 }
