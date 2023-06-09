@@ -48,29 +48,20 @@ public class Metier
 	private void generer()
     {
         try
-		{
-			Scanner sc = new Scanner ( new FileInputStream ( "./donnees/data.csv" ), Charset.forName("UTF-8") );
+        {
+            Scanner sc = new Scanner ( new FileInputStream ( "./donnees/data.csv" ), Charset.forName("UTF-8") );
 
             // Ajout des sommets
-			sc.nextLine();
-			sc.nextLine();
+            sc.nextLine();
+            sc.nextLine();
 
-			ArrayList<Node> lstNode = new ArrayList<Node>();
-			String nomReg = sc.nextLine();
-			while ( sc.hasNextLine() )
-			{       
-			    ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
-			    // Quand il y a une ligne vide, on change de région
-			    if ( tabS.size() == 1 )
-			        break;
-
-				if(!existCard(tabCardColor.get(tabS.get(1))))
-				{
-					this.discard.add(new Card(false, tabCardColor.get(tabS.get(1))));
-					this.discard.add(new Card(true, tabCardColor.get(tabS.get(1))));
-				}
-
-				if ( tabS.size() == 1 )
+            ArrayList<Node> lstNode = new ArrayList<Node>();
+            String nomReg = sc.nextLine();
+            while ( sc.hasNextLine() )
+            {       
+                ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
+                // Quand il y a une ligne vide, on change de région
+                if ( tabS.size() == 1 )
                 {
                     this.g.ensRegion.put(nomReg + "", lstNode);
                     lstNode.clear();
@@ -79,56 +70,32 @@ public class Metier
                         break;
                     continue;
                 }
-			    
-				this.g.addNode(tabS.get(0), tabCardColor.get(tabS.get(1)), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), Integer.parseInt(tabS.get(4)), Integer.parseInt(tabS.get(5)));
-			}
-			
 
-			while(sc.hasNextLine())
-			{
-				ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
+                
+                if(!existCard(tabCardColor.get(tabS.get(1))))
+                {
+                    this.discard.add(new Card(false, tabCardColor.get(tabS.get(1))));
+                    this.discard.add(new Card(true, tabCardColor.get(tabS.get(1))));
+                }
 
-				String node1 = tabS.get(0);
-				String node2 = tabS.get(1);
-
-				this.g.addEdge(node1 + "-" + node2, this.g.getNode(node1), this.g.getNode(node2), 1);
-			}
-
-
-			sc.close();
-		}
-		catch (Exception e){ e.printStackTrace(); }
-    }
-
-	private boolean existCard(int color)
-	{
-		for (Card card : this.deck) 
-			if( card.getColor() == color )
-				return true;
-
-		return false;
-	}
-
-	private static ArrayList<String> decomposer(String chaine, char dec)
-    {
-        ArrayList<String> tabS = new ArrayList<String>();
-        
-        String mot = "";
-        for(int cpt = 0; cpt < chaine.length(); cpt++)
-        {
-            if ( chaine.charAt(cpt) == dec )
-            {
-                tabS.add(mot);
-                mot = "";
+                this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), Metier.tabCardColor.get(tabS.get(1)), Integer.parseInt(tabS.get(4)), Integer.parseInt(tabS.get(5)));
             }
-            else
+            
+
+            while(sc.hasNextLine())
             {
-                mot += chaine.charAt(cpt); 
+                ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
+
+                String node1 = tabS.get(0);
+                String node2 = tabS.get(1);
+
+                this.g.addEdge(node1 + "-" + node2, this.g.getNode(node1), this.g.getNode(node2), 1);
             }
+
+
+            sc.close();
         }
-        
-        tabS.add(mot);
-        return tabS;
+        catch (Exception e){ e.printStackTrace(); }
     }
 	
 	/**
