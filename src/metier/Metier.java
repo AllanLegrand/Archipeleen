@@ -69,7 +69,7 @@ public class Metier
 					this.discard.add(new Card(true, tabCardColor.get(tabS.get(1))));
 				}
 			    
-				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(1)), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), Integer.parseInt(tabS.get(4)), Integer.parseInt(tabS.get(5)));
+				this.g.addNode(tabS.get(0), tabCardColor.get(tabS.get(1)), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), Integer.parseInt(tabS.get(4)), Integer.parseInt(tabS.get(5)));
 			}
 			
 
