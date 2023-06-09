@@ -90,6 +90,15 @@ public class Metier
 		catch (Exception e){ e.printStackTrace(); }
     }
 
+	private boolean existCard(int color)
+	{
+		for (Card card : this.deck) 
+			if( card.getColor() == color )
+				return true;
+
+		return false;
+	}
+
 	private static ArrayList<String> decomposer(String chaine, char dec)
     {
         ArrayList<String> tabS = new ArrayList<String>();
