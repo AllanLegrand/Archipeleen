@@ -4,16 +4,15 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.Robot;
-import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -66,18 +65,18 @@ public class PanelGraph extends JPanel
 
 		for (Node node : this.ctrl.getLstNode()) 
 		{
-			int posX = node.getPosX() * (this.getWidth()  / 100);
-			int posY = node.getPosY() * (this.getHeight() / 100);
+			int posX = node.getPosX();
+			int posY = node.getPosY();
 
 
 			g2.setColor(Color.BLACK);
-			g2.drawImage(new ImageIcon("./donnees/images/iles 70%" + node.getId() + ".png").getImage(), node.getPosXImg(), node.getPosYImg(), null);
+			g2.drawImage(node.getImg(), node.getPosXImg(), node.getPosYImg(), null);
 
 			if(node.isSelected())
 			{
 				g2.setStroke(new BasicStroke(3F));
 				g2.setColor(Color.YELLOW);
-				g2.fillRect(posX, posY, new ImageIcon("./donnees/images/iles 70%" + node.getId() + ".png").getIconWidth(), new ImageIcon("./donnees/images/iles 70%" + node.getId() + ".png").getIconWidth());
+				g2.fillRect(posX, posY, new ImageIcon("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png").getIconWidth(), new ImageIcon("./donnees/images/" + node.getId() + ".png").getIconWidth());
 			}
 		}
 	}
@@ -108,21 +107,15 @@ class GereSelection extends MouseAdapter
 		Color color = null;
 		try
 		{
-			Robot robot = new Robot();
-	
-			BufferedImage screenshot = robot.createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
-
-			color = new Color(screenshot.getRGB(x, y));
+			color = new Robot().getPixelColor(x, y);
 		}
 		catch(Exception e){e.printStackTrace();}
 
-		ImageIcon image = new ImageIcon("./donnees/images/iles 70%" + node.getId() + ".png");
+		ImageIcon image = new ImageIcon(node.getImg());
 
-		Rectangle rect = new Rectangle(node.getPosXImg(), node.getPosYImg(), image.getIconWidth(), image.getIconHeight());
+		Rectangle rect = new Rectangle(node.getPosXImg(), node.getPosYImg(), image.getIconWidth() + 10, image.getIconHeight() + 10);
 
-		System.out.println(color);
-
-		return color != null && ! color.equals(new Color(0)) && ! color.equals(new Color(192, 216, 226)) && rect.contains(x, y);
+		return color != null && ! color.equals(Color.LIGHT_GRAY) && ! color.equals(new Color(192, 216, 226)) && rect.contains(x, y);
 	}
 
 	public void mouseClicked(MouseEvent e)
@@ -135,16 +128,11 @@ class GereSelection extends MouseAdapter
 			{
 				this.deselect();
 				return;
-			}
-
-			int posX = node.getPosX() ;
-			int posY = node.getPosY() ;
-
-			
+			}		
 
 			if(this.estCompris(e.getXOnScreen(), e.getYOnScreen(), node))
 			{
-				System.out.println("test");
+
 				if(this.node1 == node)
 					return;
 
@@ -161,15 +149,17 @@ class GereSelection extends MouseAdapter
                         return;
                     }
 
-					if(edge != null && edge.getColor() == 0)
+					if(edge != null && edge.getColor() == Color.LIGHT_GRAY.getRGB())
 					{
 						if(this.ctrl.coloring(edge))
 						{
 							edge.setColor(PanelGraph.color);
-
+							
 							this.deselect();
 							this.ctrl.calculNbTurn();
 						}
+						else
+							this.deselect();
 					}
 				}	
 				
@@ -178,11 +168,26 @@ class GereSelection extends MouseAdapter
 					this.node1 = node;
 					this.node1.setSelected();
 				}
-				
-				nodeSelected = true;
+
+				if(this.node1 == node || this.node2 == node)
+					nodeSelected = true;
 			}
 
-			if(nodeSelected) break;
+			if(nodeSelected)
+			{
+				BufferedImage imgTmp;
+				try {
+					imgTmp = ImageIO.read(new File("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png"));
+				} catch (IOException iOE) {iOE.printStackTrace(); break;}
+
+				for (int i = 0; i < imgTmp.getWidth(); i++) 
+					for (int j = 0; j < imgTmp.getHeight(); j++) 
+						if(imgTmp.getRGB(i, j) != new Color(192, 216, 226).getRGB())
+							imgTmp.setRGB(i, j, imgTmp.getRGB(i,j) + 10 * 256 * 256 + 10 * 256 * 10);
+
+				node.setImage(imgTmp);
+				break;
+			} 
 		}
 
 
@@ -197,11 +202,13 @@ class GereSelection extends MouseAdapter
 		if(this.node1 != null) 
 		{
 			this.node1.setSelected();
+			this.node1.setImage(new ImageIcon("./donnees/images/images reduites/iles 80%/" + this.node1.getId() + ".png").getImage());
 			this.node1 = null;
 		}
 		if(this.node2 != null)
 		{
 			this.node2.setSelected();
+			this.node2.setImage(new ImageIcon("./donnees/images/images reduites/iles 80%/" + this.node2.getId() + ".png").getImage());
 			this.node2 = null;
 		}
 

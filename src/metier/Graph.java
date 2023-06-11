@@ -1,5 +1,6 @@
 package metier;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import java.util.Map;
@@ -50,19 +51,30 @@ public class Graph
 
     public boolean coloring(Edge edge)
     {
-        if ( edge.getColor() != 0) return false;
+        if ( edge.getColor() != Color.LIGHT_GRAY.getRGB()) return false;
 
         if ( edge.isCrossed(this.lstEdge)) return false;
 
+        String n2 = edge.getNode2().getId();
+        String n1 = edge.getNode1().getId();
+
+        String islDep = "Mutaa"; 
+        // ile de départ, Mutaa pour J-Bleu
+
         if(!firstColored)
         {
-            this.firstColored = true;
-            return true;
+            if(n2.equals( islDep ) || n1.equals( islDep ))
+            {
+                this.firstColored = true;
+                return true;
+            }
+
+            return false;
         }
 
-        if ( edge.getNode1().hasEdgeColor(PanelGraph.color) || edge.getNode2().hasEdgeColor(PanelGraph.color) ) return false; 
+        if (! (edge.getNode1().hasEdgeColor(PanelGraph.color) || edge.getNode2().hasEdgeColor(PanelGraph.color)) ) return false; 
 
-        if ( !( edge.getNode1().hasEdgeColor() || edge.getNode2().hasEdgeColor() ) ) return false;
+        if ( !( edge.getNode1().hasEdgeColor(Color.LIGHT_GRAY.getRGB()) || edge.getNode2().hasEdgeColor(Color.LIGHT_GRAY.getRGB()) ) ) return false;
 
         return true;
     }

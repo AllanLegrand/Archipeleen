@@ -1,5 +1,6 @@
 package metier;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 public class Edge
@@ -17,6 +18,8 @@ public class Edge
         this.n2 = n2;
 
         this.cost = cost;
+
+        this.color = Color.LIGHT_GRAY.getRGB();
 
         this.n1.addEdge(this);
         this.n2.addEdge(this);
@@ -44,7 +47,7 @@ public class Edge
 
         for (Edge e : lstEdge) 
         {
-            if( e.getColor() != 0 )
+            if( e.getColor() != Color.LIGHT_GRAY.getRGB() )
             {
                 double nx2 = e.getNode1().getPosX();
                 double ny2 = e.getNode1().getPosY();

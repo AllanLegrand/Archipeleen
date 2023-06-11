@@ -1,6 +1,9 @@
 package metier;
 
+import java.awt.Image;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
 
 public class Node 
 {
@@ -12,6 +15,7 @@ public class Node
     private int color;
     private ArrayList<Edge> lstEdge;
     private boolean isSelected;
+    private Image img;
 
     public Node(String id, int posX, int posY, int posXImg, int posYImg, int color)
     {
@@ -23,6 +27,8 @@ public class Node
         this.lstEdge = new ArrayList<>();
         this.isSelected = false;
 
+        this.img = new ImageIcon("./donnees/images/images reduites/iles 80%/" + id + ".png").getImage();
+        
         this.color = color;
     }
 
@@ -62,13 +68,14 @@ public class Node
         return false;
     }
 
-    public boolean hasEdgeColor()
+    public void setImage(Image img)
     {
-        for (Edge e : this.lstEdge) 
-            if ( e.getColor() != 0 )
-                return true;
+        this.img = img;
+    }
 
-        return false;
+    public Image getImg()
+    {
+        return this.img;
     }
 
     public boolean equals(Node n)

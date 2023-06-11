@@ -6,12 +6,8 @@ import metier.Node;
 
 
 import ihm.FrameGraph;
-import ihm.PanelGraph;
 
-import java.awt.Color;
 import java.util.ArrayList;
-
-import javax.swing.JPanel;
 
 public class Controleur
 {

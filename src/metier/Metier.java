@@ -2,14 +2,12 @@ package metier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Scanner;
 import java.io.FileInputStream;
 import java.nio.charset.Charset;
 
 import javax.swing.JOptionPane;
 import java.util.HashMap;
-import java.util.List;
 
 import ihm.PanelGraph;
 
@@ -78,7 +76,7 @@ public class Metier
 					this.discard.add(new Card(true, tabCardColor.get(tabS.get(1))));
 				}
 
-				this.g.addNode(tabS.get(0), Integer.parseInt(tabS.get(2)), Integer.parseInt(tabS.get(3)), Metier.tabCardColor.get(tabS.get(1)), Integer.parseInt(tabS.get(4)), Integer.parseInt(tabS.get(5)));
+				this.g.addNode(tabS.get(0), (int) (Integer.parseInt(tabS.get(2)) * 0.8), (int) (Integer.parseInt(tabS.get(3)) * 0.8), Metier.tabCardColor.get(tabS.get(1)), (int) (Integer.parseInt(tabS.get(4)) * 0.8), (int) (Integer.parseInt(tabS.get(5)) * 0.8));
 			}
 			
 
@@ -88,7 +86,6 @@ public class Metier
 
 				String node1 = tabS.get(0);
 				String node2 = tabS.get(1);
-
 
 				this.g.addEdge(node1 + "-" + node2, this.g.getNode(node1), this.g.getNode(node2), 1);
 			}
