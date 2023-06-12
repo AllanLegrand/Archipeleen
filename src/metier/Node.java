@@ -8,15 +8,16 @@ import javax.swing.ImageIcon;
 
 public class Node 
 {
-	private String id;
-	private int posX;
-	private int posY;
-	private int posXImg;
-	private int posYImg;
-	private int color;
-	private ArrayList<Edge> lstEdge;
-	private boolean isSelected;
-	private Image img;
+    private String id;
+    private int posX;
+    private int posY;
+    private int posXImg;
+    private int posYImg;
+    private int color;
+    private ArrayList<Edge> lstEdge;
+    private boolean isSelected;
+    private Image img;
+    private boolean isDark;
 
 	public Node(String id, int posX, int posY, int posXImg, int posYImg, int color)
 	{
@@ -90,8 +91,18 @@ public class Node
 		return this.img;
 	}
 
-	public boolean equals(Node n)
-	{
-		return this.id.equals(n.id);
-	}
+    public void setDark(boolean b)
+    {
+        this.isDark = b;
+    }
+
+    public boolean isDark()
+    {
+        return this.isDark;
+    }
+
+    public boolean equals(Node n)
+    {
+        return this.id.equals(n.id);
+    }
 }
