@@ -27,9 +27,9 @@ public class Metier
 	private static Map<String,Integer> tabCardColor = new HashMap<String, Integer>() 
 	{{
     	put("Jaune", 12560217);
-    	put("Rouge", 5214316);
-		put("Vert", 9276528);
-		put("Brun", 10321545);
+    	put("Rouge", 5214316 );
+		put("Vert" , 9276528 );
+		put("Brun" , 10321545);
 	}};
 
 	public Metier()
@@ -192,9 +192,9 @@ public class Metier
 	public ArrayList<Node> getLstNode() { return this.g.getLstNode(); }
 	public ArrayList<Edge> getLstEdge() { return this.g.getLstEdge(); }
 
-	public boolean coloring(Edge edge, Node nodeStart, Node nodeEnd)
+	public boolean coloring(Edge edge)
 	{
-		if ( this.hasColor(nodeEnd.getColor()) )
+		if ( this.hasColor( (edge.getNode1().hasEdgeColor(PanelGraph.color) > 0 ? edge.getNode2() : edge.getNode1()).getColor()) )
 			return this.g.coloring(edge);
 		return false;
 	}
