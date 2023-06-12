@@ -25,12 +25,10 @@ public class FrameGraph extends JFrame
 
 		this.setSize(width, height);
 		this.setLocation(0, 0);
-
+		this.setResizable(false);
 		
 		this.setBackground(new Color(192, 216, 226));
 
-
-		this.setLayout(new GridLayout());
 
 		/* Création des composants */
 		this.panelGraph       = new PanelGraph(ctrl);

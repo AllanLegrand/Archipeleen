@@ -1,11 +1,17 @@
 package ihm;
 
 import java.awt.BasicStroke;
+import java.awt.BorderLayout;
+
+import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.Robot;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -15,23 +21,43 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import controleur.Controleur;
 
 import metier.Node;
 import metier.Edge;
 
-public class PanelGraph extends JPanel
+public class PanelGraph extends JPanel implements ActionListener
 {
-	public static int radius;
 	
 	public static int color;
 
 	private Controleur ctrl;
 
+	private ButtonCarte[] tabBtnCarte;
+
 	public PanelGraph(Controleur ctrl)
 	{
 		this.ctrl = ctrl;
+
+		this.setLayout(new BorderLayout());
+
+		/* Création des composants */
+		this.tabBtnCarte = new ButtonCarte[10];
+		for (int i = 0; i < tabBtnCarte.length; i++)
+			tabBtnCarte[i] = new ButtonCarte(new ImageIcon(this.ctrl.getDeck.get(i).getPath()));
+
+		/* Ajout des composants */
+		JPanel panelTmp = new JPanel(new GridLayout(5, 2, 5, 5));
+		for (ButtonCarte jButton : tabBtnCarte)
+			panelTmp.add(jButton);
+
+		this.add(panelTmp, BorderLayout.EAST);
+
+		/* Activation des composants */
+		for (ButtonCarte jButton : tabBtnCarte)
+			jButton.addActionListener(this);
 
 		this.addMouseListener(new GereSelection(ctrl, this));
 	}
@@ -42,7 +68,6 @@ public class PanelGraph extends JPanel
 	{
 		int min = this.getHeight() < this.getWidth() ? this.getHeight() : this.getWidth();
 		
-		PanelGraph.radius = (int) (min * 0.03);
 
 		Graphics2D g2 = (Graphics2D) g;
 
@@ -79,6 +104,15 @@ public class PanelGraph extends JPanel
 				g2.fillRect(posX, posY, new ImageIcon("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png").getIconWidth(), new ImageIcon("./donnees/images/" + node.getId() + ".png").getIconWidth());
 			}
 		}
+
+		// g2.drawRoundRect(500, 500, 20, 20, 10, 10);
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+
 	}
 }
 
@@ -151,7 +185,7 @@ class GereSelection extends MouseAdapter
 
 					if(edge != null && edge.getColor() == Color.LIGHT_GRAY.getRGB())
 					{
-						if(this.ctrl.coloring(edge))
+						if(this.ctrl.coloring(edge, node1, node2))
 						{
 							edge.setColor(PanelGraph.color);
 							

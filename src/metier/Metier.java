@@ -8,6 +8,7 @@ import java.nio.charset.Charset;
 
 import javax.swing.JOptionPane;
 import java.util.HashMap;
+import java.util.Map;
 
 import ihm.PanelGraph;
 
@@ -22,7 +23,7 @@ public class Metier
 
 	private static int[] tabColor = {255, 16711680};
 
-	private static HashMap<String,Integer> tabCardColor = new HashMap<String, Integer>() 
+	private static Map<String,Integer> tabCardColor = new HashMap<String, Integer>() 
 	{{
     	put("Jaune", 12560217);
     	put("Rouge", 5214316);
