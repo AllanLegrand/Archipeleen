@@ -6,13 +6,16 @@ import java.awt.Graphics2D;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 
+import metier.Card;
+
 public class LabelCard extends JLabel
 {
 	private boolean bReturn;
 
-	public LabelCard(Icon icon)
+	public LabelCard(Card card)
 	{
-		super(icon);
+		super();
+		
 		this.bReturn = false;
 	}
 

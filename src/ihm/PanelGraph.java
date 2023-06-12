@@ -40,14 +40,14 @@ public class PanelGraph extends JPanel
 		this.setLayout(new BorderLayout());
 
 		/* Création des composants */
-		//this.tabLblCard = new LabelCard[10];
-		//for (int i = 0; i < tabLblCard.length; i++)
-			//tabLblCard[i] = new LabelCard(new ImageIcon(this.ctrl.getDeck().get(i).getPath()));
+		this.tabLblCard = new LabelCard[10];
+		for (int i = 0; i < tabLblCard.length; i++)
+			tabLblCard[i] = new LabelCard(new ImageIcon(this.ctrl.getDeck().get(i)));
 
 		/* Ajout des composants */
 		JPanel panelTmp = new JPanel(new GridLayout(5, 2, 5, 5));
-		// for (LabelCard jButton : tabLblCard)
-		// 	panelTmp.add(jButton);
+		for (LabelCard jButton : tabLblCard)
+			panelTmp.add(jButton);
 
 		this.add(panelTmp, BorderLayout.EAST);
 
@@ -176,6 +176,8 @@ class GereSelection extends MouseAdapter
 
 	public void mouseClicked(MouseEvent e)
 	{
+		ArrayList<Node> lstTmp = this.ctrl.getLstNodeAvailable();
+		
 		boolean nodeSelected = false;
 
 		for (Node node : this.ctrl.getLstNode()) 
@@ -190,7 +192,7 @@ class GereSelection extends MouseAdapter
 			}		
 
 
-			if(this.estCompris(e.getX(), e.getY(), node))
+			if(!node.isDark() && this.estCompris(e.getX(), e.getY(), node))
 			{
 
 				if(this.node1 != null && this.node2 == null)
@@ -208,7 +210,7 @@ class GereSelection extends MouseAdapter
 
 					if(edge != null && edge.getColor() == Color.LIGHT_GRAY.getRGB())
 					{
-						if(this.ctrl.coloring(edge, node1, node2))
+						if(this.ctrl.coloring(edge, node1, node2) && lstTmp.contains(node1))
 						{
 							edge.setColor(PanelGraph.color);
 							
@@ -240,9 +242,9 @@ class GereSelection extends MouseAdapter
 			this.deselect();
 		else
 		{
-			ArrayList<Node> lstTmp = this.ctrl.getLstNodeAvailable();
 			for (Node node : this.ctrl.getLstNode())
 			{
+				System.out.println(lstTmp);
 				if(!lstTmp.contains(node) && !node.isDark())
 				{
 					System.out.println("assombrir");
