@@ -165,7 +165,7 @@ public class Metier
 		for (String region : this.g.ensRegion.keySet())
 			for(Node node : this.g.ensRegion.get(region))
 				for(Integer[] color : lstColor.keySet())
-					if ( node.hasEdgeColor(color[0]) )
+					if ( node.hasEdgeColor(color[0]) > 0)
 					{
 						if ( lstColor.get(color).containsKey(region))
 							lstColor.get(color).get(region).add(node);
@@ -198,7 +198,6 @@ public class Metier
 	{
 		return this.g.coloring(edge);
 	}
-
 
 	public void calculNbTurn()
 	{
