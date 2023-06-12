@@ -59,7 +59,7 @@ public class Node
     public boolean isSelected()  { return this.isSelected; }
     public void    setSelected() { this.isSelected = ! this.isSelected; }
 
-    public int hasEdgeColor( int color)
+    public int hasEdgeColor( int color )
     {
         int nb = 0;
         for (Edge e : this.lstEdge) 

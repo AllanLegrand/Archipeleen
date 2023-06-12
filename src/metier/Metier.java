@@ -129,7 +129,7 @@ public class Metier
 	
 	/**
 	 * Cette méthode retourne la carte piochée
-	 * @return Card
+	 * @return Card : la carte rétourné
 	 */
 	public Card drawCard()
 	{
@@ -139,6 +139,7 @@ public class Metier
 			this.discard.add ( card );
 
 			this.calculNbTurn();
+
 
 			return card;
 		}
