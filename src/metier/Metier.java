@@ -93,7 +93,11 @@ public class Metier
 				String node1 = tabS.get(0);
 				String node2 = tabS.get(1);
 
-				this.g.addEdge(node1 + "-" + node2, this.g.getNode(node1), this.g.getNode(node2), 1);
+				int cout = 0;
+				if(tabS.size() == 3)
+					cout = Integer.parseInt(tabS.get(2));
+
+				this.g.addEdge(node1 + "-" + node2, this.g.getNode(node1), this.g.getNode(node2), cout);
 			}
 
 
