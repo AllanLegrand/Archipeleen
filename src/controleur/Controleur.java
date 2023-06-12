@@ -29,6 +29,11 @@ public class Controleur
 		this.ihm.repaintPanel();
 	}
 
+	public int getScore()
+	{
+		return this.metier.getFinalScore();
+	}
+
 	public boolean coloring(Edge edge, Node nodeStart, Node nodeEnd)
 	{
 		return this.metier.coloring(edge, nodeStart, nodeEnd);
