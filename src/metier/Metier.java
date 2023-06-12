@@ -120,6 +120,11 @@ public class Metier
 		return false;
 	}
 
+	public ArrayList<Card> getDeck()
+	{
+		return this.deck;
+	}
+
 	private static ArrayList<String> decomposer(String chaine, char dec)
     {
         ArrayList<String> tabS = new ArrayList<String>();

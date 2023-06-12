@@ -34,6 +34,11 @@ public class Controleur
 		this.ihm.repaintPanel();
 	}
 
+	public ArrayList<Card> getDeck()
+	{
+		return this.metier.getDeck();
+	}
+
 	public int getScore()
 	{
 		return this.metier.getFinalScore();
