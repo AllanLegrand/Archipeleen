@@ -59,13 +59,14 @@ public class Node
     public boolean isSelected()  { return this.isSelected; }
     public void    setSelected() { this.isSelected = ! this.isSelected; }
 
-    public boolean hasEdgeColor( int color)
+    public int hasEdgeColor( int color)
     {
+        int nb = 0;
         for (Edge e : this.lstEdge) 
             if ( e.getColor() == color )
-                return true;
+                nb++;
 
-        return false;
+        return nb;
     }
 
     public void setImage(Image img)

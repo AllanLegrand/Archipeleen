@@ -72,9 +72,9 @@ public class Graph
             return false;
         }
 
-        if (! (edge.getNode1().hasEdgeColor(PanelGraph.color) || edge.getNode2().hasEdgeColor(PanelGraph.color)) ) return false; 
+        if ( edge.getNode1().hasEdgeColor(PanelGraph.color) > 1 || edge.getNode2().hasEdgeColor(PanelGraph.color) > 1) return false;
 
-        if ( !( edge.getNode1().hasEdgeColor(Color.LIGHT_GRAY.getRGB()) || edge.getNode2().hasEdgeColor(Color.LIGHT_GRAY.getRGB()) ) ) return false;
+        if ( !(edge.getNode1().hasEdgeColor(PanelGraph.color) > 0 ^ edge.getNode2().hasEdgeColor(PanelGraph.color) > 0)) return false;
 
         return true;
     }
