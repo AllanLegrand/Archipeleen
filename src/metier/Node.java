@@ -45,6 +45,7 @@ public class Node
 
     public Edge hasEdgeBetween(Node n)
     {
+        if ( this.equals(n) ) return null;
         for (Edge e : this.lstEdge) 
             for (Edge eN : n.lstEdge) 
                 if (eN == e)
