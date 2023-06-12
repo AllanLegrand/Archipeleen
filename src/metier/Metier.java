@@ -243,7 +243,12 @@ public class Metier
 			}
 		}
 		
-		PanelGraph.color = tabColor[this.round];;
+		this.changeColor();
+	}
+
+	public void changeColor()
+	{
+		PanelGraph.color = tabColor[this.round];	
 	}
 
 	public void endGame()
