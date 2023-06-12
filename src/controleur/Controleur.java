@@ -18,7 +18,6 @@ public class Controleur
 	{
 		this.metier = new Metier();
         this.ihm    = new FrameGraph( this );
-		this.metier.changeColor();
 	}
 
     public ArrayList<Node> getLstNode() { return this.metier.getLstNode(); }
@@ -37,8 +36,6 @@ public class Controleur
 	public void calculNbTurn()
 	{
 		this.metier.calculNbTurn();
-		
-		this.metier.changeColor();
 	}
 
 	public static void main(String args[]) 

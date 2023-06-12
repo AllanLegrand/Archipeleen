@@ -17,9 +17,10 @@ public class Metier
 	private Graph g;
 	
 	private ArrayList<Card> deck;
+	private ArrayList<Card> hand;
 	private ArrayList<Card> discard;
 
-	private int tour;
+	private int round;
 
 	private static int[] tabColor = {255, 16711680};
 
@@ -38,6 +39,7 @@ public class Metier
 
 		this.discard = new ArrayList<Card>((Metier.tabCardColor.size()+1)*2);
 		this.deck    = new ArrayList<Card>((Metier.tabCardColor.size()+1)*2);
+		this.hand    = new ArrayList<Card>((Metier.tabCardColor.size()+1)*2);
 
 		this.discard.add(new Card(false, null));
 
@@ -135,11 +137,10 @@ public class Metier
 	{
 		if ( !this.deck.isEmpty() )
 		{
-			Card card = this.deck.remove( 0 );
-			this.discard.add ( card );
-
 			this.calculNbTurn();
 
+			Card card = this.deck.remove( 0 );
+			this.discard.add ( card );
 
 			return card;
 		}
@@ -188,11 +189,6 @@ public class Metier
 		return total;
 	}
 
-	public void changeColor()
-	{
-		PanelGraph.color = tabColor[tour];
-	}
-
 	public ArrayList<Node> getLstNode() { return this.g.getLstNode(); }
 	public ArrayList<Edge> getLstEdge() { return this.g.getLstEdge(); }
 
@@ -236,7 +232,18 @@ public class Metier
 		for ( Card card : this.discard )
 			if ( card.isPrimary() ) nbTurn++;
 		
-		if ( nbTurn == 5 ) this.endGame();
+		if ( nbTurn == 5 && this.round == 1) this.endGame();
+		if ( nbTurn == 5 )
+		{
+			this.round++; 
+			for(Card card : this.discard)
+			{
+				this.deck.add(card);
+				this.discard.remove(card);
+			}
+		}
+		
+		PanelGraph.color = tabColor[this.round];;
 	}
 
 	public void endGame()
