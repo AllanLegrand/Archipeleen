@@ -1,6 +1,7 @@
 package controleur;
 
 import metier.Metier;
+import metier.Card;
 import metier.Edge;
 import metier.Node;
 
@@ -24,11 +25,18 @@ public class Controleur
 	public ArrayList<Node> getLstNode() { return this.metier.getLstNode(); }
 	public ArrayList<Edge> getLstEdge() { return this.metier.getLstEdge(); }
 
+	public Card getHand() { return this.metier.getHand(); }
+
 	public ArrayList<Node> getLstNodeAvailable()
 	{
 		return this.metier.getLstNodeAvailable();
 	}
 
+	public Card getCard(int indice)
+	{
+		return this.metier.getCard(indice);
+	}
+	
 	public void majIhm()
 	{
 		this.ihm.repaintPanel();

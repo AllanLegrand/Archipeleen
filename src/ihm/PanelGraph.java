@@ -41,8 +41,12 @@ public class PanelGraph extends JPanel
 
 		/* Création des composants */
 		this.tabLblCard = new LabelCard[10];
-		for (int i = 0; i < tabLblCard.length; i++)
-			tabLblCard[i] = new LabelCard(new ImageIcon(this.ctrl.getDeck().get(i)));
+		for (int i = 0; i < tabLblCard.length - 1; i++)
+		{
+			tabLblCard[i] = new LabelCard(this.ctrl.getCard(i));
+		}
+
+		tabLblCard[9] = new LabelCard(this.ctrl.getHand());
 
 		/* Ajout des composants */
 		JPanel panelTmp = new JPanel(new GridLayout(5, 2, 5, 5));

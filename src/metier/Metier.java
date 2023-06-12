@@ -28,7 +28,7 @@ public class Metier
 
 	private static ArrayList<Integer> tabColor = new ArrayList<Integer>(Arrays.asList(255, 16711680));
 
-	private static Map<String,Integer> tabCardColor = new HashMap<String, Integer>() 
+	public static final Map<String,Integer> MAP_CARD_COLOR = new HashMap<String, Integer>() 
 	{{
     	put("Jaune", 12560217);
     	put("Rouge", 5214316 );
@@ -42,12 +42,12 @@ public class Metier
 
 		this.newColor = true;
 
-		this.discard = new ArrayList<Card>((Metier.tabCardColor.size()+1)*2);
-		this.deck    = new ArrayList<Card>((Metier.tabCardColor.size()+1)*2);
+		this.discard = new ArrayList<Card>((Metier.MAP_CARD_COLOR.size()+1)*2);
+		this.deck    = new ArrayList<Card>((Metier.MAP_CARD_COLOR.size()+1)*2);
 		this.hand    = null;
 
-		this.deck.add(new Card(false, null));
-		this.deck.add(new Card(true, null));
+		this.deck.add(new Card(false, -1));
+		this.deck.add(new Card(true , -1));
 
 		Collections.shuffle(tabColor);
 
@@ -82,10 +82,10 @@ public class Metier
 					continue;
 				}
 
-				if(!existCard(tabCardColor.get(tabS.get(1))))
+				if(!existCard(Metier.MAP_CARD_COLOR.get(tabS.get(1))))
 				{
-					this.deck.add(new Card(false, tabCardColor.get(tabS.get(1))));
-					this.deck.add(new Card(true, tabCardColor.get(tabS.get(1))));
+					this.deck.add(new Card(false, Metier.MAP_CARD_COLOR.get(tabS.get(1))));
+					this.deck.add(new Card(true, Metier.MAP_CARD_COLOR.get(tabS.get(1))));
 				}
 
 				this.g.addNode(tabS.get(0), (int) (Integer.parseInt(tabS.get(2)) * 0.8), (int) (Integer.parseInt(tabS.get(3)) * 0.8), (int) (Integer.parseInt(tabS.get(4)) * 0.8), (int) (Integer.parseInt(tabS.get(5)) * 0.8), Integer.parseInt(tabS.get(3)));
@@ -115,10 +115,17 @@ public class Metier
 	private boolean existCard(int color)
 	{
 		for (Card card : this.deck) 
-			if ( card.getColor() != null && card.getColor() == color)
+			if ( card.getColor() == color)
 				return true;
 		return false;
 	}
+
+	public Card getCard(int indice)
+	{
+		return this.deck.get(indice);
+	}
+
+	public Card getHand() { return this.hand; }
 
 	private static ArrayList<String> decomposer(String chaine, char dec)
     {
@@ -209,7 +216,7 @@ public class Metier
 
 	public boolean coloring(Edge edge)
 	{
-		if ( this.hand.getColor() != null && this.hand.getColor() ==  (edge.getNode1().hasEdgeColor(PanelGraph.color) > 0 ? edge.getNode2() : edge.getNode1()).getColor()) 
+		if ( this.hand.getColor() ==  (edge.getNode1().hasEdgeColor(PanelGraph.color) > 0 ? edge.getNode2() : edge.getNode1()).getColor()) 
 			return this.g.coloring(edge);
 		return false;
 	}
