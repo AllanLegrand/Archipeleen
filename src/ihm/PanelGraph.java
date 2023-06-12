@@ -39,13 +39,13 @@ public class PanelGraph extends JPanel
 
 		/* Création des composants */
 		this.tabLblCard = new LabelCard[10];
-		for (int i = 0; i < tabLblCard.length; i++)
-			tabLblCard[i] = new LabelCard(new ImageIcon(this.ctrl.getDeck.get(i).getPath()));
+		// for (int i = 0; i < tabLblCard.length; i++)
+		// 	tabLblCard[i] = new LabelCard(new ImageIcon(this.ctrl.getDeck.get(i).getPath()));
 
 		/* Ajout des composants */
 		JPanel panelTmp = new JPanel(new GridLayout(5, 2, 5, 5));
-		for (LabelCard jButton : tabLblCard)
-			panelTmp.add(jButton);
+		// for (LabelCard jButton : tabLblCard)
+		// 	panelTmp.add(jButton);
 
 		this.add(panelTmp, BorderLayout.EAST);
 
@@ -119,18 +119,25 @@ class GereSelection extends MouseAdapter
 
 	public boolean estCompris(int x, int y, Node node)
 	{
-		Color color = null;
-		try
-		{
-			color = new Robot().getPixelColor(x, y);
-		}
-		catch(Exception e){e.printStackTrace();}
+		BufferedImage image;
+		try {
+			image = ImageIO.read(new File("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png"));
+		} catch (IOException e) {e.printStackTrace(); return false;}
 
-		ImageIcon image = new ImageIcon(node.getImg());
+		int posXImg = x - node.getPosXImg();
+		int posYImg = y - node.getPosYImg();
 
-		Rectangle rect = new Rectangle(node.getPosXImg(), node.getPosYImg(), image.getIconWidth() + 10, image.getIconHeight() + 10);
+		if ( !(posXImg >= 0 && posXImg <= image.getWidth() &&
+			   posYImg >= 0 && posYImg <= image.getHeight()) )
+			return false;
+		
+		
+		int pixel = image.getRGB(posXImg, posYImg);
+		
+		int alpha =  (pixel >> 24) & 0xFF;
 
-		return color != null && ! color.equals(Color.LIGHT_GRAY) && ! color.equals(new Color(192, 216, 226)) && rect.contains(x, y);
+
+		return alpha != 0;
 	}
 
 	public void mouseClicked(MouseEvent e)
@@ -139,15 +146,15 @@ class GereSelection extends MouseAdapter
 
 		for (Node node : this.ctrl.getLstNode()) 
 		{
+			if(nodeSelected) break;
 			if(PanelGraph.color == 0)
 			{
 				this.deselect();
 				return;
 			}		
 
-			if(this.estCompris(e.getXOnScreen(), e.getYOnScreen(), node))
+			if(this.estCompris(e.getX(), e.getY(), node))
 			{
-
 				if(this.node1 == node)
 					return;
 
@@ -177,19 +184,20 @@ class GereSelection extends MouseAdapter
 							this.deselect();
 					}
 				}	
-				
+
 				if(this.node1 == null)
 				{
 					this.node1 = node;
 					this.node1.setSelected();
 				}
-
+				
 				if(this.node1 == node || this.node2 == node)
 					nodeSelected = true;
 			}
 
 			if(nodeSelected)
 			{
+				System.out.println("test");
 				BufferedImage imgTmp;
 				try {
 					imgTmp = ImageIO.read(new File("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png"));
@@ -197,8 +205,7 @@ class GereSelection extends MouseAdapter
 
 				for (int i = 0; i < imgTmp.getWidth(); i++) 
 					for (int j = 0; j < imgTmp.getHeight(); j++) 
-						if(imgTmp.getRGB(i, j) != new Color(192, 216, 226).getRGB())
-							imgTmp.setRGB(i, j, imgTmp.getRGB(i,j) + 10 * 256 * 256 + 10 * 256 * 10);
+						
 
 				node.setImage(imgTmp);
 				break;
