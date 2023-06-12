@@ -18,6 +18,7 @@ public class Controleur
 	{
 		this.metier = new Metier();
         this.ihm    = new FrameGraph( this );
+		this.metier.changeColor();
 	}
 
     public ArrayList<Node> getLstNode() { return this.metier.getLstNode(); }
