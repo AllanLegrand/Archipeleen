@@ -21,6 +21,7 @@ public class Metier
 	private ArrayList<Card> discard;
 
 	private int round;
+	private boolean newColor;
 
 	private static int[] tabColor = {255, 16711680};
 
@@ -36,6 +37,7 @@ public class Metier
 	{
 		this.g = new Graph();
 
+		this.newColor = true;
 
 		this.discard = new ArrayList<Card>((Metier.tabCardColor.size()+1)*2);
 		this.deck    = new ArrayList<Card>((Metier.tabCardColor.size()+1)*2);
@@ -43,7 +45,8 @@ public class Metier
 
 		this.discard.add(new Card(false, null));
 
-		this.generer();	
+		this.generer();
+		this.drawCard();
 	}
 
 	private void generer()
@@ -238,10 +241,13 @@ public class Metier
 			this.round++; 
 			for(Card card : this.discard)
 			{
+				this.newColor = true;
 				this.deck.add(card);
 				this.deck.remove(card);
 			}
 		}
+		
+		this.drawCard();
 		
 		this.changeColor();
 	}
