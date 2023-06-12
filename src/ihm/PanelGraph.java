@@ -25,7 +25,7 @@ import metier.Node;
 public class PanelGraph extends JPanel
 {
 	
-	public static int color;
+	public static int color = 1;
 
 	private Controleur ctrl;
 
@@ -127,10 +127,12 @@ class GereSelection extends MouseAdapter
 		int posXImg = x - node.getPosXImg();
 		int posYImg = y - node.getPosYImg();
 
+
 		if ( !(posXImg >= 0 && posXImg <= image.getWidth() &&
 			   posYImg >= 0 && posYImg <= image.getHeight()) )
 			return false;
 		
+
 		
 		int pixel = image.getRGB(posXImg, posYImg);
 		
@@ -147,16 +149,18 @@ class GereSelection extends MouseAdapter
 		for (Node node : this.ctrl.getLstNode()) 
 		{
 			if(nodeSelected) break;
+
+
+
 			if(PanelGraph.color == 0)
 			{
 				this.deselect();
 				return;
 			}		
 
+
 			if(this.estCompris(e.getX(), e.getY(), node))
 			{
-				if(this.node1 == node)
-					return;
 
 				if(this.node1 != null && this.node2 == null)
 				{
@@ -192,12 +196,13 @@ class GereSelection extends MouseAdapter
 				}
 				
 				if(this.node1 == node || this.node2 == node)
+				{
 					nodeSelected = true;
+				}
 			}
 
 			if(nodeSelected)
 			{
-				System.out.println("test");
 				BufferedImage imgTmp;
 				try {
 					imgTmp = ImageIO.read(new File("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png"));
@@ -205,7 +210,20 @@ class GereSelection extends MouseAdapter
 
 				for (int i = 0; i < imgTmp.getWidth(); i++) 
 					for (int j = 0; j < imgTmp.getHeight(); j++) 
-						
+					{
+						int rgb = imgTmp.getRGB(i, j);
+
+						int alpha = (rgb >> 24) & 0xFF;
+                    	int r     = (rgb >> 16) & 0xFF;
+                    	int g     = (rgb >> 8) & 0xFF;
+                    	int b     = rgb & 0xFF;
+
+                    	r *= 0.50;
+                    	b *= 0.50;
+                    	g *= 0.50;
+
+						imgTmp.setRGB(i, j,(alpha << 24) | (r << 16) | (g << 8) | b);
+					}
 
 				node.setImage(imgTmp);
 				break;
