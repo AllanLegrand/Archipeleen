@@ -11,18 +11,18 @@ import java.util.ArrayList;
 
 public class Controleur
 {
-    private Metier     metier;
+	private Metier     metier;
 	private FrameGraph ihm;
 
 	public Controleur()
 	{
 		this.metier = new Metier();
-        this.ihm    = new FrameGraph( this );
+		this.ihm    = new FrameGraph( this );
 		this.metier.changeColor();
 	}
 
-    public ArrayList<Node> getLstNode() { return this.metier.getLstNode(); }
-    public ArrayList<Edge> getLstEdge() { return this.metier.getLstEdge(); }
+	public ArrayList<Node> getLstNode() { return this.metier.getLstNode(); }
+	public ArrayList<Edge> getLstEdge() { return this.metier.getLstEdge(); }
 
 	public ArrayList<Node> getLstNodeAvailable()
 	{
@@ -41,7 +41,7 @@ public class Controleur
 
 	public boolean coloring(Edge edge, Node nodeStart, Node nodeEnd)
 	{
-		return this.metier.coloring(edge, nodeStart, nodeEnd);
+		return this.metier.coloring(edge);
 	}
 
 	public void calculNbTurn()
@@ -51,6 +51,6 @@ public class Controleur
 
 	public static void main(String args[]) 
 	{
-	    new Controleur();
+		new Controleur();
 	}
 }
