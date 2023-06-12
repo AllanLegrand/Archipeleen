@@ -1,5 +1,6 @@
 package metier;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
 
@@ -58,6 +59,15 @@ public class Node
 
     public boolean isSelected()  { return this.isSelected; }
     public void    setSelected() { this.isSelected = ! this.isSelected; }
+
+    public boolean hasEdgeColor()
+    {
+        for (Edge e : this.lstEdge) 
+            if ( e.getColor() != Color.LIGHT_GRAY.getRGB() )
+                return true;
+
+        return false;
+    }
 
     public int hasEdgeColor( int color)
     {

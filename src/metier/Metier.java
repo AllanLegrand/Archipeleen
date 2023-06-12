@@ -195,9 +195,37 @@ public class Metier
 	public ArrayList<Node> getLstNode() { return this.g.getLstNode(); }
 	public ArrayList<Edge> getLstEdge() { return this.g.getLstEdge(); }
 
-	public boolean coloring(Edge edge)
+	public boolean coloring(Edge edge, Node nodeStart, Node nodeEnd)
 	{
-		return this.g.coloring(edge);
+		if ( this.hasColor(nodeEnd.getColor()) )
+			return this.g.coloring(edge);
+		return false;
+	}
+
+	public ArrayList<Node> getLstNodeAvailable()
+	{
+		ArrayList<Node> lstAvailable = new ArrayList<Node>();
+		for(Node node : this.g.getLstNode())
+			if( node.hasEdgeColor())
+				for (Edge edge : node.getLstEdge()) 
+				{
+					Node tmp = edge.getNode1().equals(node) ? edge.getNode2() : edge.getNode1();
+					if( this.hasColor(tmp.getColor()))
+						lstAvailable.add(tmp);
+				}
+		
+		return lstAvailable;
+	}
+
+	public boolean hasColor(int color)
+	{
+		for (Card card : this.deck) 
+		{
+			if (card.getColor() == color)
+				return true;
+		}
+
+		return true;
 	}
 
 	public void calculNbTurn()

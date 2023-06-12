@@ -29,9 +29,9 @@ public class Controleur
 		this.ihm.repaintPanel();
 	}
 
-	public boolean coloring(Edge edge)
+	public boolean coloring(Edge edge, Node nodeStart, Node nodeEnd)
 	{
-		return this.metier.coloring(edge);
+		return this.metier.coloring(edge, nodeStart, nodeEnd);
 	}
 
 	public void calculNbTurn()
