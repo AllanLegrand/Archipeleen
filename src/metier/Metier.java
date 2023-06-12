@@ -207,7 +207,7 @@ public class Metier
 				for (Edge edge : node.getLstEdge()) 
 				{
 					Node tmp = edge.getNode1().equals(node) ? edge.getNode2() : edge.getNode1();
-					if( this.hasColor(tmp.getColor()))
+					if( this.coloring(edge) && this.hasColor(tmp.getColor()))
 						lstAvailable.add(tmp);
 				}
 		
