@@ -140,7 +140,7 @@ public class Metier
 			this.calculNbTurn();
 
 			Card card = this.deck.remove( 0 );
-			this.discard.add ( card );
+			this.hand.add ( card );
 
 			return card;
 		}
@@ -216,7 +216,7 @@ public class Metier
 
 	public boolean hasColor(int color)
 	{
-		for (Card card : this.deck) 
+		for (Card card : this.hand) 
 		{
 			if (card.getColor() == color)
 				return true;
@@ -239,7 +239,7 @@ public class Metier
 			for(Card card : this.discard)
 			{
 				this.deck.add(card);
-				this.discard.remove(card);
+				this.deck.remove(card);
 			}
 		}
 		
