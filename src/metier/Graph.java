@@ -29,7 +29,7 @@ public class Graph
     }
 
     
-    public Node addNode(String id, int posX, int posY, int color, int posXImage, int posYImage) 
+    public Node addNode(String id, int posX, int posY, int posXImage, int posYImage, int color) 
     { 
         this.lstNode.add(new Node(id, posX, posY, posXImage, posYImage, color));
         return this.lstNode.get(this.lstNode.size() - 1);

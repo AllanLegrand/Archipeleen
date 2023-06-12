@@ -2,6 +2,7 @@
 .\src\controleur\Controleur.java  
  
 .\src\ihm\FrameGraph.java  
+.\src\ihm\LabelCard.java  
 .\src\ihm\PanelGraph.java  
  
 .\src\metier\Card.java  
