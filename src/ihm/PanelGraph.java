@@ -25,7 +25,7 @@ import metier.Node;
 public class PanelGraph extends JPanel
 {
 	
-	public static int color = 1;
+	public static int color;
 
 	private Controleur ctrl;
 
