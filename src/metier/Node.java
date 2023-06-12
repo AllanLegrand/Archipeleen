@@ -68,7 +68,7 @@ public class Node
 
         return false;
     }
-
+    
     public int hasEdgeColor( int color)
     {
         int nb = 0;
