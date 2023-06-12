@@ -24,6 +24,11 @@ public class Controleur
     public ArrayList<Node> getLstNode() { return this.metier.getLstNode(); }
     public ArrayList<Edge> getLstEdge() { return this.metier.getLstEdge(); }
 
+	public ArrayList<Node> getLstNodeAvailable()
+	{
+		return this.metier.getLstNodeAvailable();
+	}
+
 	public void majIhm()
 	{
 		this.ihm.repaintPanel();

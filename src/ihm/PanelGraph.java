@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Panel;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.event.MouseAdapter;
@@ -13,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -58,6 +60,7 @@ public class PanelGraph extends JPanel
 	{
 		int min = this.getHeight() < this.getWidth() ? this.getHeight() : this.getWidth();
 		
+		String id = PanelGraph.color == 255 ? "Mutaa" : "Tic\u00F3";
 
 		Graphics2D g2 = (Graphics2D) g;
 
@@ -83,6 +86,7 @@ public class PanelGraph extends JPanel
 			int posX = node.getPosX();
 			int posY = node.getPosY();
 
+			if(!node.getId().equals(id)) this.assombrir(node);
 
 			g2.setColor(Color.BLACK);
 			g2.drawImage(node.getImg(), node.getPosXImg(), node.getPosYImg(), null);
@@ -94,6 +98,34 @@ public class PanelGraph extends JPanel
 				g2.fillRect(posX, posY, new ImageIcon("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png").getIconWidth(), new ImageIcon("./donnees/images/" + node.getId() + ".png").getIconWidth());
 			}
 		}
+	}
+
+	public void assombrir(Node node)
+	{
+		BufferedImage imgTmp;
+		try {
+			imgTmp = ImageIO.read(new File("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png"));
+		} catch (IOException iOE) {iOE.printStackTrace(); return;}
+
+		for (int i = 0; i < imgTmp.getWidth(); i++) 
+			for (int j = 0; j < imgTmp.getHeight(); j++) 
+			{
+				int rgb = imgTmp.getRGB(i, j);
+
+				int alpha = (rgb >> 24) & 0xFF;
+				int r     = (rgb >> 16) & 0xFF;
+				int g     = (rgb >> 8) & 0xFF;
+				int b     = rgb & 0xFF;
+
+				r *= 0.50;
+				b *= 0.50;
+				g *= 0.50;
+
+				imgTmp.setRGB(i, j,(alpha << 24) | (r << 16) | (g << 8) | b);
+			}
+
+		node.setImage(imgTmp);
+		node.setDark(true);
 	}
 }
 
@@ -151,7 +183,6 @@ class GereSelection extends MouseAdapter
 			if(nodeSelected) break;
 
 
-
 			if(PanelGraph.color == 0)
 			{
 				this.deselect();
@@ -201,38 +232,30 @@ class GereSelection extends MouseAdapter
 				}
 			}
 
-			if(nodeSelected)
-			{
-				BufferedImage imgTmp;
-				try {
-					imgTmp = ImageIO.read(new File("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png"));
-				} catch (IOException iOE) {iOE.printStackTrace(); break;}
-
-				for (int i = 0; i < imgTmp.getWidth(); i++) 
-					for (int j = 0; j < imgTmp.getHeight(); j++) 
-					{
-						int rgb = imgTmp.getRGB(i, j);
-
-						int alpha = (rgb >> 24) & 0xFF;
-                    	int r     = (rgb >> 16) & 0xFF;
-                    	int g     = (rgb >> 8) & 0xFF;
-                    	int b     = rgb & 0xFF;
-
-                    	r *= 0.50;
-                    	b *= 0.50;
-                    	g *= 0.50;
-
-						imgTmp.setRGB(i, j,(alpha << 24) | (r << 16) | (g << 8) | b);
-					}
-
-				node.setImage(imgTmp);
-				break;
-			} 
+		
 		}
 
 
 		if(!nodeSelected)
 			this.deselect();
+		else
+		{
+			ArrayList<Node> lstTmp = this.ctrl.getLstNodeAvailable();
+			for (Node node : this.ctrl.getLstNode())
+			{
+				if(!lstTmp.contains(node) && !node.isDark())
+				{
+					System.out.println("assombrir");
+					this.panel.assombrir(node);
+				}
+
+				if(lstTmp.contains(node) && node.isDark())
+				{
+					System.out.println("éclaircir");
+					node.setImage(new ImageIcon("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png").getImage());
+				}
+			}
+		}
 
 		this.ctrl.majIhm();
 	}
