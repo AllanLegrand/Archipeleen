@@ -2,8 +2,11 @@ package metier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 import java.io.FileInputStream;
+import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 
 import javax.swing.JOptionPane;
@@ -17,13 +20,13 @@ public class Metier
 	private Graph g;
 	
 	private ArrayList<Card> deck;
-	private ArrayList<Card> hand;
+	private Card hand;
 	private ArrayList<Card> discard;
 
 	private int round;
 	private boolean newColor;
 
-	private static int[] tabColor = {255, 16711680};
+	private static ArrayList<Integer> tabColor = new ArrayList<Integer>(Arrays.asList(255, 16711680));
 
 	private static Map<String,Integer> tabCardColor = new HashMap<String, Integer>() 
 	{{
@@ -41,9 +44,13 @@ public class Metier
 
 		this.discard = new ArrayList<Card>((Metier.tabCardColor.size()+1)*2);
 		this.deck    = new ArrayList<Card>((Metier.tabCardColor.size()+1)*2);
-		this.hand    = new ArrayList<Card>((Metier.tabCardColor.size()+1)*2);
+		this.hand    = null;
 
-		this.discard.add(new Card(false, null));
+		this.deck.add(new Card(false, null));
+		this.deck.add(new Card(true, null));
+
+		Collections.shuffle(tabColor);
+
 
 		this.generer();
 		this.drawCard();
@@ -75,11 +82,10 @@ public class Metier
 					continue;
 				}
 
-				
 				if(!existCard(tabCardColor.get(tabS.get(1))))
 				{
-					this.discard.add(new Card(false, tabCardColor.get(tabS.get(1))));
-					this.discard.add(new Card(true, tabCardColor.get(tabS.get(1))));
+					this.deck.add(new Card(false, tabCardColor.get(tabS.get(1))));
+					this.deck.add(new Card(true, tabCardColor.get(tabS.get(1))));
 				}
 
 				this.g.addNode(tabS.get(0), (int) (Integer.parseInt(tabS.get(2)) * 0.8), (int) (Integer.parseInt(tabS.get(3)) * 0.8), (int) (Integer.parseInt(tabS.get(4)) * 0.8), (int) (Integer.parseInt(tabS.get(5)) * 0.8), Integer.parseInt(tabS.get(3)));
@@ -96,7 +102,7 @@ public class Metier
 				this.g.addEdge(node1 + "-" + node2, this.g.getNode(node1), this.g.getNode(node2), 1);
 			}
 
-
+			System.out.println(this.deck.size());
 			sc.close();
 		}
 		catch (Exception e){ e.printStackTrace(); }
@@ -105,7 +111,7 @@ public class Metier
 	private boolean existCard(int color)
 	{
 		for (Card card : this.deck) 
-			if (card.getColor() == color)
+			if ( card.getColor() != null && card.getColor() == color)
 				return true;
 		return false;
 	}
@@ -138,12 +144,14 @@ public class Metier
 	 */
 	public Card drawCard()
 	{
+		this.hand = null;
 		if ( !this.deck.isEmpty() )
 		{
 			this.calculNbTurn();
 
 			Card card = this.deck.remove( 0 );
-			this.hand.add ( card );
+
+			this.hand = card;
 
 			return card;
 		}
@@ -197,7 +205,7 @@ public class Metier
 
 	public boolean coloring(Edge edge)
 	{
-		if ( this.hasColor( (edge.getNode1().hasEdgeColor(PanelGraph.color) > 0 ? edge.getNode2() : edge.getNode1()).getColor()) )
+		if ( this.hand.getColor() != null && this.hand.getColor() ==  (edge.getNode1().hasEdgeColor(PanelGraph.color) > 0 ? edge.getNode2() : edge.getNode1()).getColor()) 
 			return this.g.coloring(edge);
 		return false;
 	}
@@ -210,22 +218,11 @@ public class Metier
 				for (Edge edge : node.getLstEdge()) 
 				{
 					Node tmp = edge.getNode1().equals(node) ? edge.getNode2() : edge.getNode1();
-					if( this.coloring(edge) && this.hasColor(tmp.getColor()))
+					if( this.coloring(edge) && this.hand.getColor() == tmp.getColor())
 						lstAvailable.add(tmp);
 				}
 		
 		return lstAvailable;
-	}
-
-	public boolean hasColor(int color)
-	{
-		for (Card card : this.hand) 
-		{
-			if (card.getColor() == color)
-				return true;
-		}
-
-		return true;
 	}
 
 	public void calculNbTurn()
@@ -247,14 +244,12 @@ public class Metier
 			}
 		}
 		
-		this.drawCard();
-		
 		this.changeColor();
 	}
 
 	public void changeColor()
 	{
-		PanelGraph.color = tabColor[this.round];	
+		PanelGraph.color = tabColor.get(this.round);	
 	}
 
 	public void endGame()

@@ -11,6 +11,6 @@ public class Card
 		this.color = color;
 	}
 
-	public int getColor() { return this.color; }
+	public Integer getColor() { return this.color; }
 	public boolean isPrimary() { return this.isPrimary; }
 }
