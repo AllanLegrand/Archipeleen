@@ -29,11 +29,12 @@ public class Graph
 	protected Map<String, ArrayList <Node>> ensRegion;
 
 	/**
-	 * Cette classe représente une archipel avec une liste d'îles et de routes
-	 * lstNode désigne une liste d'îles
-	 * lstEdge désigne une liste de routes
-	 * firstColored désigne l'état coloration de la première route
-	 * ensRegion désigne les regions et leur nom
+	 * Cette classe représente une archipel {@code Archipelago} composé d'une liste plusieurs îles {@code Island} 
+	 * et d'une ou plusieurs routes {@code Road}. Les attributs sont : 
+	 * <p>{@code lstNode} désigne une liste d'îles </br>
+	 * <p>{@code lstEdge} désigne une liste de routes </br>
+	 * <p>{@code firstColored} désigne l'état coloration de la première route </br>
+	 * <p>{@code ensRegion} désigne les regions et leur nom 
 	 */
 	public Graph()
 	{
@@ -47,7 +48,7 @@ public class Graph
 
 
 	/**
-	 * Cette méthode permet d'ajouter une île dans l'Archipel
+	 * Cette méthode permet d'ajouter une île{@code Island} dans l'archipel {@code Archipelago}
 	 * Elle reprend les paramètres du constructeur Island
 	 * @see Node
 	 */
@@ -59,23 +60,23 @@ public class Graph
 
 
 	/**
-	 * Cette méthode permet d'ajouter une route dans l'Archipel
+	 * Cette méthode permet d'ajouter une route {@code Road} dans l'Archipel {@code Archipelago}
 	 * Elle reprend les paramètres du constructeur Road
 	 * @see Edge
 	 */
 	public void addEdge(String id, Node n1, Node n2, int cost) { this.lstEdge.add(new Edge(id, n1, n2, cost)); }
 
 	/**
-	 * Cette méthode retourne une île de l'archipel via un indice
+	 * Cette méthode retourne une île {@code Island} de l'archipel via un indice
 	 * @param index désigne l'indice de la liste
-	 * @return Une ile de l'archipel
+	 * @return retourne île {@code Island} de l'indice entré de l'archipel de l'archipel
 	 */
 	public Node getNode(int index) { return this.lstNode.get(1); }
 
 	/**
-	 * Cette méthode retourne une île de l'archipel via son identifiant
-	 * @param id désigne l'identifiant d'une île
-	 * @return Une ile de l'archipel
+	 * Cette méthode retourne une île {@code Island} de l'archipel via son identifiant
+	 * @param id désigne l'identifiant d'une île {@code Island}
+	 * @return retourne l'île {@code Island} de l'indice entré de l'archipel
 	 */
 	public Node getNode(String id) 
 	{
@@ -87,20 +88,22 @@ public class Graph
 	}
 
 	/**
-	 * @return Toutes les iles de l'archipel
+	 * Cette méthode permet retourne toutes les routes {@code Island} de l'archipel
+	 * @return retourne une liste de toutes les îles {@code ArrayList<Island>}
 	 */
 	public ArrayList<Node> getLstNode() { return this.lstNode; }
 
 	/**
-	 * @return Toutes les routes de l'archipel
+	 * Cette méthode permet retourne toutes les routes {@code Road} de l'archipel
+	 * @return retourne une liste de toutes les routes {@code ArrayList<Road>}
 	 */
 	public ArrayList<Edge> getLstEdge() { return this.lstEdge; }
 
 	/**
-	 * Cette méthode permet de colorer une route
-	 * @return La possibilité de colorié une route
+	 * Cette méthode permet de colorer une route {@code Road}
+	 * @param edge la route {@code Road} qu'on veut colorier 
+	 * @return La possibilité de colorier une route
 	 * 
-	 * @see Edge
 	 */
 	public boolean coloring(Edge edge)
 	{

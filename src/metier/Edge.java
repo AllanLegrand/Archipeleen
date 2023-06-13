@@ -19,11 +19,12 @@ public class Edge
 	private int cost;
 
 	/**
-	 * Cette classe représente une route reliant 2 îles ensemble
+	 * Cette classe représente une route {@code Road} reliant 2 îles {@code Island} ensemble
 	 * @param id l'identifiant de la route
 	 * @param n1 l'île 1 relié à la route
 	 * @param n2 l'île 2 relié à la route
-	 * @param cost le bonus de la route
+	 * @param color la couleur de la route
+	 * @param cost le bonus au niveau du score de la route 
 	 */
 	public Edge(String id, Node n1, Node n2, int cost)
 	{
@@ -39,13 +40,35 @@ public class Edge
 		this.n2.addEdge(this);
 	}
 
+	/**
+	 * Cette méthode retourne le bonus de la route
+	 * @return retourne le bonus de la route
+	 */
 	public int  getCost () { return this.cost; }
+
+	/**
+	 * Cette méthode retourne l'île 1  à l'extrémité de la route
+	 * @return retourne l'île 1 {@code Island}
+	 */
 	public Node getNode1() { return this.n1; }
+
+	/**
+	 * Cette méthode retourne l'île 2  à l'extrémité de la route
+	 * @return retourne l'île 2 {@code Island}
+	 */
 	public Node getNode2() { return this.n2; }
 
+	/**
+	 * Cette méthode change la couleur d'une route {@code Road}
+	 * @return retourne la couleur de la route {@code Road}
+	 */
 	public int getColor() { return this.color; }
 
 
+	/**
+	 * Cette méthode change la couleur d'une route {@code Road}
+	 * @param color une couleur
+	 */
 	public void setColor(int color)
 	{
 		if( color > 0 && color < 255*256*256+255*256+255)
@@ -53,8 +76,9 @@ public class Edge
 	}
 
 	/**
-	 * @param lstEdge une liste de route
-	 * @return Si la route se croise avec une autre route de la liste
+	 * Cette méthode vérifie si deux routes {@code Road} se croisent
+	 * @param lstEdge une liste de route {@code ArrayList<Road>}
+	 * @return retourne si la route se croise avec une autre route de la liste
 	 */
 	public boolean isCrossed(ArrayList<Edge> lstEdge)
 	{
