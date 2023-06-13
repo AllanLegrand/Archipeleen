@@ -43,7 +43,7 @@ public class Controleur
 
 	public Card getHand() { return this.metier.getHand(); }
 
-	public void setHand() { this.metier.setHand();}
+	public void setHand(Card card) { this.metier.setHand();}
 
 	public ArrayList<Node> getLstNodeAvailable(Node node)
 	{
