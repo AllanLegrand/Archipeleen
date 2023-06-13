@@ -3,12 +3,10 @@ package ihm;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
-import java.awt.Panel;
-import java.awt.Rectangle;
-import java.awt.Robot;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -17,9 +15,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.print.attribute.standard.QueuedJobCount;
+
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JLabel;
 
 import controleur.Controleur;
 import metier.Edge;
@@ -43,7 +43,11 @@ public class PanelGraph extends JPanel
 
 	private Controleur ctrl;
 
-	private LabelCard[] tabLblCard;
+	private ButtonCard[] tabBtnCard;
+
+	private JButton     btnSkip;
+
+	private JLabel      lblScore;
 
 	public PanelGraph(Controleur ctrl)
 	{
@@ -52,31 +56,50 @@ public class PanelGraph extends JPanel
 		this.setLayout(new BorderLayout());
 
 		/* Création des composants */
-		this.tabLblCard = new LabelCard[10];
-		for (int i = 0; i < tabLblCard.length - 1; i++)
+		this.tabBtnCard = new ButtonCard[10];
+		for (int i = 0; i < tabBtnCard.length; i++)
 		{
-			tabLblCard[i] = new LabelCard(this.ctrl.getCard(i));
+			tabBtnCard[i] = new ButtonCard(this.ctrl);
 		}
 
-		tabLblCard[9] = new LabelCard(this.ctrl.getHand());
+
+		this.btnSkip   = new JButton("Passer le tour");
+
+		this.lblScore  = new JLabel("Score : 0");
 
 		/* Ajout des composants */
 		JPanel panelTmp = new JPanel(new GridLayout(5, 2, 5, 5));
-		for (LabelCard jButton : tabLblCard)
+		for (ButtonCard jButton : tabBtnCard)
 			panelTmp.add(jButton);
 
 		this.add(panelTmp, BorderLayout.EAST);
 
+		panelTmp = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+
+		panelTmp.add(this.lblScore);
+		panelTmp.add(this.btnSkip);
+
+		this.add(panelTmp, BorderLayout.SOUTH);
+
+		String id = PanelGraph.color == 255 ? "Mutaa" : "Tic\u00F3";
+
+		for (Node node : this.ctrl.getLstNode())
+			if(!node.getId().equals(id)) this.assombrir(node);
+
+
+		/* Activation des composants */
 		this.addMouseListener(new GereSelection(ctrl, this));
 	}
 
+	public void setScore(int score)
+	{
+		this.lblScore.setText("Score : " + score);
+	}
 
 	@Override
 	protected void paintComponent(Graphics g) 
 	{
 		int min = this.getHeight() < this.getWidth() ? this.getHeight() : this.getWidth();
-		
-		String id = PanelGraph.color == 255 ? "Mutaa" : "Tic\u00F3";
 
 		Graphics2D g2 = (Graphics2D) g;
 
@@ -102,7 +125,7 @@ public class PanelGraph extends JPanel
 			int posX = node.getPosX();
 			int posY = node.getPosY();
 
-			if(!node.getId().equals(id)) this.assombrir(node);
+
 
 			g2.setColor(Color.BLACK);
 			g2.drawImage(node.getImg(), node.getPosXImg(), node.getPosYImg(), null);
@@ -141,7 +164,41 @@ public class PanelGraph extends JPanel
 			}
 
 		node.setImage(imgTmp);
-		node.setDark(true);
+		node.setDark(-1);
+	}
+
+	public void eclaircir(Node node)
+	{
+		BufferedImage imgTmp;
+		try {
+			imgTmp = ImageIO.read(new File("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png"));
+		} catch (IOException iOE) {iOE.printStackTrace(); return;}
+
+		for (int i = 0; i < imgTmp.getWidth(); i++) 
+			for (int j = 0; j < imgTmp.getHeight(); j++) 
+			{
+				int rgb = imgTmp.getRGB(i, j);
+
+				int alpha = (rgb >> 24) & 0xFF;
+				int r     = (rgb >> 16) & 0xFF;
+				int g     = (rgb >> 8) & 0xFF;
+				int b     = rgb & 0xFF;
+
+				r *= 1.10;
+				b *= 1.10;
+				g *= 1.10;
+
+				imgTmp.setRGB(i, j,(alpha << 24) | (r << 16) | (g << 8) | b);
+			}
+
+		node.setImage(imgTmp);
+		node.setDark(1);
+	}
+
+	public void neutre(Node node)
+	{
+		node.setImage(new ImageIcon("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png").getImage());
+		node.setDark(0);
 	}
 }
 
@@ -192,94 +249,63 @@ class GereSelection extends MouseAdapter
 
 	public void mouseClicked(MouseEvent e)
 	{
-		ArrayList<Node> lstTmp ;
-		if(this.node1 != null)
-		lstTmp = this.ctrl.getLstNodeAvailable(this.node1);
-		
-		boolean nodeSelected = false;
+		if(this.ctrl.getDiscardSize() != ButtonCard.nbBtnReturn) return ;
+
+		boolean selected = false;
 
 		for (Node node : this.ctrl.getLstNode()) 
 		{
-			if(nodeSelected) break;
-
-
-			if(PanelGraph.color == 0)
+			if(node.getDark() == 0 && this.estCompris(e.getX(), e.getY(), node))
 			{
-				this.deselect();
-				return;
-			}		
-
-
-			if(!node.isDark() && this.estCompris(e.getX(), e.getY(), node))
-			{
+				//sort si deux node sont déjà choisis
+				if(this.node1 != null && this.node2 != null)this.deselect();
 
 				if(this.node1 != null && this.node2 == null)
 				{
 					this.node2 = node;
-					this.node2.setSelected();
 
-					Edge edge  = this.node1.hasEdgeBetween(this.node2);
-
-					if(edge == null)
-                    {
-                        this.deselect();
-                        return;
-                    }
-
-					if(edge != null && edge.getColor() == Color.LIGHT_GRAY.getRGB())
-					{
-						if(this.ctrl.coloring(edge, node1, node2) && lstTmp.contains(node1))
-						{
-							edge.setColor(PanelGraph.color);
-							
-							this.deselect();
-							this.ctrl.calculNbTurn();
-						}
-						else
-							this.deselect();
-					}
-				}	
+					node1.hasEdgeBetween(node2).setColor(PanelGraph.color);
+					this.ctrl.drawCard();
+				}
 
 				if(this.node1 == null)
 				{
 					this.node1 = node;
-					this.node1.setSelected();
 				}
-				
-				if(this.node1 == node || this.node2 == node)
-				{
-					nodeSelected = true;
-				}
-			}
 
-		
+				this.panel.eclaircir(node);
+
+				selected = true;
+			}	
 		}
 
-
-
-
-		if(!nodeSelected)
-			this.deselect();
-		else
+		if(!selected)
 		{
-			lstTmp = this.ctrl.getLstNodeAvailable(this.node1);
-			for (Node node : this.ctrl.getLstNode())
-			{
-				if(!lstTmp.contains(node) && !node.isDark())
-				{
-					this.panel.assombrir(node);
-				}
+			this.deselect();
+			return;
+		}
 
-				if(lstTmp.contains(node) && node.isDark())
-				{
-					node.setImage(new ImageIcon("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png").getImage());
-				}
+		ArrayList<Node> lstNodeAvailable = this.ctrl.getLstNodeAvailable(this.node1);
+		for (Node node : this.ctrl.getLstNode()) 
+		{
+			if(node.getDark() != 0 && lstNodeAvailable.contains(node))
+			{
+				this.panel.neutre(node);
+				continue;
+			}
+
+			if(node.getDark() != -1 && !lstNodeAvailable.contains(node))
+			{
+				this.panel.assombrir(node);
+				continue;
 			}
 		}
 
 		this.ctrl.majIhm();
 	}
 
+
+	
 	public void deselect()
 	{
 		if(this.node1 != null) 

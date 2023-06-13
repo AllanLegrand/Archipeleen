@@ -106,27 +106,9 @@ public class Graph
 
 		if ( edge.isCrossed(this.lstEdge)) return false;
 
-		String n2 = edge.getNode2().getId();
-		String n1 = edge.getNode1().getId();
-		
-		String nDep;
-
-		if ( PanelGraph.color == Metier.tabColor.get(0) ) nDep = "Mutaa"; else nDep = "Tic\u00F3";
-
-		if(!firstColored)
-		{
-			if(n2.equals( nDep ) || n1.equals( nDep ))
-			{
-				this.firstColored = true;
-				return true;
-			}
-
-			return false;
-		}
-
 		if ( edge.getNode1().hasEdgeColor(PanelGraph.color) > 1 || edge.getNode2().hasEdgeColor(PanelGraph.color) > 1) return false;
 
-		if ( !(edge.getNode1().hasEdgeColor(PanelGraph.color) > 0 ^ edge.getNode2().hasEdgeColor(PanelGraph.color) > 0)) return false;
+		// if ( !(edge.getNode1().hasEdgeColor(PanelGraph.color) > 0 ^ edge.getNode2().hasEdgeColor(PanelGraph.color) > 0)) return false;
 
 		return true;
 	}
