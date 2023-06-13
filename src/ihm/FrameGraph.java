@@ -8,6 +8,16 @@ import java.awt.Toolkit;
 
 import controleur.Controleur;
 
+/**
+ * @author Allan LEGRAND
+ * @author Hugo HUGO
+ * @author Luc LECARPENTIER
+ * @author Ashanti NJANJA
+ * 
+ * @see Controleur
+ * @see PanelGraph
+ */
+
 public class FrameGraph extends JFrame
 {
 	private static int width  = Toolkit.getDefaultToolkit().getScreenSize().width;

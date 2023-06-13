@@ -13,6 +13,16 @@ import java.util.Map;
 
 import ihm.PanelGraph;
 
+/**
+ * @author Allan LEGRAND
+ * @author Hugo HUGO
+ * @author Luc LECARPENTIER
+ * @author Ashanti NJANJA
+ * 
+ * @see Card
+ * @see Graph
+ */
+
 public class Metier 
 {
 	private Graph g;
@@ -22,6 +32,7 @@ public class Metier
 	private ArrayList<Card> discard;
 
 	private int round;
+	private int specialTurn; // utiliser pour determinerla bifurcation
 
 	public static ArrayList<Integer> tabColor = new ArrayList<Integer>(Arrays.asList(255, 16711680));
 
@@ -41,11 +52,13 @@ public class Metier
 		this.deck    = new ArrayList<Card>();
 		this.hand    = null;
 
+		this.specialTurn = (int) (Math.random() * 10);
+
 		this.deck.add(new Card(false, -1));
 		this.deck.add(new Card(true , -1));
 		
-		this.generate();
 		Collections.shuffle(Metier.tabColor);
+		this.generate();
 		Collections.shuffle(this.deck);
 		this.drawCard();
 	}
@@ -214,7 +227,7 @@ public class Metier
 	{
 		ArrayList<Node> lstAvailable = new ArrayList<Node>();
 
-		for (Edge edge : node.getLstEdge()) 
+		for (Edge edge : node.getLstEdge())
 		{
 			Node tmp = edge.getNode1().equals(node) ? edge.getNode2() : edge.getNode1();
 			if( this.g.coloring(edge) && this.hand.getColor() == tmp.getColor())
@@ -224,8 +237,17 @@ public class Metier
 		return lstAvailable;
 	}
 
+	public void bifurcation()
+	{
+		// donne la possibilité de partir de n'importe quelle ile pour la prochaine carte
+		// Ajoute un nouveau bout
+	}
+
 	public void calculNbTurn()
 	{
+
+		if ( this.specialTurn -1 == this.discard.size() ) this.bifurcation();
+
 		int nbTurn = 0;
 
 		for ( Card card : this.discard )
@@ -240,6 +262,8 @@ public class Metier
 				this.deck.add(card);
 				this.discard.remove(card);
 			}
+
+			this.specialTurn = (int) (Math.random() * 10);
 			Collections.shuffle(this.deck);
 		}
 

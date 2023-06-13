@@ -6,6 +6,13 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
+/**
+ * @author Allan LEGRAND
+ * @author Hugo HUGO
+ * @author Luc LECARPENTIER
+ * @author Ashanti NJANJA
+ */
+
 public class Node 
 {
 	private String id;

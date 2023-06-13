@@ -9,6 +9,16 @@ import ihm.PanelGraph;
 
 import java.util.HashMap;
 
+/**
+ * @author Allan LEGRAND
+ * @author Hugo HUGO
+ * @author Luc LECARPENTIER
+ * @author Ashanti NJANJA
+ * 
+ * @see Node
+ * @see Edge
+ */
+
 public class Graph 
 {
 	private ArrayList<Node> lstNode;
