@@ -59,7 +59,6 @@ public class Metier
 		
 		Collections.shuffle(Metier.tabColor);
 		this.generate();
-		Collections.shuffle(this.deck);
 		this.drawCard();
 	}
 
@@ -155,14 +154,6 @@ public class Metier
         tabS.add(mot);
         return tabS;
     }
-
-	public void setHand(Card card)
-	{
-		this.calculNbTurn();
-		this.discard.add(card);
-		this.deck.remove(card);
-		this.hand = card;
-	}
 	
 	/**
 	 * Retourne la carte piochée et la met dans la main
