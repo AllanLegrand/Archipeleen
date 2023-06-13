@@ -268,4 +268,9 @@ public class Metier
 		JOptionPane.showMessageDialog(null, "La partie est finie\nVotre score est : " + this.getFinalScore());
 		PanelGraph.color = 0;
 	}
+
+	public ArrayList<Card> getDeck() 
+	{
+		return this.deck;
+	}
 }
