@@ -3,7 +3,6 @@ package ihm;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -20,8 +19,6 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.print.attribute.standard.QueuedJobCount;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controleur.Controleur;
@@ -37,11 +34,6 @@ public class PanelGraph extends JPanel
 
 	private LabelCard[] tabLblCard;
 
-	private JButton     btnReturn;
-	private JButton     btnSkip;
-
-	private JLabel      lblScore;
-
 	public PanelGraph(Controleur ctrl)
 	{
 		this.ctrl = ctrl;
@@ -55,12 +47,7 @@ public class PanelGraph extends JPanel
 			tabLblCard[i] = new LabelCard(this.ctrl.getCard(i));
 		}
 
-		tabLblCard[9]  = new LabelCard(this.ctrl.getHand());
-
-		this.btnReturn = new JButton("Retourner Carte");
-		this.btnSkip   = new JButton("Passer le Tour ");
-
-		this.lblScore  = new JLabel("Score : 0");
+		tabLblCard[9] = new LabelCard(this.ctrl.getHand());
 
 		/* Ajout des composants */
 		JPanel panelTmp = new JPanel(new GridLayout(5, 2, 5, 5));
@@ -69,22 +56,7 @@ public class PanelGraph extends JPanel
 
 		this.add(panelTmp, BorderLayout.EAST);
 
-		panelTmp = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-
-		panelTmp.add(this.lblScore);
-		panelTmp.add(this.btnSkip);
-		panelTmp.add(this.btnReturn);
-
-		this.add(panelTmp, BorderLayout.SOUTH);
-
-		/* Activation des composants */
-
 		this.addMouseListener(new GereSelection(ctrl, this));
-	}
-
-	public void setScore(int score)
-	{
-		this.lblScore.setText("Score : " + score);
 	}
 
 
@@ -159,33 +131,6 @@ public class PanelGraph extends JPanel
 
 		node.setImage(imgTmp);
 		node.setDark(true);
-	}
-
-	public void eclaircir(Node node)
-	{
-		BufferedImage imgTmp;
-		try {
-			imgTmp = ImageIO.read(new File("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png"));
-		} catch (IOException iOE) {iOE.printStackTrace(); return;}
-
-		for (int i = 0; i < imgTmp.getWidth(); i++) 
-			for (int j = 0; j < imgTmp.getHeight(); j++) 
-			{
-				int rgb = imgTmp.getRGB(i, j);
-
-				int alpha = (rgb >> 24) & 0xFF;
-				int r     = (rgb >> 16) & 0xFF;
-				int g     = (rgb >> 8) & 0xFF;
-				int b     = rgb & 0xFF;
-
-				r *= 1.50;
-				b *= 1.50;
-				g *= 1.50;
-
-				imgTmp.setRGB(i, j,(alpha << 24) | (r << 16) | (g << 8) | b);
-			}
-
-		node.setImage(imgTmp);
 	}
 }
 
@@ -320,9 +265,6 @@ class GereSelection extends MouseAdapter
 				}
 			}
 		}
-
-		if(this.node1 != null)
-			this.panel.eclaircir(this.node1);
 
 		this.ctrl.majIhm();
 	}
