@@ -56,6 +56,8 @@ public class FrameGraph extends JFrame
 	public void repaintPanel()
 	{
 		super.repaint();
+		
+
 		this.panelGraph.repaint();
 	}
 }

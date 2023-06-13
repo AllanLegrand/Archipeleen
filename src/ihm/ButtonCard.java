@@ -8,28 +8,28 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import java.awt.event.MouseEvent;
 
 import controleur.Controleur;
+import metier.Card;
 
-public class ButtonCard extends JButton implements MouseMotionListener, MouseListener
+public class ButtonCard extends JLabel implements MouseMotionListener, MouseListener
 {
-	public static int nbBtnReturn = 0; 
+	public static int        nbBtnReturn = 0;
+	public static ButtonCard current = null;
 
+	private Card       card;
 	private Controleur ctrl;
-	private boolean bReturn;
+	private boolean    bReturn;
 
-	public ButtonCard(Controleur ctrl)
+	public ButtonCard(Card card, Controleur ctrl)
 	{
-		super(new ImageIcon(new ImageIcon("./donnees/images/carte/carte_retournée.png").getImage().getScaledInstance((int)(Controleur.WIDTH * 0.08), (int) (Controleur.HEIGHT * 0.18), Image.SCALE_SMOOTH)));
+		super(new ImageIcon(new ImageIcon(card.getPath()).getImage().getScaledInstance((int)(Controleur.WIDTH * 0.08), (int) (Controleur.HEIGHT * 0.18), Image.SCALE_SMOOTH)));
 
-		this.setBorderPainted(false);
-		this.setFocusPainted(false);
-		this.setContentAreaFilled(false);
-
+		this.card = card;
 		this.ctrl = ctrl;
-
 		this.bReturn = false;
 
 		this.addMouseListener(this);
@@ -51,6 +51,8 @@ public class ButtonCard extends JButton implements MouseMotionListener, MouseLis
 		return true;
 	}
 
+	public boolean isReturn() {return bReturn;}
+
 	@Override
 	protected void paintComponent(Graphics g) 
 	{
@@ -65,11 +67,14 @@ public class ButtonCard extends JButton implements MouseMotionListener, MouseLis
 		{
 			this.bReturn = true;
 		
-			this.setIcon(new ImageIcon(new ImageIcon(this.ctrl.getHand().getPath()).getImage().getScaledInstance((int) (Controleur.WIDTH * 0.08), (int) (Controleur.HEIGHT * 0.18), Image.SCALE_SMOOTH)));
+			this.setIcon(new ImageIcon(new ImageIcon("./donnees/images/carte/carte_retournée.png").getImage().getScaledInstance((int) (Controleur.WIDTH * 0.08), (int) (Controleur.HEIGHT * 0.18), Image.SCALE_SMOOTH)));
 
 			this.setEnabled(false);
 
+			ButtonCard.current = this;
 			ButtonCard.nbBtnReturn++;
+
+			this.ctrl.setHand(this.card);
 		}
 
 	}
