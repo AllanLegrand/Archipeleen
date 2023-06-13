@@ -58,13 +58,13 @@ public class Graph
 		String n2 = edge.getNode2().getId();
 		String n1 = edge.getNode1().getId();
 		
-		String islDep;
+		String nDep;
 
-		if ( PanelGraph.color == Metier.TAB_COLOR[0] ) islDep = "Mutaa"; else islDep = "Tic\u00F3";
+		if ( PanelGraph.color == Metier.TAB_COLOR[0] ) nDep = "Mutaa"; else nDep = "Tic\u00F3";
 
 		if(!firstColored)
 		{
-			if(n2.equals( islDep ) || n1.equals( islDep ))
+			if(n2.equals( nDep ) || n1.equals( nDep ))
 			{
 				this.firstColored = true;
 				return true;
