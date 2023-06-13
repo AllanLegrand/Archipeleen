@@ -12,6 +12,12 @@ public class Card
 	private boolean isPrimary;
 	private int     color;
 
+	/**
+	 * Cette classe représente une carte colorée 
+	 * @param isPrimary désigne si la carte est primaire
+	 * @param color désigne la couleur de la carte
+	 */
+
 	public Card ( boolean isPrimary, Integer color)
 	{
 		this.isPrimary = isPrimary;
@@ -26,6 +32,10 @@ public class Card
 	public int     getColor() { return this.color; }
 	public boolean isPrimary() { return this.isPrimary; }
 
+	/**
+	 * Cette méthode permet d'acceder à l'image de la carte
+	 * @return La direction de l'image de la carte
+	 */
 	public String getPath()
 	{
 		String color = "";
