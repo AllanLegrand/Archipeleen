@@ -48,14 +48,17 @@ public class Metier
 
 		this.deck.add(new Card(false, -1));
 		this.deck.add(new Card(true , -1));
-
+		
 		Collections.shuffle(tabColor);
 		this.generer();
 		
 		this.drawCard();
 	}
 
-	private void generer()
+	/**
+	 * Remplissage du graphe (node et edge) via un document csv
+	 */
+	private void generate()
     {
         try
 		{
@@ -69,7 +72,7 @@ public class Metier
 			String nomReg = sc.nextLine();
 			while ( sc.hasNextLine() )
 			{       
-			    ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
+			    ArrayList<String> tabS = Metier.decomposer(sc.nextLine(), ',');
 			    // Quand il y a une ligne vide, on change de région
 			    if ( tabS.size() == 1 )
 				{
@@ -93,7 +96,7 @@ public class Metier
 
 			while(sc.hasNextLine())
 			{
-				ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
+				ArrayList<String> tabS = Metier.decomposer(sc.nextLine(), ',');
 
 				String node1 = tabS.get(0);
 				String node2 = tabS.get(1);
@@ -118,12 +121,10 @@ public class Metier
 				return true;
 		return false;
 	}
+	
+	public ArrayList<Card> getDeck() { return this.deck; }
 
-	public Card getCard(int indice)
-	{
-		return this.deck.get(indice);
-	}
-
+	public Card getCard(int indice) { return this.deck.get(indice); }
 	public Card getHand() { return this.hand; }
 
 	private static ArrayList<String> decomposer(String chaine, char dec)
@@ -149,7 +150,7 @@ public class Metier
     }
 	
 	/**
-	 * Cette méthode retourne la carte piochée
+	 * Retourne la carte piochée et la met dans la main
 	 * @return Card : la carte rétourné
 	 */
 	public Card drawCard()
@@ -269,8 +270,4 @@ public class Metier
 		PanelGraph.color = 0;
 	}
 
-	public ArrayList<Card> getDeck() 
-	{
-		return this.deck;
-	}
 }
