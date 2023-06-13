@@ -18,6 +18,11 @@ public class Card
 		this.color = color;
 	}
 
+	public boolean isEqualsColor(int color)
+	{
+		return this.color == -1 || color == this.color;
+	}
+
 	public int     getColor() { return this.color; }
 	public boolean isPrimary() { return this.isPrimary; }
 
