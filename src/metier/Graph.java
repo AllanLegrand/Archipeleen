@@ -32,6 +32,8 @@ public class Graph
 	 * Cette classe représente une archipel avec une liste d'îles et de routes
 	 * lstNode désigne une liste d'îles
 	 * lstEdge désigne une liste de routes
+	 * firstColored désigne l'état coloration de la première route
+	 * ensRegion désigne les regions et leur nom
 	 */
 	public Graph()
 	{
@@ -70,7 +72,6 @@ public class Graph
 	 */
 	public Node getNode(int index) { return this.lstNode.get(1); }
 
-
 	/**
 	 * Cette méthode retourne une île de l'archipel via son identifiant
 	 * @param id désigne l'identifiant d'une île
@@ -91,7 +92,6 @@ public class Graph
 	public ArrayList<Node> getLstNode() { return this.lstNode; }
 
 	/**
-	 * 
 	 * @return Toutes les routes de l'archipel
 	 */
 	public ArrayList<Edge> getLstEdge() { return this.lstEdge; }
@@ -99,6 +99,8 @@ public class Graph
 	/**
 	 * Cette méthode permet de colorer une route
 	 * @return La possibilité de colorié une route
+	 * 
+	 * @see Edge
 	 */
 	public boolean coloring(Edge edge)
 	{
@@ -111,15 +113,5 @@ public class Graph
 		// if ( !(edge.getNode1().hasEdgeColor(PanelGraph.color) > 0 ^ edge.getNode2().hasEdgeColor(PanelGraph.color) > 0)) return false;
 
 		return true;
-	}
-
-
-	/**
-	 * Cette méthode permet de colorer une route
-	 * @return La possibilité de colorié une route
-	 */
-	public void setFirstColored() 
-	{
-		this.firstColored = false;
 	}
 }
