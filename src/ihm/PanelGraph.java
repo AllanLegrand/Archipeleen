@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -140,6 +141,12 @@ public class PanelGraph extends JPanel implements ActionListener
 				g2.setColor(Color.YELLOW);
 				g2.fillRect(posX, posY, new ImageIcon("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png").getIconWidth(), new ImageIcon("./donnees/images/" + node.getId() + ".png").getIconWidth());
 			}
+		}
+
+		if(this.ctrl.getHand() != null)
+		{
+			Image img = new ImageIcon(this.ctrl.getHand().getPath()).getImage();
+			g2.drawImage(img, this.getWidth() - img.getWidth(null), this.getHeight() - img.getHeight(null), null);
 		}
 	}
 
@@ -306,17 +313,18 @@ class GereSelection extends MouseAdapter
 		{
 			if(node.getDark() == 0 && this.estCompris(e.getX(), e.getY(), node))
 			{
-				//sort si deux node sont déjà choisis
-				if(this.node1 != null && this.node2 != null)this.deselect();
-
+				//sélection de la deuxième node
 				if(this.node1 != null && this.node2 == null)
 				{
 					this.node2 = node;
 
 					node1.hasEdgeBetween(node2).setColor(PanelGraph.color);
-					this.ctrl.drawCard();
+
 				}
 
+				this.deselect();
+
+				//sélection de la 1ère node
 				if(this.node1 == null)
 				{
 					this.node1 = node;
