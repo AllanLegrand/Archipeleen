@@ -47,7 +47,7 @@ public class Metier
 		this.deck.add(new Card(false, -1));
 		this.deck.add(new Card(true , -1));
 		
-		Collections.shuffle(tabColor);
+		this.generate();
 		Collections.shuffle(this.deck);
 		this.drawCard();
 	}
