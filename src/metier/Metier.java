@@ -37,8 +37,8 @@ public class Metier
 	{
 		this.g = new Graph();
 
-		this.discard = new ArrayList<Card>((Metier.MAP_CARD_COLOR.size()+1)*2);
-		this.deck    = new ArrayList<Card>((Metier.MAP_CARD_COLOR.size()+1)*2);
+		this.discard = new ArrayList<Card>();
+		this.deck    = new ArrayList<Card>();
 		this.hand    = null;
 
 		this.deck.add(new Card(false, -1));
@@ -85,7 +85,7 @@ public class Metier
 					this.deck.add(new Card(true, Metier.MAP_CARD_COLOR.get(tabS.get(1))));
 				}
 
-				this.g.addNode(tabS.get(0), (int) (Integer.parseInt(tabS.get(2)) * 0.8), (int) (Integer.parseInt(tabS.get(3)) * 0.8), (int) (Integer.parseInt(tabS.get(4)) * 0.8), (int) (Integer.parseInt(tabS.get(5)) * 0.8), Integer.parseInt(tabS.get(3)));
+				this.g.addNode(tabS.get(0), (int) (Integer.parseInt(tabS.get(2)) * 0.8), (int) (Integer.parseInt(tabS.get(3)) * 0.8), (int) (Integer.parseInt(tabS.get(4)) * 0.8), (int) (Integer.parseInt(tabS.get(5)) * 0.8), Metier.MAP_CARD_COLOR.get(tabS.get(1)));
 			}
 			
 
@@ -103,7 +103,6 @@ public class Metier
 				this.g.addEdge(node1 + "-" + node2, this.g.getNode(node1), this.g.getNode(node2), cout);
 			}
 
-			System.out.println(this.deck.size());
 			sc.close();
 		}
 		catch (Exception e){ e.printStackTrace(); }
@@ -156,9 +155,10 @@ public class Metier
 			this.calculNbTurn();
 
 			Card card = this.deck.remove( 0 );
-
+			
 			this.hand = card;
-
+			this.discard.add(this.hand);
+			
 			return card;
 		}
 
@@ -209,12 +209,6 @@ public class Metier
 	public ArrayList<Node> getLstNode() { return this.g.getLstNode(); }
 	public ArrayList<Edge> getLstEdge() { return this.g.getLstEdge(); }
 
-	public boolean coloring(Edge edge)
-	{
-		if ( this.hand.getColor() ==  (edge.getNode1().hasEdgeColor(PanelGraph.color) > 0 ? edge.getNode2() : edge.getNode1()).getColor()) 
-			return this.g.coloring(edge);
-		return false;
-	}
 
 	public ArrayList<Node> getLstNodeAvailable(Node node)
 	{
@@ -223,7 +217,7 @@ public class Metier
 		for (Edge edge : node.getLstEdge()) 
 		{
 			Node tmp = edge.getNode1().equals(node) ? edge.getNode2() : edge.getNode1();
-			if( this.coloring(edge) && this.hand.getColor() == tmp.getColor())
+			if( this.g.coloring(edge) && this.hand.getColor() == tmp.getColor())
 				lstAvailable.add(tmp);
 		}
 		
@@ -244,11 +238,11 @@ public class Metier
 			for(Card card : this.discard)
 			{
 				this.deck.add(card);
-				this.deck.remove(card);
+				this.discard.remove(card);
 			}
 			Collections.shuffle(this.deck);
 		}
-		
+
 		this.changeColor();
 	}
 
@@ -263,4 +257,5 @@ public class Metier
 		PanelGraph.color = 0;
 	}
 
+	public int getDiscardSize() { return this.discard.size(); }
 }

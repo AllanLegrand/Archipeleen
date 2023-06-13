@@ -8,10 +8,14 @@ import metier.Node;
 
 import ihm.FrameGraph;
 
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 public class Controleur
 {
+	public static final int WIDTH  = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth());
+	public static final int HEIGHT = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight());
+
 	private Metier     metier;
 	private FrameGraph ihm;
 
@@ -31,11 +35,6 @@ public class Controleur
 	{
 		return this.metier.getLstNodeAvailable(node);
 	}
-
-	public Card getCard(int indice)
-	{
-		return this.metier.getCard(indice);
-	}
 	
 	public void majIhm()
 	{
@@ -47,15 +46,12 @@ public class Controleur
 		return this.metier.getFinalScore();
 	}
 
-	public boolean coloring(Edge edge, Node nodeStart, Node nodeEnd)
+	public Card drawCard()
 	{
-		return this.metier.coloring(edge);
+		return this.metier.drawCard();
 	}
 
-	public void calculNbTurn()
-	{
-		this.metier.calculNbTurn();
-	}
+	public int getDiscardSize() { return this.metier.getDiscardSize(); }
 
 	public static void main(String args[]) 
 	{
