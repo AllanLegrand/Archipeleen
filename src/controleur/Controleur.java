@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * @author Ashanti NJANJA
  * 
  * @see Metier
- * @see FrameGraph
+ * @see FrameGra(ph
  */
 
 public class Controleur
