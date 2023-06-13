@@ -223,7 +223,7 @@ public class Metier
 	{
 		ArrayList<Node> lstAvailable = new ArrayList<Node>();
 
-		for (Edge edge : node.getLstEdge()) 
+		for (Edge edge : node.getLstEdge())
 		{
 			Node tmp = edge.getNode1().equals(node) ? edge.getNode2() : edge.getNode1();
 			if( this.coloring(edge) && this.hand.getColor() == tmp.getColor())
@@ -233,8 +233,16 @@ public class Metier
 		return lstAvailable;
 	}
 
+	public void bifurcation()
+	{
+		// donne la possibilité de partir de n'importe quelle ile pour la prochaine carte
+	}
+
 	public void calculNbTurn()
 	{
+
+		if ( this.specialTurn -1 == this.discard.size() ) this.bifurcation();
+
 		int nbTurn = 0;
 
 		for ( Card card : this.discard )
