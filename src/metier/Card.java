@@ -23,9 +23,11 @@ public class Card
 		this.color = color;
 	}
 
-	/**
-	 * @return La couleur de la carte
-	 */
+	public boolean isEqualsColor(int color)
+	{
+		return this.color == -1 || color == this.color;
+	}
+
 	public int     getColor() { return this.color; }
 
 	/**

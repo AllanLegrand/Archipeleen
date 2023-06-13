@@ -230,7 +230,7 @@ public class Metier
 		for (Edge edge : node.getLstEdge())
 		{
 			Node tmp = edge.getNode1().equals(node) ? edge.getNode2() : edge.getNode1();
-			if( this.g.coloring(edge) && this.hand.getColor() == tmp.getColor())
+			if( this.g.coloring(edge) && this.hand.isEqualsColor(tmp.getColor()))
 				lstAvailable.add(tmp);
 		}
 		
