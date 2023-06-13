@@ -236,6 +236,7 @@ public class Metier
 	public void bifurcation()
 	{
 		// donne la possibilité de partir de n'importe quelle ile pour la prochaine carte
+		// Ajoute un nouveau bout
 	}
 
 	public void calculNbTurn()
