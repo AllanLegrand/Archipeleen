@@ -17,8 +17,6 @@ public class LabelCard extends JLabel
 	{
 		super(new ImageIcon(card.getPath()));
 
-		System.out.println(card.getPath());
-
 
 		this.card = card;
 		

@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.print.attribute.standard.QueuedJobCount;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -235,7 +236,9 @@ class GereSelection extends MouseAdapter
 
 	public void mouseClicked(MouseEvent e)
 	{
-		ArrayList<Node> lstTmp = this.ctrl.getLstNodeAvailable();
+		ArrayList<Node> lstTmp ;
+		if(this.node1 != null)
+		lstTmp = this.ctrl.getLstNodeAvailable(this.node1);
 		
 		boolean nodeSelected = false;
 
@@ -297,22 +300,22 @@ class GereSelection extends MouseAdapter
 		}
 
 
+
+
 		if(!nodeSelected)
 			this.deselect();
 		else
 		{
+			lstTmp = this.ctrl.getLstNodeAvailable(this.node1);
 			for (Node node : this.ctrl.getLstNode())
 			{
-				System.out.println(lstTmp);
 				if(!lstTmp.contains(node) && !node.isDark())
 				{
-					System.out.println("assombrir");
 					this.panel.assombrir(node);
 				}
 
 				if(lstTmp.contains(node) && node.isDark())
 				{
-					System.out.println("éclaircir");
 					node.setImage(new ImageIcon("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png").getImage());
 				}
 			}
