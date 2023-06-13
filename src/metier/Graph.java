@@ -57,9 +57,10 @@ public class Graph
 
 		String n2 = edge.getNode2().getId();
 		String n1 = edge.getNode1().getId();
+		
+		String islDep;
 
-		String islDep = "Mutaa"; 
-		// ile de départ, Mutaa pour J-Bleu
+		if ( PanelGraph.color == Metier.TAB_COLOR[0] ) islDep = "Mutaa"; else islDep = "Tic\u00F3";
 
 		if(!firstColored)
 		{

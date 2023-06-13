@@ -26,7 +26,7 @@ public class Metier
 	private int round;
 	private boolean newColor;
 
-	private static ArrayList<Integer> tabColor = new ArrayList<Integer>(Arrays.asList(255, 16711680));
+	public final static int[] TAB_COLOR = new int[] { 255, 16711680 };
 
 	public static final Map<String,Integer> MAP_CARD_COLOR = new HashMap<String, Integer>() 
 	{{
@@ -50,7 +50,7 @@ public class Metier
 		this.deck.add(new Card(true , -1));
 
 		this.generate();
-		Collections.shuffle(tabColor);
+		Collections.shuffle( this.deck );
 		this.drawCard();
 	}
 
@@ -175,7 +175,7 @@ public class Metier
 
 		// couleur, nombre d'arete colorier de cette couleur, region, liste de noeud de cette region
 		HashMap<Integer[], HashMap<String, ArrayList <Node>>> lstColor = new HashMap<Integer[], HashMap<String, ArrayList <Node>>>();
-		for(Integer color : tabColor)
+		for(Integer color : Metier.TAB_COLOR)
 			lstColor.put( new Integer[]{color, 0}, new HashMap<String, ArrayList <Node>>());
 
 		for ( Edge edge : this.g.getLstEdge() )
@@ -259,7 +259,7 @@ public class Metier
 
 	public void changeColor()
 	{
-		PanelGraph.color = tabColor.get(this.round);	
+		PanelGraph.color = Metier.TAB_COLOR[this.round];
 	}
 
 	public void endGame()
