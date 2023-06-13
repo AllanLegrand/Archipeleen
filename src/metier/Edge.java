@@ -18,6 +18,13 @@ public class Edge
 	private int color;
 	private int cost;
 
+	/**
+	 * Cette classe représente une route reliant 2 îles ensemble
+	 * @param id l'identifiant de la route
+	 * @param n1 l'île 1 relié à la route
+	 * @param n2 l'île 2 relié à la route
+	 * @param cost le bonus de la route
+	 */
 	public Edge(String id, Node n1, Node n2, int cost)
 	{
 		this.id = id;
@@ -37,12 +44,18 @@ public class Edge
 	public Node getNode2() { return this.n2; }
 
 	public int getColor() { return this.color; }
+
+
 	public void setColor(int color)
 	{
 		if( color > 0 && color < 255*256*256+255*256+255)
 			this.color = color;
 	}
 
+	/**
+	 * @param lstEdge une liste de route
+	 * @return Si la route se croise avec une autre route de la liste
+	 */
 	public boolean isCrossed(ArrayList<Edge> lstEdge)
 	{
 		double nx1 = this.getNode1().getPosX();
