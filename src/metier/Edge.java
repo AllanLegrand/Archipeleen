@@ -3,6 +3,13 @@ package metier;
 import java.awt.Color;
 import java.util.ArrayList;
 
+/**
+ * @author Allan LEGRAND
+ * @author Hugo HUGO
+ * @author Luc LECARPENTIER
+ * @author Ashanti NJANJA
+ */
+
 public class Edge
 {
 	private String id;

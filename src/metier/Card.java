@@ -1,5 +1,12 @@
 package metier;
 
+/**
+ * @author Allan LEGRAND
+ * @author Hugo HUGO
+ * @author Luc LECARPENTIER
+ * @author Ashanti NJANJA
+ */
+
 public class Card
 {
 	private boolean isPrimary;

@@ -25,6 +25,17 @@ import controleur.Controleur;
 import metier.Edge;
 import metier.Node;
 
+/**
+ * @author Allan LEGRAND
+ * @author Hugo HUGO
+ * @author Luc LECARPENTIER
+ * @author Ashanti NJANJA
+ * 
+ * @see Controleur
+ * @see Node
+ * @see Edge
+ */
+
 public class PanelGraph extends JPanel
 {
 	

@@ -13,6 +13,16 @@ import java.util.Map;
 
 import ihm.PanelGraph;
 
+/**
+ * @author Allan LEGRAND
+ * @author Hugo HUGO
+ * @author Luc LECARPENTIER
+ * @author Ashanti NJANJA
+ * 
+ * @see Card
+ * @see Graph
+ */
+
 public class Metier 
 {
 	private Graph g;
