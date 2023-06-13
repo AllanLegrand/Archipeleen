@@ -2,11 +2,9 @@ package metier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Scanner;
 import java.io.FileInputStream;
-import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 
 import javax.swing.JOptionPane;
@@ -48,9 +46,9 @@ public class Metier
 
 		this.deck.add(new Card(false, -1));
 		this.deck.add(new Card(true , -1));
-
-		this.generate();
-		Collections.shuffle( this.deck );
+		
+		Collections.shuffle(tabColor);
+		Collections.shuffle(this.deck);
 		this.drawCard();
 	}
 
@@ -253,6 +251,7 @@ public class Metier
 				this.deck.add(card);
 				this.deck.remove(card);
 			}
+			Collections.shuffle(this.deck);
 		}
 		
 		this.changeColor();
