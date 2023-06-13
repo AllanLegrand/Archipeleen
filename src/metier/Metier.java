@@ -223,8 +223,9 @@ public class Metier
 	public ArrayList<Node> getLstNodeAvailable()
 	{
 		ArrayList<Node> lstAvailable = new ArrayList<Node>();
+
 		for(Node node : this.g.getLstNode())
-			if( node.hasEdgeColor())
+			if( node.hasEdgeColor() || newColor && node.getId().equals(PanelGraph.color == 255 ? "Mutaa" : "Tic\u00F3"))
 				for (Edge edge : node.getLstEdge()) 
 				{
 					Node tmp = edge.getNode1().equals(node) ? edge.getNode2() : edge.getNode1();
