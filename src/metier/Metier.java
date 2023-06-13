@@ -120,12 +120,10 @@ public class Metier
 				return true;
 		return false;
 	}
+	
+	public ArrayList<Card> getDeck() { return this.deck; }
 
-	public Card getCard(int indice)
-	{
-		return this.deck.get(indice);
-	}
-
+	public Card getCard(int indice) { return this.deck.get(indice); }
 	public Card getHand() { return this.hand; }
 
 	private static ArrayList<String> decomposer(String chaine, char dec)
@@ -270,8 +268,4 @@ public class Metier
 		PanelGraph.color = 0;
 	}
 
-	public ArrayList<Card> getDeck() 
-	{
-		return this.deck;
-	}
 }
