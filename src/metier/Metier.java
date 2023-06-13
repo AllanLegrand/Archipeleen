@@ -22,9 +22,8 @@ public class Metier
 	private ArrayList<Card> discard;
 
 	private int round;
-	private boolean newColor;
 
-	public final static int[] TAB_COLOR = new int[] { 255, 16711680 };
+	public static ArrayList<Integer> tabColor = new ArrayList<Integer>(Arrays.asList(255, 16711680));
 
 	public static final Map<String,Integer> MAP_CARD_COLOR = new HashMap<String, Integer>() 
 	{{
@@ -38,8 +37,6 @@ public class Metier
 	{
 		this.g = new Graph();
 
-		this.newColor = true;
-
 		this.discard = new ArrayList<Card>((Metier.MAP_CARD_COLOR.size()+1)*2);
 		this.deck    = new ArrayList<Card>((Metier.MAP_CARD_COLOR.size()+1)*2);
 		this.hand    = null;
@@ -48,7 +45,7 @@ public class Metier
 		this.deck.add(new Card(true , -1));
 		
 		this.generate();
-		Collections.shuffle(tabColor);
+		Collections.shuffle(Metier.tabColor);
 		Collections.shuffle(this.deck);
 		this.drawCard();
 	}
@@ -174,7 +171,7 @@ public class Metier
 
 		// couleur, nombre d'arete colorier de cette couleur, region, liste de noeud de cette region
 		HashMap<Integer[], HashMap<String, ArrayList <Node>>> lstColor = new HashMap<Integer[], HashMap<String, ArrayList <Node>>>();
-		for(Integer color : Metier.TAB_COLOR)
+		for(Integer color : Metier.tabColor)
 			lstColor.put( new Integer[]{color, 0}, new HashMap<String, ArrayList <Node>>());
 
 		for ( Edge edge : this.g.getLstEdge() )
@@ -219,18 +216,16 @@ public class Metier
 		return false;
 	}
 
-	public ArrayList<Node> getLstNodeAvailable()
+	public ArrayList<Node> getLstNodeAvailable(Node node)
 	{
 		ArrayList<Node> lstAvailable = new ArrayList<Node>();
 
-		for(Node node : this.g.getLstNode())
-			if( node.hasEdgeColor() || newColor && node.getId().equals(PanelGraph.color == 255 ? "Mutaa" : "Tic\u00F3"))
-				for (Edge edge : node.getLstEdge()) 
-				{
-					Node tmp = edge.getNode1().equals(node) ? edge.getNode2() : edge.getNode1();
-					if( this.coloring(edge) && this.hand.getColor() == tmp.getColor())
-						lstAvailable.add(tmp);
-				}
+		for (Edge edge : node.getLstEdge()) 
+		{
+			Node tmp = edge.getNode1().equals(node) ? edge.getNode2() : edge.getNode1();
+			if( this.coloring(edge) && this.hand.getColor() == tmp.getColor())
+				lstAvailable.add(tmp);
+		}
 		
 		return lstAvailable;
 	}
@@ -243,12 +238,11 @@ public class Metier
 			if ( card.isPrimary() ) nbTurn++;
 		
 		if ( nbTurn == 5 && this.round == 1) this.endGame();
-		if ( nbTurn == 5 )
+		else if ( nbTurn == 5 )
 		{
 			this.round++; 
 			for(Card card : this.discard)
 			{
-				this.newColor = true;
 				this.deck.add(card);
 				this.deck.remove(card);
 			}
@@ -260,7 +254,7 @@ public class Metier
 
 	public void changeColor()
 	{
-		PanelGraph.color = Metier.TAB_COLOR[this.round];
+		PanelGraph.color = Metier.tabColor.get(this.round);
 	}
 
 	public void endGame()

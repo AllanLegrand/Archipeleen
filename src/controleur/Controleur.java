@@ -27,9 +27,9 @@ public class Controleur
 
 	public Card getHand() { return this.metier.getHand(); }
 
-	public ArrayList<Node> getLstNodeAvailable()
+	public ArrayList<Node> getLstNodeAvailable(Node node)
 	{
-		return this.metier.getLstNodeAvailable();
+		return this.metier.getLstNodeAvailable(node);
 	}
 
 	public Card getCard(int indice)
