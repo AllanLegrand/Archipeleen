@@ -39,7 +39,11 @@ public class Controleur
 	public ArrayList<Node> getLstNode() { return this.metier.getLstNode(); }
 	public ArrayList<Edge> getLstEdge() { return this.metier.getLstEdge(); }
 
+	public Card getCard(int indice) {return this.metier.getCard(indice);}
+
 	public Card getHand() { return this.metier.getHand(); }
+
+	public void setHand() { this.metier.setHand();}
 
 	public ArrayList<Node> getLstNodeAvailable(Node node)
 	{

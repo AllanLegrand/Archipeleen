@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -36,7 +38,7 @@ import metier.Node;
  * @see Edge
  */
 
-public class PanelGraph extends JPanel
+public class PanelGraph extends JPanel implements ActionListener
 {
 	
 	public static int color;
@@ -57,12 +59,13 @@ public class PanelGraph extends JPanel
 
 		/* Création des composants */
 		this.tabBtnCard = new ButtonCard[10];
-		for (int i = 0; i < tabBtnCard.length; i++)
+		for (int i = 0; i < tabBtnCard.length - 1; i++)
 		{
-			tabBtnCard[i] = new ButtonCard(this.ctrl);
+			tabBtnCard[i] = new ButtonCard(this.ctrl.getCard(i), ctrl);
 		}
 
-
+		tabBtnCard[tabBtnCard.length - 1] = new ButtonCard(this.ctrl.getHand(), ctrl);
+		
 		this.btnSkip   = new JButton("Passer le tour");
 
 		this.lblScore  = new JLabel("Score : 0");
@@ -89,6 +92,7 @@ public class PanelGraph extends JPanel
 
 		/* Activation des composants */
 		this.addMouseListener(new GereSelection(ctrl, this));
+		this.btnSkip.addActionListener(this);
 	}
 
 	public void setScore(int score)
@@ -199,6 +203,51 @@ public class PanelGraph extends JPanel
 	{
 		node.setImage(new ImageIcon("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png").getImage());
 		node.setDark(0);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		if(this.ctrl.getDiscardSize() != ButtonCard.nbBtnReturn) return ;
+
+		this.ctrl.drawCard();
+		this.ctrl.majIhm();
+	}
+
+	@Override
+	public void repaint() 
+	{
+		super.repaint();
+
+		if(tabBtnCard == null) return;
+
+		for (ButtonCard buttonCard : tabBtnCard)
+		{
+			System.out.println(buttonCard == ButtonCard.current);
+			if(buttonCard.isReturn() && buttonCard != ButtonCard.current)
+			{
+				BufferedImage imgTmp = (BufferedImage) buttonCard.getIcon();
+				
+				for (int i = 0; i < imgTmp.getWidth(); i++) 
+					for (int j = 0; j < imgTmp.getHeight(); j++) 
+					{
+						int rgb = imgTmp.getRGB(i, j);
+
+						int alpha = (rgb >> 24) & 0xFF;
+						int r     = (rgb >> 16) & 0xFF;
+						int g     = (rgb >> 8) & 0xFF;
+						int b     = rgb & 0xFF;
+
+						r *= 0.50;
+						b *= 0.50;
+						g *= 0.50;
+
+						imgTmp.setRGB(i, j,(alpha << 24) | (r << 16) | (g << 8) | b);
+					}
+					System.out.println("test");
+				buttonCard.setIcon(new ImageIcon(imgTmp));
+			}
+		}
 	}
 }
 
