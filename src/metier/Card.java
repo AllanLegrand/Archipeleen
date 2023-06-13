@@ -14,17 +14,23 @@ public class Card
 
 	/**
 	 * Cette classe représente une carte colorée 
-	 * @param isPrimary désigne si la carte est primaire
+	 * @param isPrimary désigne la primarité de la carte
 	 * @param color désigne la couleur de la carte
 	 */
-
 	public Card ( boolean isPrimary, Integer color)
 	{
 		this.isPrimary = isPrimary;
 		this.color = color;
 	}
 
+	/**
+	 * @return La couleur de la carte
+	 */
 	public int     getColor() { return this.color; }
+
+	/**
+	 * @return la primarité de la carte
+	 */
 	public boolean isPrimary() { return this.isPrimary; }
 
 	/**
