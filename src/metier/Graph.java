@@ -60,7 +60,7 @@ public class Graph
 		
 		String nDep;
 
-		if ( PanelGraph.color == Metier.TAB_COLOR[0] ) nDep = "Mutaa"; else nDep = "Tic\u00F3";
+		if ( PanelGraph.color == Metier.TAB_COLOR.get(0) ) nDep = "Mutaa"; else nDep = "Tic\u00F3";
 
 		if(!firstColored)
 		{
