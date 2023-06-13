@@ -22,6 +22,7 @@ public class Metier
 	private ArrayList<Card> discard;
 
 	private int round;
+	private int specialTurn; // utiliser pour determinerla bifurcation
 
 	public static ArrayList<Integer> tabColor = new ArrayList<Integer>(Arrays.asList(255, 16711680));
 
@@ -40,6 +41,8 @@ public class Metier
 		this.discard = new ArrayList<Card>((Metier.MAP_CARD_COLOR.size()+1)*2);
 		this.deck    = new ArrayList<Card>((Metier.MAP_CARD_COLOR.size()+1)*2);
 		this.hand    = null;
+
+		this.specialTurn = (int) (Math.random() * 10);
 
 		this.deck.add(new Card(false, -1));
 		this.deck.add(new Card(true , -1));
@@ -246,6 +249,8 @@ public class Metier
 				this.deck.add(card);
 				this.deck.remove(card);
 			}
+
+			this.specialTurn = (int) (Math.random() * 10);
 			Collections.shuffle(this.deck);
 		}
 		
