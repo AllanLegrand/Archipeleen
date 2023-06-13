@@ -26,6 +26,16 @@ public class Node
 	private Image img;
 	private int   dark;
 
+	/**
+	 * Cette classe représente une île {@code Island}. Elle possède des coordonnées,
+	 * une {@code Image} et ses coordonnées, une couleur et d'un boolean {@code isSelected} et dark ???
+	 * @param id un identifiant unique
+	 * @param posX la position X de l'île
+	 * @param posY la position Y de l'île
+	 * @param posImgX une position X de l'image
+	 * @param posImgY une position Y de l'image
+	 * @param color la couleur de l'île 
+	 */
 	public Node(String id, int posX, int posY, int posXImg, int posYImg, int color)
 	{
 		this.id = id;
@@ -41,6 +51,10 @@ public class Node
 		this.color = color;
 	}
 
+	/**
+	 * Cette méthode retourne l'id de l'île {@code Island}
+	 * @return retourne l'identifiant de l'île 
+	 */
 	public String getId() { return this.id; }
 
 	public int getPosX() { return this.posX; }
@@ -51,6 +65,12 @@ public class Node
 
 	public ArrayList<Edge> getLstEdge() { return this.lstEdge; }
 
+
+	/**
+	 * Cette méthode détencte présence d'une route {@code Road} entre 2 îles {@code Island} et la retourne
+	 * @param n une île {@code Island}
+	 * @return retourne la route {@code Road}
+	 */
 	public Edge hasEdgeBetween(Node n)
 	{
 		if ( this.equals(n) ) return null;
