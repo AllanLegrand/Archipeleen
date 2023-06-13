@@ -49,15 +49,15 @@ public class Metier
 		this.deck.add(new Card(false, -1));
 		this.deck.add(new Card(true , -1));
 
-		
-
-
-		this.generer();
+		this.generate();
 		Collections.shuffle(tabColor);
 		this.drawCard();
 	}
 
-	private void generer()
+	/**
+	 * Remplissage du graphe (node et edge) via un document csv
+	 */
+	private void generate()
     {
         try
 		{
@@ -71,7 +71,7 @@ public class Metier
 			String nomReg = sc.nextLine();
 			while ( sc.hasNextLine() )
 			{       
-			    ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
+			    ArrayList<String> tabS = Metier.decomposer(sc.nextLine(), ',');
 			    // Quand il y a une ligne vide, on change de région
 			    if ( tabS.size() == 1 )
 				{
@@ -95,7 +95,7 @@ public class Metier
 
 			while(sc.hasNextLine())
 			{
-				ArrayList<String> tabS = decomposer(sc.nextLine(), ',');
+				ArrayList<String> tabS = Metier.decomposer(sc.nextLine(), ',');
 
 				String node1 = tabS.get(0);
 				String node2 = tabS.get(1);
@@ -151,7 +151,7 @@ public class Metier
     }
 	
 	/**
-	 * Cette méthode retourne la carte piochée
+	 * Retourne la carte piochée et la met dans la main
 	 * @return Card : la carte rétourné
 	 */
 	public Card drawCard()
