@@ -119,6 +119,7 @@ public class PanelGraph extends JPanel implements ActionListener
 		if(this.startColor != PanelGraph.color)
 		{
 			this.repaintCard();
+			this.startColor = PanelGraph.color;
 		}
 		
 		for (Edge edge : this.ctrl.getLstEdge()) 
