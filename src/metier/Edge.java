@@ -21,9 +21,9 @@ public class Edge
 	/**
 	 * Cette classe représente une route {@code Road} reliant 2 îles {@code Island} ensemble
 	 * @param id l'identifiant de la route
-	 * @param n1 l'île 1 relié à la route
-	 * @param n2 l'île 2 relié à la route
-	 * @param color la couleur de la route
+	 * @param n1 l'île 1 {@code Island} relié à la route
+	 * @param n2 l'île 2 {@code Island} relié à la route
+	 * @param color la couleur de la route en {@code int}
 	 * @param cost le bonus au niveau du score de la route 
 	 */
 	public Edge(String id, Node n1, Node n2, int cost)
@@ -47,20 +47,20 @@ public class Edge
 	public int  getCost () { return this.cost; }
 
 	/**
-	 * Cette méthode retourne l'île 1  à l'extrémité de la route
-	 * @return retourne l'île 1 {@code Island}
+	 * Cette méthode retourne l'île 1 {@code Island} à l'extrémité de la route
+	 * @return retourne l'île 1 
 	 */
 	public Node getNode1() { return this.n1; }
 
 	/**
-	 * Cette méthode retourne l'île 2  à l'extrémité de la route
-	 * @return retourne l'île 2 {@code Island}
+	 * Cette méthode retourne l'île 2 {@code Island} à l'extrémité de la route
+	 * @return retourne l'île 2 
 	 */
 	public Node getNode2() { return this.n2; }
 
 	/**
 	 * Cette méthode change la couleur d'une route {@code Road}
-	 * @return retourne la couleur de la route {@code Road}
+	 * @return retourne la couleur de la route 
 	 */
 	public int getColor() { return this.color; }
 

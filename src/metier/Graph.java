@@ -69,14 +69,14 @@ public class Graph
 	/**
 	 * Cette méthode retourne une île {@code Island} de l'archipel via un indice
 	 * @param index désigne l'indice de la liste
-	 * @return retourne île {@code Island} de l'indice entré de l'archipel de l'archipel
+	 * @return retourne île de l'indice entré de l'archipel de l'archipel
 	 */
 	public Node getNode(int index) { return this.lstNode.get(1); }
 
 	/**
 	 * Cette méthode retourne une île {@code Island} de l'archipel via son identifiant
 	 * @param id désigne l'identifiant d'une île {@code Island}
-	 * @return retourne l'île {@code Island} de l'indice entré de l'archipel
+	 * @return retourne l'île de l'indice entré de l'archipel
 	 */
 	public Node getNode(String id) 
 	{
@@ -88,14 +88,14 @@ public class Graph
 	}
 
 	/**
-	 * Cette méthode permet retourne toutes les routes {@code Island} de l'archipel
-	 * @return retourne une liste de toutes les îles {@code ArrayList<Island>}
+	 * Cette méthode permet retourne toutes les routes {@code ArrayList<Island>} de l'archipel
+	 * @return retourne une liste de toutes les îles 
 	 */
 	public ArrayList<Node> getLstNode() { return this.lstNode; }
 
 	/**
-	 * Cette méthode permet retourne toutes les routes {@code Road} de l'archipel
-	 * @return retourne une liste de toutes les routes {@code ArrayList<Road>}
+	 * Cette méthode permet retourne toutes les routes {@code ArrayList<Road>} de l'archipel
+	 * @return retourne une liste de toutes les routes 
 	 */
 	public ArrayList<Edge> getLstEdge() { return this.lstEdge; }
 

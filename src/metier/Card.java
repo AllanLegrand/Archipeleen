@@ -14,7 +14,7 @@ public class Card
 
 	/**
 	 * Cette classe représente une carte {@code Card} colorée 
-	 * @param isPrimary désigne la primarité de la carte
+	 * @param isPrimary désigne la primarité de la carte en {@code booléen}
 	 * @param color désigne la couleur de la carte ( la couleur -1 désigne une carte multicolore ) en {@code int}
 	 */
 	public Card ( boolean isPrimary, int color)
@@ -30,19 +30,19 @@ public class Card
 
 	/**
 	 * Cette méthode retourne la couleur d'une carte {@code Card}
-	 * @return la couleur de la carte en {@code int}
+	 * @return la couleur de la carte
 	 */
 	public int     getColor() { return this.color; }
 
 	/**
 	 * Cette méthode retourne la primarité de la carte {@code Card}
-	 * @return la primarité de la carte en {@code booléen}
+	 * @return la primarité de la carte
 	 */
 	public boolean isPrimary() { return this.isPrimary; }
 
 	/**
 	 * Cette méthode permet d'acceder à l'image de la carte {@code Card}
-	 * @return retourne la direction de l'image de la carte en {@code String}
+	 * @return retourne la direction de l'image de la carte
 	 */
 	public String getPath()
 	{
