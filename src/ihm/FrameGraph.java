@@ -57,7 +57,7 @@ public class FrameGraph extends JFrame
 	public void endGame()
 	{
 		this.repaintPanel();
-		JOptionPane.showMessageDialog(null, "La partie est finie\nVotre score est : " + this.metier.getFinalScore());
+		JOptionPane.showMessageDialog(null, "La partie est finie\nVotre score est : " + this.ctrl.getFinalScore());
 		PanelGraph.color = 0;
 	}
 
