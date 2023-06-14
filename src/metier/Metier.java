@@ -171,10 +171,16 @@ public class Metier
 	{
 		boolean canPlay = false;
 
-		for ( Card c : this.deck )
-			if ( c.isPrimary() ) { canPlay = true; }
+		if ( this.specialTurn -1 == this.discard.size() ) System.out.println("birfurcation"); //this.birfurcation == true;
 
-		if ( this.hand != null ) this.discard.add( this.hand );
+		for ( Card card : this.deck )
+			if ( card.isPrimary() ) 
+			{
+				canPlay = true;
+				break;
+			}
+
+		if ( this.hand != null ) this.discard.add( this.hand ); //this.hand = null;
 
 		if ( !this.deck.isEmpty() && canPlay )
 		{
@@ -198,7 +204,11 @@ public class Metier
 			}
 
 			this.changeColor();
+			
+			// Manche suivante appelle l'ihm qui affiche un message : this.ctrl.nextRound();
+			
 			this.specialTurn = (int) (Math.random() * 10);
+			this.drawCard();
 		}
 
 		return null;
@@ -292,7 +302,6 @@ public class Metier
 
 		return lstTmp;
 	}
-
 
 	public void bifurcation()
 	{
