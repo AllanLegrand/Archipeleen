@@ -68,6 +68,10 @@ public class Controleur
 		return this.metier.getLstNodeEnd();
 	}
 
+	public String getJournalDeBord()
+	{
+		return this.metier.getJournalDeBord();
+	}
 
 	public int getDiscardSize() { return this.metier.getDiscardSize(); }
 
