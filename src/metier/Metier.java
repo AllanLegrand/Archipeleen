@@ -312,9 +312,8 @@ public class Metier
 
 	public void changeColor()
 	{
-		if ( PanelGraph.color == tabColor.get(0) )
-			PanelGraph.color = tabColor.get(1);
-		else PanelGraph.color = tabColor.get(0);
+		if( tabColor.size() > this.round)
+			PanelGraph.color = tabColor.get(this.round);
 	}
 
 	/**
