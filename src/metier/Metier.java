@@ -63,7 +63,7 @@ public class Metier
 		
 		Collections.shuffle(Metier.tabColor);
 		this.generate();
-		this.drawCard();
+
 	}
 
 	/**
@@ -178,6 +178,7 @@ public class Metier
 
 			this.hand = card;
 			
+			System.out.println(this.deck);
 			return card;
 		}
 
