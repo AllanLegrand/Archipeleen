@@ -83,7 +83,7 @@ public class Controleur
 	public void endGame()
 	{
 		this.majIhm();
-		JOptionPane.showMessageDialog(null, "La partie est finie\nVotre score est : " + this.getFinalScore());
+		JOptionPane.showMessageDialog(null, "La partie est finie\nVotre score est : " + this.metier.getFinalScore());
 		PanelGraph.color = 0;
 	}
 
