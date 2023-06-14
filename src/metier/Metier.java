@@ -166,7 +166,9 @@ public class Metier
 	 */
 	public Card drawCard()
 	{
-		this.hand = null;
+		if (  this.hand != null )
+			this.discard.add(this.hand);
+
 		if ( !this.deck.isEmpty() )
 		{
 			this.calculNbTurn();
@@ -176,7 +178,6 @@ public class Metier
 			journalDeBord += card.toString()+"\n";
 
 			this.hand = card;
-			this.discard.add(this.hand);
 			
 			return card;
 		}
@@ -290,7 +291,7 @@ public class Metier
 		for ( Card card : this.discard )
 			if ( card.isPrimary() ) nbTurn++; 
 		
-		System.out.println( "nb carte primaire : " + nbTurn );
+		System.out.println( "nb carte primaire ds defausse : " + nbTurn );
 		
 		if ( nbTurn == 5 && this.round == 2) this.endGame();
 		else if ( nbTurn == 5 )
