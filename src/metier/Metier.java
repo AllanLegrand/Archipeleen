@@ -188,7 +188,7 @@ public class Metier
 			return card;
 		}
 		
-		if ( !canPlay && this.round == 2) this.endGame();
+		if ( !canPlay && this.round == 2) this.ctrl.endGame();
 		else if ( !canPlay )
 		{
 			this.round++;
@@ -314,7 +314,7 @@ public class Metier
 		
 		System.out.println( "nb carte primaire ds defausse : " + nbTurn );
 		
-		if ( nbTurn == 0 && this.round == 2) this.endGame();
+		if ( nbTurn == 0 && this.round == 2) this.ctrl.endGame();
 		else if ( nbTurn == 0 )
 		{
 			this.round++;
@@ -329,13 +329,6 @@ public class Metier
 			this.specialTurn = (int) (Math.random() * 10);
 		}
 		
-	}
-
-	public void endGame()
-	{
-		this.ctrl.majIhm();
-		JOptionPane.showMessageDialog(null, "La partie est finie\nVotre score est : " + this.ctrl.getFinalScore());
-		PanelGraph.color = 0;
 	}
 
 	public void changeColor()

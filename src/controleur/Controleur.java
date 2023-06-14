@@ -58,6 +58,12 @@ public class Controleur
 		this.ihm.repaintPanel();
 	}
 
+	public void endGame()
+	{
+		this.ihm.repaintPanel();
+		this.ihm.endGame();
+	}
+
 	public Card drawCard()
 	{	
 		this.ihm.setScore(this.metier.getFinalScore());
