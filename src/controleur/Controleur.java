@@ -34,6 +34,8 @@ public class Controleur
 		this.metier = new Metier();
 		this.metier.changeColor();
 		this.ihm    = new FrameGraph( this );
+		
+		this.drawCard();
 	}
 
 	public ArrayList<Node> getLstNode() { return this.metier.getLstNode(); }
