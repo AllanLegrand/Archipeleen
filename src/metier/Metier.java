@@ -307,15 +307,15 @@ public class Metier
 
 		if ( this.specialTurn -1 == this.discard.size() ) this.bifurcation();
 
-		int nbTurn = 0;
+		boolean canPlay = false;
 
 		for ( Card card : this.deck )
-			if ( card.isPrimary() ) nbTurn++; 
+			if ( card.isPrimary() || this.hand.isPrimary() ) { canPlay = true; break; }
 		
-		System.out.println( "nb carte primaire ds defausse : " + nbTurn );
+		System.out.println( "nb carte primaire ds defausse : " + canPlay );
 		
-		if ( nbTurn == 0 && this.round == 2) this.ctrl.endGame();
-		else if ( nbTurn == 0 )
+		if ( !canPlay && this.round == 2) this.ctrl.endGame();
+		else if ( !canPlay )
 		{
 			this.round++;
 
@@ -325,8 +325,11 @@ public class Metier
 				this.discard.remove(0);
 			}
 
+			// Manche suivante appelle l'ihm qui affiche un message : this.ctrl.nextRound();
+
 			this.changeColor();
 			this.specialTurn = (int) (Math.random() * 10);
+			
 		}
 		
 	}
