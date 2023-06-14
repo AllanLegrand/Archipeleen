@@ -1,6 +1,7 @@
 package ihm;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -51,6 +52,13 @@ public class FrameGraph extends JFrame
 
 
 		this.setVisible(true);
+	}
+
+	public void endGame()
+	{
+		this.repaintPanel();
+		JOptionPane.showMessageDialog(null, "La partie est finie\nVotre score est : " + this.ctrl.getFinalScore());
+		PanelGraph.color = 0;
 	}
 
 	public void setScore(int score)

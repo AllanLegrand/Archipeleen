@@ -7,9 +7,12 @@ import metier.Node;
 
 
 import ihm.FrameGraph;
+import ihm.PanelGraph;
 
 import java.awt.Toolkit;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 /**
  * @author Allan LEGRAND
@@ -61,6 +64,8 @@ public class Controleur
 		return this.metier.drawCard();
 	}
 
+	public int getFinalScore() { return this.metier.getFinalScore(); }
+
 	public ArrayList<Node> getLstNodeEnd()
 	{
 		return this.metier.getLstNodeEnd();
@@ -72,6 +77,15 @@ public class Controleur
 	}
 
 	public int getDiscardSize() { return this.metier.getDiscardSize(); }
+
+	
+	/**
+	 * Affiche le message de fin de jeu en plus du score
+	 */
+	public void endGame()
+	{
+		this.ihm.endGame();
+	}
 
 	public static void main(String args[]) 
 	{
