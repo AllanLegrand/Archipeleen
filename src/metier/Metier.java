@@ -15,7 +15,7 @@ import ihm.PanelGraph;
 
 /**
  * @author Allan LEGRAND
- * @author Hugo HUGO
+ * @author Hugo VICENTE
  * @author Luc LECARPENTIER
  * @author Ashanti NJANJA
  * 
