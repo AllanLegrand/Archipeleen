@@ -260,8 +260,8 @@ public class PanelGraph extends JPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		this.ctrl.majIhm();
 		this.ctrl.drawCard();		
+		this.ctrl.majIhm();
 	}
 }
 
