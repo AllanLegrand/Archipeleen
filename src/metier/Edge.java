@@ -70,6 +70,7 @@ public class Edge
 	 */
 	public void setColor(int color)
 	{
+		Metier.journalDeBord += this.toString()+"\n";
 		if( color > 0 && color < 255*256*256+255*256+255)
 			this.color = color;
 	}
