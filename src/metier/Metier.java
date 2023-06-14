@@ -63,7 +63,7 @@ public class Metier
 	}
 
 	/**
-	 * Remplissage du graphe (node et edge) via un document csv
+	 * Remplissage de l'archipel {@code Archipelago} avec des île {@code Island} et des routes {@code Road} via un document csv
 	 */
 	private void generate()
     {
@@ -156,8 +156,8 @@ public class Metier
     }
 	
 	/**
-	 * Retourne la carte piochée et la met dans la main
-	 * @return Card : la carte rétourné
+	 * Retourne la carte piochée {@code Card} et la met dans la main
+	 * @return retourne la carte pioché
 	 */
 	public Card drawCard()
 	{
@@ -274,6 +274,9 @@ public class Metier
 		PanelGraph.color = Metier.tabColor.get(this.round);
 	}
 
+	/**
+	 * Affiche le message de fin de jeu en plus du score
+	 */
 	public void endGame()
 	{
 		JOptionPane.showMessageDialog(null, "La partie est finie\nVotre score est : " + this.getFinalScore());
