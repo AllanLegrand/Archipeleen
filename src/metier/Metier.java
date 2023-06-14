@@ -172,6 +172,8 @@ public class Metier
 	{
 		boolean canPlay = false;
 
+		if ( this.specialTurn -1 == this.discard.size() ) System.out.println("birfurcation"); //this.birfurcation == true;
+
 		for ( Card card : this.deck )
 			if ( card.isPrimary() ) 
 			{
