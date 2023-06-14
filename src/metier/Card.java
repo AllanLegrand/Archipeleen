@@ -74,7 +74,7 @@ public class Card
 		return this.getPath().equals(card.getPath());
 	}
 
-	public String toSring()
+	public String toString()
 	{ 
 		return "Carte " + this.getColorName() + (this.isPrimary ? " primaire"  : " non primaire");
 	}
