@@ -33,7 +33,7 @@ import metier.Node;
 
 /**
  * @author Allan LEGRAND
- * @author Hugo HUGO
+ * @author Hugo VICENTE
  * @author Luc LECARPENTIER
  * @author Ashanti NJANJA
  * 
@@ -54,6 +54,8 @@ public class PanelGraph extends JPanel implements ActionListener
 	private JButton     btnSkip;
 
 	private JLabel      lblScore;
+
+	private GereSelection gs;
 
 	public PanelGraph(Controleur ctrl)
 	{
@@ -95,7 +97,7 @@ public class PanelGraph extends JPanel implements ActionListener
 
 
 		/* Activation des composants */
-		GereSelection gs = new GereSelection(ctrl, this);
+		gs = new GereSelection(ctrl, this);
 		this.addMouseListener(gs);
 
 		this.btnSkip.addActionListener(this);
@@ -109,8 +111,6 @@ public class PanelGraph extends JPanel implements ActionListener
 	@Override
 	protected void paintComponent(Graphics g) 
 	{
-		int min = this.getHeight() < this.getWidth() ? this.getHeight() : this.getWidth();
-
 		Graphics2D g2 = (Graphics2D) g;
 
 		
@@ -137,10 +137,8 @@ public class PanelGraph extends JPanel implements ActionListener
 
 
 
-			for (Node node2 : this.ctrl.getLstNodeEnd())
-			{
-				this.neutre(node2);	
-			}
+			if(this.ctrl.getLstNodeEnd().contains(node) && node != this.gs.node1)
+				this.neutre(node);
 
 			g2.setColor(Color.BLACK);
 			g2.drawImage(node.getImg(), node.getPosXImg(), node.getPosYImg(), null);
@@ -175,7 +173,7 @@ public class PanelGraph extends JPanel implements ActionListener
 
 	public void assombrir(Node node)
 	{
-		if(node.isDark()) return;
+		if(node.isDark() || (this.gs != null && node == this.gs.node1)) return;
 		BufferedImage imgTmp;
 		try {
 			imgTmp = ImageIO.read(new File("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png"));
@@ -191,9 +189,9 @@ public class PanelGraph extends JPanel implements ActionListener
 				int g     = (rgb >> 8) & 0xFF;
 				int b     = rgb & 0xFF;
 
-				r *= 0.50;
-				b *= 0.50;
-				g *= 0.50;
+				r *= 0.65;
+				b *= 0.65;
+				g *= 0.65;
 
 				imgTmp.setRGB(i, j,(alpha << 24) | (r << 16) | (g << 8) | b);
 			}
@@ -209,22 +207,29 @@ public class PanelGraph extends JPanel implements ActionListener
 			imgTmp = ImageIO.read(new File("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png"));
 		} catch (IOException iOE) {iOE.printStackTrace(); return;}
 
+		Graphics2D g2 = imgTmp.createGraphics();
+
 		for (int i = 0; i < imgTmp.getWidth(); i++) 
 			for (int j = 0; j < imgTmp.getHeight(); j++) 
 			{
+				int rgb0 = -1;
+				if(j > 0)
+					rgb0 = imgTmp.getRGB(i, j - 1);
+
 				int rgb = imgTmp.getRGB(i, j);
-
+				
+				int alpha0 = rgb0 == -1 ? 1 : (rgb0 >> 24) & 0xFF;
 				int alpha = (rgb >> 24) & 0xFF;
-				int r     = (rgb >> 16) & 0xFF;
-				int g     = (rgb >> 8) & 0xFF;
-				int b     = rgb & 0xFF;
 
-				r *= 1.10;
-				b *= 1.10;
-				g *= 1.10;
-
-				imgTmp.setRGB(i, j,(alpha << 24) | (r << 16) | (g << 8) | b);
+				if(alpha != 0 && alpha0 == 0)
+				{
+					g2.setColor(Color.RED);
+					g2.drawLine(i, j+2, i, j-2);
+				}
 			}
+
+		
+		g2.dispose();
 
 		node.setImage(imgTmp);
 		node.setDark(false);
@@ -242,20 +247,6 @@ public class PanelGraph extends JPanel implements ActionListener
 		this.ctrl.drawCard();
 		this.ctrl.majIhm();
 	}
-	 
-	public static BufferedImage iconToBufferedImage(Icon icon) 
-	{
-        BufferedImage bufferedImage = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
-
-       	Graphics graphics = bufferedImage.createGraphics();
-
-        icon.paintIcon(null, graphics, 0, 0);
-
-        graphics.dispose();
-
-        return bufferedImage;
-    }
-
 }
 
 class GereSelection extends MouseAdapter
@@ -307,18 +298,16 @@ class GereSelection extends MouseAdapter
 
 	public void mouseClicked(MouseEvent e)
 	{
-		System.out.println(node1 + " " + node2);
 		boolean selected = false;
 
 		for (Node node : this.ctrl.getLstNode()) 
 		{
-			if(!node.isDark() && this.estCompris(e.getX(), e.getY(), node) )
+
+			if(!node.isDark() && this.estCompris(e.getX(), e.getY(), node))
 			{
-				System.out.println(node.getId());
 				if(node1 == node)
 					break;
 			
-				this.panel.eclaircir(node);
 				//sélection de la deuxième node
 				if(this.node1 != null && this.node2 == null)
 				{
@@ -339,7 +328,7 @@ class GereSelection extends MouseAdapter
 				else
 				{
 					//sélection de la 1ère node
-					if(this.node1 == null)
+					if(this.node1 == null && this.ctrl.getLstNodeEnd().contains(node))
 					{
 						this.node1 = node;
 						this.panel.eclaircir(this.node1);
@@ -354,23 +343,34 @@ class GereSelection extends MouseAdapter
 		if(!selected)
 		{
 			this.deselect();
-			return;
 		}
 
-		if(this.node1 == null) return;               //retourne aussi les nodes avec qui il a déjà un edge
-		ArrayList<Node> lstNodeAvailable = this.ctrl.getLstNodeAvailable(this.node1);
-		for (Node node : this.ctrl.getLstNode()) 
+		if(this.node1 == null)
 		{
-			if(node.isDark() && lstNodeAvailable.contains(node))
+			for (Node node : this.ctrl.getLstNode()) 
 			{
-				this.panel.neutre(node);
-				continue;
+				if(!this.ctrl.getLstNodeEnd().contains(node))
+				{
+					this.panel.assombrir(node);
+				}	
 			}
-
-			if(!node.isDark()&& !lstNodeAvailable.contains(node))
+		}
+		else
+		{
+			ArrayList<Node> lstNodeAvailable = this.ctrl.getLstNodeAvailable(this.node1);
+			for (Node node : this.ctrl.getLstNode()) 
 			{
-				this.panel.assombrir(node);
-				continue;
+				if(node.isDark() && lstNodeAvailable.contains(node) && node != this.node1)
+				{
+					this.panel.neutre(node);
+					continue;
+				}
+	
+				if(!node.isDark()&& !lstNodeAvailable.contains(node))
+				{
+					this.panel.assombrir(node);
+					continue;
+				}
 			}
 		}
 

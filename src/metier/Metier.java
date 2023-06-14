@@ -232,7 +232,7 @@ public class Metier
 	public ArrayList<Edge> getLstEdge() { return this.g.getLstEdge(); }
 
 
-	public ArrayList<Node> getLstNodeAvailable(Node node)
+	public ArrayList<Node> getLstNodeAvailable( Node node )
 	{
 		ArrayList<Node> lstAvailable = new ArrayList<Node>();
 		if(this.hand == null)
@@ -264,6 +264,9 @@ public class Metier
 			if(cpt == 1)
 				lstTmp.add(node);
 		}
+
+		if(lstTmp.size() == 0)
+			lstTmp.add(PanelGraph.color == 255 ? this.g.getNode("Mutaa") : this.g.getNode("Tic\u00F3"));
 
 		return lstTmp;
 	}
@@ -297,7 +300,6 @@ public class Metier
 			}
 
 			this.specialTurn = (int) (Math.random() * 10);
-			Collections.shuffle( this.deck );
 		}
 
 		this.changeColor();
