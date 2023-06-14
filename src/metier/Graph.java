@@ -113,7 +113,7 @@ public class Graph
 
 		if ( edge.getNode1().hasEdgeColor(PanelGraph.color) > 1 || edge.getNode2().hasEdgeColor(PanelGraph.color) > 1) return false;
 
-		// if ( !(edge.getNode1().hasEdgeColor(PanelGraph.color) > 0 ^ edge.getNode2().hasEdgeColor(PanelGraph.color) > 0)) return false;
+		if ( edge.getNode1().hasEdgeColor(PanelGraph.color) > 0 && edge.getNode2().hasEdgeColor(PanelGraph.color) > 0) return false;
 
 		return true;
 	}
