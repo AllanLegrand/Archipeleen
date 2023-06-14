@@ -99,8 +99,10 @@ public class PanelGraph extends JPanel implements ActionListener
 		/* Activation des composants */
 		gs = new GereSelection(ctrl, this);
 		this.addMouseListener(gs);
+		this.addMouseMotionListener(gs);
 
 		this.btnSkip.addActionListener(this);
+
 	}
 
 	public void setScore(int score)
@@ -136,9 +138,9 @@ public class PanelGraph extends JPanel implements ActionListener
 			int posY = node.getPosY();
 
 
-
-			if(this.ctrl.getLstNodeEnd().contains(node) && node != this.gs.node1)
+			if(this.gs.node1 == null && this.ctrl.getLstNodeEnd().contains(node))
 				this.neutre(node);
+		
 
 			g2.setColor(Color.BLACK);
 			g2.drawImage(node.getImg(), node.getPosXImg(), node.getPosYImg(), null);
@@ -296,6 +298,19 @@ class GereSelection extends MouseAdapter
 		return alpha != 0;
 	}
 
+	public void mouseMoved(MouseEvent e)
+	{
+		Cursor cursor = new Cursor(Cursor.DEFAULT_CURSOR);
+
+		for (Node node : this.ctrl.getLstNode()) 
+		{
+			if(!node.isDark() && this.estCompris(e.getX(), e.getY(), node) && !node.isSelected())
+				cursor = new Cursor(Cursor.HAND_CURSOR);
+		}
+
+		this.panel.setCursor(cursor);
+	}
+
 	public void mouseClicked(MouseEvent e)
 	{
 		boolean selected = false;
@@ -309,10 +324,10 @@ class GereSelection extends MouseAdapter
 					break;
 			
 				//sélection de la deuxième node
-				if(this.node1 != null && this.node2 == null)
+				if(this.node1 != null && this.node2 == null && this.ctrl.getLstNodeAvailable(this.node1).contains(node))
 				{
 					this.node2 = node;
-
+					this.node2.setSelected();
 					Edge edge = node1.hasEdgeBetween(node2);
 
 					if(edge != null && edge.getColor() != PanelGraph.color)
@@ -331,6 +346,7 @@ class GereSelection extends MouseAdapter
 					if(this.node1 == null && this.ctrl.getLstNodeEnd().contains(node))
 					{
 						this.node1 = node;
+						this.node1.setSelected();
 						this.panel.eclaircir(this.node1);
 					}
 				}
@@ -358,20 +374,21 @@ class GereSelection extends MouseAdapter
 		else
 		{
 			ArrayList<Node> lstNodeAvailable = this.ctrl.getLstNodeAvailable(this.node1);
+			System.out.println(lstNodeAvailable);
 			for (Node node : this.ctrl.getLstNode()) 
 			{
+				
 				if(node.isDark() && lstNodeAvailable.contains(node) && node != this.node1)
 				{
 					this.panel.neutre(node);
-					continue;
 				}
 	
 				if(!node.isDark()&& !lstNodeAvailable.contains(node))
 				{
 					this.panel.assombrir(node);
-					continue;
 				}
 			}
+			System.out.println();
 		}
 
 		this.ctrl.majIhm();

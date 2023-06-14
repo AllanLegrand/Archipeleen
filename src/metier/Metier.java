@@ -172,7 +172,7 @@ public class Metier
 			Card card = this.deck.remove( (int) (Math.random() * this.deck.size()) );
 
 			journalDeBord += card.toString()+"\n";
-			
+
 			this.hand = card;
 			this.discard.add(this.hand);
 			

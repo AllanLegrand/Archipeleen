@@ -132,4 +132,9 @@ public class Node
 	{
 		return this.id.equals(n.id);
 	}
+
+	@Override
+	public String toString() {
+		return this.id + '\n';
+	}
 }
