@@ -54,6 +54,8 @@ public class Metier
 		this.deck    = new ArrayList<Card>();
 		this.hand    = null;
 
+		this.round = 1;
+
 		this.specialTurn = (int) (Math.random() * 10);
 
 		this.deck.add(new Card(false, -1));
@@ -232,7 +234,7 @@ public class Metier
 	public ArrayList<Edge> getLstEdge() { return this.g.getLstEdge(); }
 
 
-	public ArrayList<Node> getLstNodeAvailable(Node node)
+	public ArrayList<Node> getLstNodeAvailable( Node node )
 	{
 		ArrayList<Node> lstAvailable = new ArrayList<Node>();
 		if(this.hand == null)
@@ -288,10 +290,10 @@ public class Metier
 		for ( Card card : this.discard )
 			if ( card.isPrimary() ) nbTurn++;
 		
-		if ( nbTurn == 5 && this.round == 1) this.endGame();
+		if ( nbTurn == 5 && this.round == 2) this.endGame();
 		else if ( nbTurn == 5 )
 		{
-			this.round++; 
+			this.round++;
 
 			while ( !this.discard.isEmpty() )
 			{
@@ -299,15 +301,17 @@ public class Metier
 				this.discard.remove(0);
 			}
 
+			this.changeColor();
 			this.specialTurn = (int) (Math.random() * 10);
 		}
-
-		this.changeColor();
+		
 	}
 
 	public void changeColor()
 	{
-		PanelGraph.color = Metier.tabColor.get(this.round);
+		if ( PanelGraph.color == tabColor.get(0) )
+			PanelGraph.color = tabColor.get(1);
+		else PanelGraph.color = tabColor.get(0);
 	}
 
 	/**

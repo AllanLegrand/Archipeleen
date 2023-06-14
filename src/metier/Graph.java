@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 /**
  * @author Allan LEGRAND
- * @author Hugo HUGO
+ * @author Hugo VICENTE
  * @author Luc LECARPENTIER
  * @author Ashanti NJANJA
  * 

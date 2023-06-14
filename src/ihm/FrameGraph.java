@@ -10,7 +10,7 @@ import controleur.Controleur;
 
 /**
  * @author Allan LEGRAND
- * @author Hugo HUGO
+ * @author Hugo VICENTE
  * @author Luc LECARPENTIER
  * @author Ashanti NJANJA
  * 
