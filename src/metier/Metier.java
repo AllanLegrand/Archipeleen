@@ -172,15 +172,34 @@ public class Metier
 
 		if ( !this.deck.isEmpty() )
 		{
-			this.calculNbTurn();
+			int nbTurn = 0;
+
+			for ( Card card : this.deck )
+				if ( card.isPrimary() ) nbTurn++;
+
+			System.out.println(nbTurn+":"+this.deck);
+			
+			if ( nbTurn == 0 && this.round == 2) this.ctrl.endGame();
+			else if ( nbTurn == 0 )
+			{
+				this.round++;
+
+				while ( !this.discard.isEmpty() )
+				{
+					this.deck.add( this.discard.get(0) );
+					this.discard.remove(0);
+				}
+
+				this.changeColor();
+				this.specialTurn = (int) (Math.random() * 10);
+			}
 
 			Card card = this.deck.remove( (int) (Math.random() * this.deck.size()) );
 
 			journalDeBord += card.toString()+"\n";
 
 			this.hand = card;
-			
-			System.out.println(this.deck);
+		
 			return card;
 		}
 
@@ -281,35 +300,6 @@ public class Metier
 	{
 		// donne la possibilité de partir de n'importe quelle ile pour la prochaine carte
 		// Ajoute un nouveau bout
-	}
-
-	public void calculNbTurn()
-	{
-
-		if ( this.specialTurn -1 == this.discard.size() ) this.bifurcation();
-
-		int nbTurn = 0;
-
-		for ( Card card : this.discard )
-			if ( card.isPrimary() ) nbTurn++; 
-		
-		System.out.println( "nb carte primaire ds defausse : " + nbTurn );
-		
-		if ( nbTurn == 5 && this.round == 2) this.ctrl.endGame();
-		else if ( nbTurn == 5 )
-		{
-			this.round++;
-
-			while ( !this.discard.isEmpty() )
-			{
-				this.deck.add( this.discard.get(0) );
-				this.discard.remove(0);
-			}
-
-			this.changeColor();
-			this.specialTurn = (int) (Math.random() * 10);
-		}
-		
 	}
 
 	public void changeColor()
