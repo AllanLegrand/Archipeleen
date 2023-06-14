@@ -64,6 +64,8 @@ public class Controleur
 		return this.metier.drawCard();
 	}
 
+	public int getFinalScore() { return this.metier.getFinalScore(); }
+
 	public ArrayList<Node> getLstNodeEnd()
 	{
 		return this.metier.getLstNodeEnd();
