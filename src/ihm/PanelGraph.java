@@ -93,7 +93,7 @@ public class PanelGraph extends JPanel implements ActionListener
 		String id = PanelGraph.color == 255 ? "Mutaa" : "Tic\u00F3";
 
 		for (Node node : this.ctrl.getLstNode())
-			if(!node.getId().equals(id)) this.assombrir(node);
+			if(!node.getId().equals(id)) this.darken(node);
 
 
 		/* Activation des composants */
@@ -138,7 +138,7 @@ public class PanelGraph extends JPanel implements ActionListener
 
 
 			if(this.ctrl.getLstNodeEnd().contains(node) && node != this.gs.node1)
-				this.neutre(node);
+				this.neutral(node);
 
 			g2.setColor(Color.BLACK);
 			g2.drawImage(node.getImg(), node.getPosXImg(), node.getPosYImg(), null);
@@ -171,7 +171,7 @@ public class PanelGraph extends JPanel implements ActionListener
 		}
 	}
 
-	public void assombrir(Node node)
+	public void darken(Node node)
 	{
 		if(node.isDark() || (this.gs != null && node == this.gs.node1)) return;
 		BufferedImage imgTmp;
@@ -200,7 +200,7 @@ public class PanelGraph extends JPanel implements ActionListener
 		node.setDark(true);
 	}
 
-	public void eclaircir(Node node)
+	public void lighten(Node node)
 	{
 		BufferedImage imgTmp;
 		try {
@@ -235,7 +235,7 @@ public class PanelGraph extends JPanel implements ActionListener
 		node.setDark(false);
 	}
 
-	public void neutre(Node node)
+	public void neutral(Node node)
 	{
 		node.setImage(new ImageIcon("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png").getImage());
 		node.setDark(false);
@@ -331,7 +331,7 @@ class GereSelection extends MouseAdapter
 					if(this.node1 == null && this.ctrl.getLstNodeEnd().contains(node))
 					{
 						this.node1 = node;
-						this.panel.eclaircir(this.node1);
+						this.panel.lighten(this.node1);
 					}
 				}
 
@@ -351,7 +351,7 @@ class GereSelection extends MouseAdapter
 			{
 				if(!this.ctrl.getLstNodeEnd().contains(node))
 				{
-					this.panel.assombrir(node);
+					this.panel.darken(node);
 				}	
 			}
 		}
@@ -362,13 +362,13 @@ class GereSelection extends MouseAdapter
 			{
 				if(node.isDark() && lstNodeAvailable.contains(node) && node != this.node1)
 				{
-					this.panel.neutre(node);
+					this.panel.neutral(node);
 					continue;
 				}
 	
 				if(!node.isDark()&& !lstNodeAvailable.contains(node))
 				{
-					this.panel.assombrir(node);
+					this.panel.darken(node);
 					continue;
 				}
 			}
@@ -383,13 +383,13 @@ class GereSelection extends MouseAdapter
 		if(this.node1 != null) 
 		{
 			this.node1.setSelected();
-			this.panel.neutre(this.node1);
+			this.panel.neutral(this.node1);
 			this.node1 = null;
 		}
 		if(this.node2 != null)
 		{
 			this.node2.setSelected();
-			this.panel.neutre(this.node2);
+			this.panel.neutral(this.node2);
 			this.node2 = null;
 		}
 
