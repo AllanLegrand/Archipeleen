@@ -288,7 +288,9 @@ public class Metier
 		int nbTurn = 0;
 
 		for ( Card card : this.discard )
-			if ( card.isPrimary() ) nbTurn++;
+			if ( card.isPrimary() ) nbTurn++; 
+		
+		System.out.println( "nb carte primaire : " + nbTurn );
 		
 		if ( nbTurn == 5 && this.round == 2) this.endGame();
 		else if ( nbTurn == 5 )
@@ -309,9 +311,8 @@ public class Metier
 
 	public void changeColor()
 	{
-		if ( PanelGraph.color == tabColor.get(0) )
-			PanelGraph.color = tabColor.get(1);
-		else PanelGraph.color = tabColor.get(0);
+		if( tabColor.size() > this.round)
+			PanelGraph.color = tabColor.get(this.round);
 	}
 
 	/**
