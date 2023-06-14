@@ -249,12 +249,12 @@ public class Metier
 		
 		for(Integer[] color : lstColor.keySet())
 		{
-			int nbMaxNode = 0;
+			int nbRegion = 0;
 			for(ArrayList<Node> region : lstColor.get(color).values())
-				if (region.size() > nbMaxNode)
-					nbMaxNode = region.size();
+				if (region.size() > 0)
+					nbRegion++;
 
-			total += color[1] * nbMaxNode;
+			total += color[1] * nbRegion;
 		}
 
 		return total;
