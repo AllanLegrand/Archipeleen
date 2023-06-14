@@ -166,8 +166,7 @@ public class Metier
 	 */
 	public Card drawCard()
 	{
-		if (  this.hand != null )
-			this.discard.add(this.hand);
+		if ( this.hand != null ) this.discard.add( this.hand );
 
 		if ( !this.deck.isEmpty() )
 		{
