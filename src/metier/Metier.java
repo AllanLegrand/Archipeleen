@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ihm.PanelGraph;
+import controleur.Controleur;
 
 /**
  * @author Allan LEGRAND
@@ -26,7 +27,8 @@ import ihm.PanelGraph;
 public class Metier 
 {
 	private Graph g;
-	
+	private Controleur ctrl;
+
 	private ArrayList<Card> deck;
 	private Card hand;
 	private ArrayList<Card> discard;
@@ -293,7 +295,7 @@ public class Metier
 		
 		System.out.println( "nb carte primaire ds defausse : " + nbTurn );
 		
-		if ( nbTurn == 5 && this.round == 2) this.endGame();
+		if ( nbTurn == 5 && this.round == 2) this.ctrl.endGame();
 		else if ( nbTurn == 5 )
 		{
 			this.round++;
@@ -314,15 +316,6 @@ public class Metier
 	{
 		if( tabColor.size() > this.round-1)
 			PanelGraph.color = tabColor.get(this.round-1);
-	}
-
-	/**
-	 * Affiche le message de fin de jeu en plus du score
-	 */
-	public void endGame()
-	{
-		JOptionPane.showMessageDialog(null, "La partie est finie\nVotre score est : " + this.getFinalScore());
-		PanelGraph.color = 0;
 	}
 
 	public int getDiscardSize() { return this.discard.size(); }

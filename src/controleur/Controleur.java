@@ -7,9 +7,12 @@ import metier.Node;
 
 
 import ihm.FrameGraph;
+import ihm.PanelGraph;
 
 import java.awt.Toolkit;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 /**
  * @author Allan LEGRAND
@@ -72,6 +75,17 @@ public class Controleur
 	}
 
 	public int getDiscardSize() { return this.metier.getDiscardSize(); }
+
+	
+	/**
+	 * Affiche le message de fin de jeu en plus du score
+	 */
+	public void endGame()
+	{
+		this.majIhm();
+		JOptionPane.showMessageDialog(null, "La partie est finie\nVotre score est : " + this.getFinalScore());
+		PanelGraph.color = 0;
+	}
 
 	public static void main(String args[]) 
 	{
