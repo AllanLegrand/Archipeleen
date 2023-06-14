@@ -204,8 +204,8 @@ public class Metier
 			}
 
 			this.changeColor();
+			
 			// Manche suivante appelle l'ihm qui affiche un message : this.ctrl.nextRound();
-
 			
 			this.specialTurn = (int) (Math.random() * 10);
 			this.drawCard();
