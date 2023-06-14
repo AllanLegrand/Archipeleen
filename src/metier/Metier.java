@@ -228,22 +228,21 @@ public class Metier
 		int total = 0;
 
 		// couleur, nombre d'arete colorier de cette couleur, region, liste de noeud de cette region
-		HashMap<Integer[], HashMap<String, ArrayList <Node>>> lstColor = new HashMap<Integer[], HashMap<String, ArrayList <Node>>>();
+		HashMap<Integer, HashMap<String, ArrayList <Node>>> lstColor = new HashMap<Integer, HashMap<String, ArrayList <Node>>>();
 		for(Integer color : Metier.tabColor)
-			lstColor.put( new Integer[]{color, 0}, new HashMap<String, ArrayList <Node>>());
+			lstColor.put( color, new HashMap<String, ArrayList <Node>>());
 
 		for ( Edge edge : this.g.getLstEdge() )
-			for(Integer[] color : lstColor.keySet())
-				if ( edge.getColor() == color[0] ) 
+			for(Integer color : lstColor.keySet())
+				if ( edge.getColor() == color ) 
 				{
-					color[1]++;
 					total += edge.getCost();
 				}
 
 		for (String region : this.g.ensRegion.keySet())
 			for(Node node : this.g.ensRegion.get(region))
-				for(Integer[] color : lstColor.keySet())
-					if ( node.hasEdgeColor(color[0]) > 0)
+				for(Integer color : lstColor.keySet())
+					if ( node.hasEdgeColor(color) > 0)
 					{
 						if ( lstColor.get(color).containsKey(region))
 							lstColor.get(color).get(region).add(node);
@@ -251,14 +250,19 @@ public class Metier
 							lstColor.get(color).put(region, new ArrayList<Node>(Arrays.asList(node)));
 					}
 		
-		for(Integer[] color : lstColor.keySet())
+		for(Integer color : lstColor.keySet())
 		{
 			int nbMaxNode = 0;
+			int nbRegion = 0;
 			for(ArrayList<Node> region : lstColor.get(color).values())
+			{
+				if(region.size() > 0)
+					nbRegion++;
 				if (region.size() > nbMaxNode)
 					nbMaxNode = region.size();
+			}
 
-			total += color[1] * nbMaxNode;
+			total += nbRegion * nbMaxNode;
 		}
 
 		return total;
