@@ -232,7 +232,7 @@ public class Metier
 	public ArrayList<Edge> getLstEdge() { return this.g.getLstEdge(); }
 
 
-	public ArrayList<Node> getLstNodeAvailable(Node node)
+	public ArrayList<Node> getLstNodeAvailable( Node node )
 	{
 		ArrayList<Node> lstAvailable = new ArrayList<Node>();
 		if(this.hand == null)
@@ -297,7 +297,6 @@ public class Metier
 			}
 
 			this.specialTurn = (int) (Math.random() * 10);
-			Collections.shuffle( this.deck );
 		}
 
 		this.changeColor();
