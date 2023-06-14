@@ -34,6 +34,8 @@ public class Metier
 	private int round;
 	private int specialTurn; // utiliser pour determinerla bifurcation
 
+	protected static String journalDeBord = "";
+
 	public static ArrayList<Integer> tabColor = new ArrayList<Integer>(Arrays.asList(255, 16711680));
 
 	public static final Map<String,Integer> MAP_CARD_COLOR = new HashMap<String, Integer>() 
@@ -168,6 +170,8 @@ public class Metier
 			this.calculNbTurn();
 
 			Card card = this.deck.remove( (int) (Math.random() * this.deck.size()) );
+
+			journalDeBord += card.toString()+"\n";
 			
 			this.hand = card;
 			this.discard.add(this.hand);
@@ -176,6 +180,11 @@ public class Metier
 		}
 
 		return null;	
+	}
+
+	public String getJournalDeBord()
+	{
+		return Metier.journalDeBord;
 	}
 	
 	public int getFinalScore()
