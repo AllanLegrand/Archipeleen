@@ -67,7 +67,6 @@ public class Metier
 		
 		Collections.shuffle(Metier.tabColor);
 		this.generate();
-
 	}
 
 	/**
@@ -92,7 +91,7 @@ public class Metier
 			    if ( tabS.size() == 1 )
 				{
 			        this.g.ensRegion.put(nomReg + "", lstNode);
-					lstNode.clear();
+					lstNode = new ArrayList<Node>();
 					nomReg = sc.nextLine();
 					if(nomReg.equals("ARETE"))
 						break;
@@ -105,7 +104,7 @@ public class Metier
 					this.deck.add(new Card(true, Metier.MAP_CARD_COLOR.get(tabS.get(1))));
 				}
 
-				this.g.addNode(tabS.get(0), (int) (Integer.parseInt(tabS.get(2)) * 0.8), (int) (Integer.parseInt(tabS.get(3)) * 0.8), (int) (Integer.parseInt(tabS.get(4)) * 0.8), (int) (Integer.parseInt(tabS.get(5)) * 0.8), Metier.MAP_CARD_COLOR.get(tabS.get(1)));
+				lstNode.add(this.g.addNode(tabS.get(0), (int) (Integer.parseInt(tabS.get(2)) * 0.8), (int) (Integer.parseInt(tabS.get(3)) * 0.8), (int) (Integer.parseInt(tabS.get(4)) * 0.8), (int) (Integer.parseInt(tabS.get(5)) * 0.8), Metier.MAP_CARD_COLOR.get(tabS.get(1))));
 			}
 			
 
@@ -183,8 +182,7 @@ public class Metier
 
 			journalDeBord += card.toString()+"\n";
 			this.hand = card;
-			
-			System.out.println(this.hand);
+		
 			return card;
 		}
 		
@@ -311,8 +309,6 @@ public class Metier
 
 		for ( Card card : this.deck )
 			if ( card.isPrimary() || this.hand.isPrimary() ) { canPlay = true; break; }
-		
-		System.out.println( "nb carte primaire ds defausse : " + canPlay );
 		
 		if ( !canPlay && this.round == 2) this.ctrl.endGame();
 		else if ( !canPlay )
