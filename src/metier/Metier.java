@@ -37,6 +37,7 @@ public class Metier
 	private int specialTurn; // utiliser pour determinerla bifurcation
 
 	protected static String journalDeBord = "";
+	private boolean bifurcation;
 
 	public static ArrayList<Integer> tabColor = new ArrayList<Integer>(Arrays.asList(255, 16711680));
 
@@ -57,10 +58,11 @@ public class Metier
 		this.hand    = null;
 
 		this.ctrl = ctrl;
+		this.bifurcation = false;
 
 		this.round = 1;
 
-		this.specialTurn = (int) (Math.random() * 10);
+		this.specialTurn = 4;//(int) (Math.random() * 10);
 
 		this.deck.add(new Card(false, -1));
 		this.deck.add(new Card(true , -1));
@@ -140,6 +142,7 @@ public class Metier
 	}
 	
 	public ArrayList<Card> getDeck() { return this.deck; }
+	public boolean  getBifurcation() { return this.bifurcation; }
 
 	public Card getCard(int indice) { return this.deck.get(indice); }
 	public Card getHand() { return this.hand; }
@@ -175,8 +178,9 @@ public class Metier
 	{
 		boolean canPlay = false;
 
-		if ( this.specialTurn -1 == this.discard.size() ) System.out.println("birfurcation"); //this.birfurcation == true;
-
+		if ( this.specialTurn -1 == this.discard.size() ) this.bifurcation = true;
+		else this.bifurcation = false;
+		
 		for ( Card card : this.deck )
 			if ( card.isPrimary() ) 
 			{
@@ -228,22 +232,21 @@ public class Metier
 		int total = 0;
 
 		// couleur, nombre d'arete colorier de cette couleur, region, liste de noeud de cette region
-		HashMap<Integer[], HashMap<String, ArrayList <Node>>> lstColor = new HashMap<Integer[], HashMap<String, ArrayList <Node>>>();
+		HashMap<Integer, HashMap<String, ArrayList <Node>>> lstColor = new HashMap<Integer, HashMap<String, ArrayList <Node>>>();
 		for(Integer color : Metier.tabColor)
-			lstColor.put( new Integer[]{color, 0}, new HashMap<String, ArrayList <Node>>());
+			lstColor.put( color, new HashMap<String, ArrayList <Node>>());
 
 		for ( Edge edge : this.g.getLstEdge() )
-			for(Integer[] color : lstColor.keySet())
-				if ( edge.getColor() == color[0] ) 
+			for(Integer color : lstColor.keySet())
+				if ( edge.getColor() == color ) 
 				{
-					color[1]++;
 					total += edge.getCost();
 				}
 
 		for (String region : this.g.ensRegion.keySet())
 			for(Node node : this.g.ensRegion.get(region))
-				for(Integer[] color : lstColor.keySet())
-					if ( node.hasEdgeColor(color[0]) > 0)
+				for(Integer color : lstColor.keySet())
+					if ( node.hasEdgeColor(color) > 0)
 					{
 						if ( lstColor.get(color).containsKey(region))
 							lstColor.get(color).get(region).add(node);
@@ -251,14 +254,19 @@ public class Metier
 							lstColor.get(color).put(region, new ArrayList<Node>(Arrays.asList(node)));
 					}
 		
-		for(Integer[] color : lstColor.keySet())
+		for(Integer color : lstColor.keySet())
 		{
 			int nbMaxNode = 0;
+			int nbRegion = 0;
 			for(ArrayList<Node> region : lstColor.get(color).values())
+			{
+				if(region.size() > 0)
+					nbRegion++;
 				if (region.size() > nbMaxNode)
 					nbMaxNode = region.size();
+			}
 
-			total += color[1] * nbMaxNode;
+			total += nbRegion * nbMaxNode;
 		}
 
 		return total;
@@ -284,7 +292,7 @@ public class Metier
 		return lstAvailable;
 	}
 
-	public ArrayList<Node> getLstNodeEnd()
+	public ArrayList<Node> getLstNodeEnd( boolean bifurcation )
 	{
 		ArrayList<Node> lstTmp = new ArrayList<Node>();
 
@@ -297,50 +305,17 @@ public class Metier
 					cpt++;
 			}
 
-			if(cpt == 1)
+			if( cpt == 1 )
+				lstTmp.add(node);
+			else if( cpt >= 1 && this.ctrl.getBifurcation() )			
 				lstTmp.add(node);
 		}
 
 		if(lstTmp.size() == 0)
 			lstTmp.add(PanelGraph.color == 255 ? this.g.getNode("Mutaa") : this.g.getNode("Tic\u00F3"));
 
+		System.out.println(lstTmp);
 		return lstTmp;
-	}
-
-	public void bifurcation()
-	{
-		// donne la possibilité de partir de n'importe quelle ile pour la prochaine carte
-		// Ajoute un nouveau bout
-	}
-
-	public void calculNbTurn()
-	{
-
-		if ( this.specialTurn -1 == this.discard.size() ) this.bifurcation();
-
-		boolean canPlay = false;
-
-		for ( Card card : this.deck )
-			if ( card.isPrimary() || this.hand.isPrimary() ) { canPlay = true; break; }
-		
-		if ( !canPlay && this.round == 2) this.ctrl.endGame();
-		else if ( !canPlay )
-		{
-			this.round++;
-
-			while ( !this.discard.isEmpty() )
-			{
-				this.deck.add( this.discard.get(0) );
-				this.discard.remove(0);
-			}
-
-			// Manche suivante appelle l'ihm qui affiche un message : this.ctrl.nextRound();
-
-			this.changeColor();
-			this.specialTurn = (int) (Math.random() * 10);
-			
-		}
-		
 	}
 
 	public void changeColor()

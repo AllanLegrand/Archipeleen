@@ -153,7 +153,7 @@ public class PanelGraph extends JPanel implements ActionListener
 			int posY = node.getPosY();
 
 
-			if(this.gs.node1 == null && this.ctrl.getLstNodeEnd().contains(node))
+			if(this.gs.node1 == null && this.ctrl.getLstNodeEnd( this.ctrl.getBifurcation() ).contains(node))
 				this.neutral(node);
 		
 
@@ -366,7 +366,7 @@ class GereSelection extends MouseAdapter
 				else
 				{
 					//sélection de la 1ère node
-					if(this.node1 == null && this.ctrl.getLstNodeEnd().contains(node))
+					if(this.node1 == null && this.ctrl.getLstNodeEnd( this.ctrl.getBifurcation() ).contains(node))
 					{
 						this.node1 = node;
 						this.node1.setSelected();
@@ -388,7 +388,7 @@ class GereSelection extends MouseAdapter
 		{
 			for (Node node : this.ctrl.getLstNode()) 
 			{
-				if(!this.ctrl.getLstNodeEnd().contains(node))
+				if(!this.ctrl.getLstNodeEnd( this.ctrl.getBifurcation() ).contains(node))
 				{
 					this.panel.darken(node);
 				}	

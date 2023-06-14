@@ -72,10 +72,12 @@ public class Controleur
 
 	public int getFinalScore() { return this.metier.getFinalScore(); }
 
-	public ArrayList<Node> getLstNodeEnd()
+	public ArrayList<Node> getLstNodeEnd( boolean bifurcaion )
 	{
-		return this.metier.getLstNodeEnd();
+		return this.metier.getLstNodeEnd( bifurcaion );
 	}
+
+	public boolean getBifurcation() { return this.metier.getBifurcation(); }
 
 	public String getJournalDeBord()
 	{
