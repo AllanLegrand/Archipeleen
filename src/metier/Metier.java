@@ -256,6 +256,9 @@ public class Metier
 				lstTmp.add(node);
 		}
 
+		if(lstTmp.size() == 0)
+			lstTmp.add(PanelGraph.color == 255 ? this.g.getNode("Mutaa") : this.g.getNode("Tic\u00F3"));
+
 		return lstTmp;
 	}
 
@@ -288,7 +291,6 @@ public class Metier
 			}
 
 			this.specialTurn = (int) (Math.random() * 10);
-			Collections.shuffle( this.deck );
 		}
 
 		this.changeColor();
