@@ -116,6 +116,15 @@ public class PanelGraph extends JPanel implements ActionListener
 	protected void paintComponent(Graphics g) 
 	{
 		Graphics2D g2 = (Graphics2D) g;
+
+		g2.setStroke(new BasicStroke(2F));
+		g2.setColor(new Color(0, 0, 175));
+
+		g2.drawLine(0, (int)(Controleur.HEIGHT/2.8), (int)(Controleur.WIDTH/2.5), (int)(Controleur.HEIGHT/2.8));
+		g2.drawLine((int)(Controleur.WIDTH/4.3), 0, (int)(Controleur.WIDTH/4.3), Controleur.HEIGHT);
+		g2.drawLine((int)(Controleur.WIDTH/2.5), (int)(Controleur.HEIGHT/2.8), (int) (Controleur.WIDTH / 1.5), 0);
+		g2.drawLine((int)(Controleur.WIDTH/2.5), (int)(Controleur.HEIGHT/2.8), (int) (Controleur.WIDTH / 1.5), Controleur.HEIGHT);
+		
 		if(this.startColor != PanelGraph.color)
 		{
 			this.repaintCard();
@@ -132,7 +141,7 @@ public class PanelGraph extends JPanel implements ActionListener
 			int xEnd   = node2.getPosX() ;
 			int yEnd   = node2.getPosY() ;
 
-
+			System.out.println(edge.getColor());
 			g2.setColor(new Color(edge.getColor()));
 			g2.setStroke(new BasicStroke(4F));
 			g2.drawLine(xStart, yStart, xEnd, yEnd);

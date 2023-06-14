@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
+import java.awt.Color;
 import java.io.FileInputStream;
 import java.nio.charset.Charset;
 
-import javax.swing.JOptionPane;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -115,11 +115,15 @@ public class Metier
 				String node1 = tabS.get(0);
 				String node2 = tabS.get(1);
 
+				int color = Color.LIGHT_GRAY.getRGB();
 				int cout = 0;
 				if(tabS.size() == 3)
+				{
+					color = Color.BLACK.getRGB();
 					cout = Integer.parseInt(tabS.get(2));
+				}
 
-				this.g.addEdge(node1 + "-" + node2, this.g.getNode(node1), this.g.getNode(node2), cout);
+				this.g.addEdge(node1 + "-" + node2, this.g.getNode(node1), this.g.getNode(node2), cout, color);
 			}
 
 			sc.close();
