@@ -59,7 +59,6 @@ public class Metier
 		
 		Collections.shuffle(Metier.tabColor);
 		this.generate();
-		Collections.shuffle(this.deck);
 		this.drawCard();
 	}
 
@@ -156,13 +155,6 @@ public class Metier
         return tabS;
     }
 
-	public void setHand(Card card)
-	{
-		this.calculNbTurn();
-		this.discard.add(card);
-		this.deck.remove(card);
-		this.hand = card;
-	}
 	
 	/**
 	 * Retourne la carte piochée et la met dans la main
@@ -175,7 +167,7 @@ public class Metier
 		{
 			this.calculNbTurn();
 
-			Card card = this.deck.remove( 0 );
+			Card card = this.deck.remove( (int) (Math.random() * this.deck.size()) );
 			
 			this.hand = card;
 			this.discard.add(this.hand);
@@ -234,6 +226,8 @@ public class Metier
 	public ArrayList<Node> getLstNodeAvailable(Node node)
 	{
 		ArrayList<Node> lstAvailable = new ArrayList<Node>();
+		if(this.hand == null)
+			return lstAvailable;
 
 		for (Edge edge : node.getLstEdge())
 		{
@@ -244,6 +238,27 @@ public class Metier
 		
 		return lstAvailable;
 	}
+
+	public ArrayList<Node> getLstNodeEnd()
+	{
+		ArrayList<Node> lstTmp = new ArrayList<Node>();
+
+		for (Node node : this.getLstNode())
+		{
+			int cpt = 0;
+			for (Edge edge : node.getLstEdge()) 
+			{
+				if(edge.getColor() == PanelGraph.color)
+					cpt++;
+			}
+
+			if(cpt == 1)
+				lstTmp.add(node);
+		}
+
+		return lstTmp;
+	}
+
 
 	public void bifurcation()
 	{
@@ -272,7 +287,6 @@ public class Metier
 			}
 
 			this.specialTurn = (int) (Math.random() * 10);
-			Collections.shuffle(this.deck);
 		}
 
 		this.changeColor();

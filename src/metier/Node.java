@@ -24,7 +24,7 @@ public class Node
 	private ArrayList<Edge> lstEdge;
 	private boolean isSelected;
 	private Image img;
-	private int   dark;
+	private boolean isDark;
 
 	public Node(String id, int posX, int posY, int posXImg, int posYImg, int color)
 	{
@@ -98,14 +98,14 @@ public class Node
 		return this.img;
 	}
 
-	public void setDark(int dark)
+	public void setDark(boolean b)
 	{
-		this.dark = dark;
+		this.isDark = b;
 	}
 
-	public int getDark()
+	public boolean isDark()
 	{
-		return this.dark;
+		return this.isDark;
 	}
 
 	public boolean equals(Node n)

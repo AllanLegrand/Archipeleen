@@ -58,4 +58,9 @@ public class Card
 
 		return "./donnees/images/carte/bord_" + (isPrimary ? "noir" : "blanc") + "_fond_" + color + ".png";
 	}
+
+	public boolean equals(Card card) 
+	{
+		return this.getPath().equals(card.getPath());
+	}
 }

@@ -43,7 +43,6 @@ public class Controleur
 
 	public Card getHand() { return this.metier.getHand(); }
 
-	public void setHand(Card card) { this.metier.setHand(card);}
 
 	public ArrayList<Node> getLstNodeAvailable(Node node)
 	{
@@ -64,6 +63,12 @@ public class Controleur
 	{
 		return this.metier.drawCard();
 	}
+
+	public ArrayList<Node> getLstNodeEnd()
+	{
+		return this.metier.getLstNodeEnd();
+	}
+
 
 	public int getDiscardSize() { return this.metier.getDiscardSize(); }
 
