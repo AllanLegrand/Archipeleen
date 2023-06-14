@@ -293,8 +293,8 @@ public class Metier
 		for ( Card card : this.discard )
 			if ( card.isPrimary() ) nbTurn++;
 		
-		if ( nbTurn == 5 && this.round == 2) this.endGame();
-		else if ( nbTurn == 5 )
+		if ( nbTurn >= 5 && this.round == 2) this.endGame();
+		else if ( nbTurn >= 5 )
 		{
 			this.round++;
 
