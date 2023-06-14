@@ -64,7 +64,6 @@ public class Edge
 	 */
 	public int getColor() { return this.color; }
 
-
 	/**
 	 * Cette méthode change la couleur d'une route {@code Road}
 	 * @param color une couleur
@@ -112,5 +111,10 @@ public class Edge
 		}
 
 		return false;
+	}
+
+	public String toString()
+	{
+		return "Route de " + n1.getId() + " à " + n2.getId() + ( this.cost != 0 ? " qui rapporte un bonus" : "");
 	}
 }

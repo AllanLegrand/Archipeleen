@@ -46,6 +46,16 @@ public class Card
 	 */
 	public String getPath()
 	{
+		String color = this.getColorName();
+		return "./donnees/images/carte/bord_" + (isPrimary ? "noir" : "blanc") + "_fond_" + color + ".png";
+	}
+
+	/**
+	 * Cette méthode donne la couleur en chaine de caractère
+	 * @return retourne le nom de la couleur
+	 */
+	private String getColorName()
+	{
 		String color = "";
 		switch(this.color)
 		{
@@ -56,11 +66,16 @@ public class Card
 			default       -> color = "multi";
 		}
 
-		return "./donnees/images/carte/bord_" + (isPrimary ? "noir" : "blanc") + "_fond_" + color + ".png";
+		return color;
 	}
 
 	public boolean equals(Card card) 
 	{
 		return this.getPath().equals(card.getPath());
+	}
+
+	public String toSring()
+	{ 
+		return "Carte " + this.getColorName() + (this.isPrimary ? " primaire"  : " non primaire");
 	}
 }
