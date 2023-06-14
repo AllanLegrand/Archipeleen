@@ -280,13 +280,15 @@ public class Metier
 		else if ( nbTurn == 5 )
 		{
 			this.round++; 
-			for(Card card : this.discard)
+
+			while ( !this.discard.isEmpty() )
 			{
-				this.deck.add(card);
-				this.discard.remove(card);
+				this.deck.add( this.discard.get(0) );
+				this.discard.remove(0);
 			}
 
 			this.specialTurn = (int) (Math.random() * 10);
+			Collections.shuffle( this.deck );
 		}
 
 		this.changeColor();
