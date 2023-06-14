@@ -34,7 +34,7 @@ public class Controleur
 
 	public Controleur()
 	{
-		this.metier = new Metier();
+		this.metier = new Metier( this );
 		this.metier.changeColor();
 		this.ihm    = new FrameGraph( this );
 		
@@ -78,14 +78,6 @@ public class Controleur
 
 	public int getDiscardSize() { return this.metier.getDiscardSize(); }
 
-	
-	/**
-	 * Affiche le message de fin de jeu en plus du score
-	 */
-	public void endGame()
-	{
-		this.ihm.endGame();
-	}
 
 	public static void main(String args[]) 
 	{

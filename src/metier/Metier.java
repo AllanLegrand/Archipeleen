@@ -48,13 +48,15 @@ public class Metier
 		put("Brun" , 10321545);
 	}};
 
-	public Metier()
+	public Metier( Controleur ctrl)
 	{
 		this.g = new Graph();
 
 		this.discard = new ArrayList<Card>();
 		this.deck    = new ArrayList<Card>();
 		this.hand    = null;
+
+		this.ctrl = ctrl;
 
 		this.round = 1;
 
@@ -168,23 +170,40 @@ public class Metier
 	 */
 	public Card drawCard()
 	{
+		boolean canPlay = false;
+
+		for ( Card c : this.deck )
+			if ( c.isPrimary() ) { canPlay = true; }
+
 		if ( this.hand != null ) this.discard.add( this.hand );
 
-		if ( !this.deck.isEmpty() )
+		if ( !this.deck.isEmpty() && canPlay )
 		{
-			this.calculNbTurn();
-
 			Card card = this.deck.remove( (int) (Math.random() * this.deck.size()) );
 
 			journalDeBord += card.toString()+"\n";
-
 			this.hand = card;
 			
-			System.out.println(this.deck);
+			System.out.println(this.hand);
 			return card;
 		}
+		
+		if ( !canPlay && this.round == 2) this.endGame();
+		else if ( !canPlay )
+		{
+			this.round++;
 
-		return null;	
+			while ( !this.discard.isEmpty() )
+			{
+				this.deck.add( this.discard.get(0) );
+				this.discard.remove(0);
+			}
+
+			this.changeColor();
+			this.specialTurn = (int) (Math.random() * 10);
+		}
+
+		return null;
 	}
 
 	public String getJournalDeBord()
@@ -290,13 +309,13 @@ public class Metier
 
 		int nbTurn = 0;
 
-		for ( Card card : this.discard )
+		for ( Card card : this.deck )
 			if ( card.isPrimary() ) nbTurn++; 
 		
 		System.out.println( "nb carte primaire ds defausse : " + nbTurn );
 		
-		if ( nbTurn == 5 && this.round == 2) this.ctrl.endGame();
-		else if ( nbTurn == 5 )
+		if ( nbTurn == 0 && this.round == 2) this.endGame();
+		else if ( nbTurn == 0 )
 		{
 			this.round++;
 
@@ -310,6 +329,13 @@ public class Metier
 			this.specialTurn = (int) (Math.random() * 10);
 		}
 		
+	}
+
+	public void endGame()
+	{
+		this.ctrl.majIhm();
+		JOptionPane.showMessageDialog(null, "La partie est finie\nVotre score est : " + this.ctrl.getFinalScore());
+		PanelGraph.color = 0;
 	}
 
 	public void changeColor()
