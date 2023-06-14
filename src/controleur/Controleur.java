@@ -32,8 +32,8 @@ public class Controleur
 	public Controleur()
 	{
 		this.metier = new Metier();
-		this.ihm    = new FrameGraph( this );
 		this.metier.changeColor();
+		this.ihm    = new FrameGraph( this );
 	}
 
 	public ArrayList<Node> getLstNode() { return this.metier.getLstNode(); }
@@ -53,13 +53,9 @@ public class Controleur
 		this.ihm.repaintPanel();
 	}
 
-	public int getScore()
-	{
-		return this.metier.getFinalScore();
-	}
-
 	public Card drawCard()
-	{
+	{	
+		this.ihm.setScore(this.metier.getFinalScore());
 		return this.metier.drawCard();
 	}
 

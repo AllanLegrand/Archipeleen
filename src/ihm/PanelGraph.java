@@ -57,6 +57,8 @@ public class PanelGraph extends JPanel implements ActionListener
 
 	private GereSelection gs;
 
+	private int startColor;
+
 	public PanelGraph(Controleur ctrl)
 	{
 		this.ctrl = ctrl;
@@ -75,6 +77,8 @@ public class PanelGraph extends JPanel implements ActionListener
 		this.btnSkip   = new JButton("Passer le tour");
 
 		this.lblScore  = new JLabel("Score : 0");
+
+		this.startColor = PanelGraph.color;
 
 		/* Ajout des composants */
 		JPanel panelTmp = new JPanel(new GridLayout(5, 2, 5, 5));
@@ -114,7 +118,10 @@ public class PanelGraph extends JPanel implements ActionListener
 	protected void paintComponent(Graphics g) 
 	{
 		Graphics2D g2 = (Graphics2D) g;
-
+		if(this.startColor != PanelGraph.color)
+		{
+			this.repaintCard();
+		}
 		
 		for (Edge edge : this.ctrl.getLstEdge()) 
 		{
@@ -161,7 +168,6 @@ public class PanelGraph extends JPanel implements ActionListener
 			if(lbl.equals(this.ctrl.getHand()))
 			{
 				lbl.setIcon(new ImageIcon(new ImageIcon("./donnees/images/carte/carte_retournée.png").getImage().getScaledInstance((int) (Controleur.WIDTH * 0.08), (int) (Controleur.HEIGHT * 0.18), Image.SCALE_SMOOTH)));
-				lbl.setReturn();
 				lbl.repaint();
 			}
 		
@@ -241,6 +247,15 @@ public class PanelGraph extends JPanel implements ActionListener
 	{
 		node.setImage(new ImageIcon("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png").getImage());
 		node.setDark(false);
+	}
+
+	public void repaintCard()
+	{
+		for (LabelCard labelCard : tabLblCard)
+		{
+			labelCard.setIcon(new ImageIcon(new ImageIcon(labelCard.getCard().getPath()).getImage().getScaledInstance((int)(Controleur.WIDTH * 0.08), (int) (Controleur.HEIGHT * 0.18), Image.SCALE_SMOOTH)));
+			labelCard.repaint();
+		}
 	}
 
 	@Override
@@ -374,7 +389,6 @@ class GereSelection extends MouseAdapter
 		else
 		{
 			ArrayList<Node> lstNodeAvailable = this.ctrl.getLstNodeAvailable(this.node1);
-			System.out.println(lstNodeAvailable);
 			for (Node node : this.ctrl.getLstNode()) 
 			{
 				
@@ -390,7 +404,6 @@ class GereSelection extends MouseAdapter
 					continue;
 				}
 			}
-			System.out.println();
 		}
 
 		this.ctrl.majIhm();

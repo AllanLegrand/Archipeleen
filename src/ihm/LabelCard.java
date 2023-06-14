@@ -3,6 +3,7 @@ package ihm;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -16,24 +17,15 @@ public class LabelCard extends JLabel
 	public static LabelCard current = null;
 
 	private Card       card;
-	private Controleur ctrl;
-	private boolean    bReturn;
 
 	public LabelCard(Card card, Controleur ctrl)
 	{
 		super(new ImageIcon(new ImageIcon(card.getPath()).getImage().getScaledInstance((int)(Controleur.WIDTH * 0.08), (int) (Controleur.HEIGHT * 0.18), Image.SCALE_SMOOTH)));
 
 		this.card = card;
-		this.ctrl = ctrl;
-		this.bReturn = false;
 	}
 
-	public void returnCard() { this.bReturn = true; }
-
-
-	public boolean isReturn() {return bReturn;}
-
-	public void setReturn() {this.bReturn = true;}
+	public Card getCard(){ return this.card; }
 
 	@Override
 	protected void paintComponent(Graphics g) 

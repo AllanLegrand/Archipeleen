@@ -53,10 +53,14 @@ public class FrameGraph extends JFrame
 		this.setVisible(true);
 	}
 
+	public void setScore(int score)
+	{
+		this.panelGraph.setScore(score);
+	}
+
 	public void repaintPanel()
 	{
 		super.repaint();
-		
 
 		this.panelGraph.repaint();
 	}
