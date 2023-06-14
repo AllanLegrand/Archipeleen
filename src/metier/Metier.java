@@ -37,6 +37,7 @@ public class Metier
 	private int specialTurn; // utiliser pour determinerla bifurcation
 
 	protected static String journalDeBord = "";
+	private boolean bifurcation;
 
 	public static ArrayList<Integer> tabColor = new ArrayList<Integer>(Arrays.asList(255, 16711680));
 
@@ -57,10 +58,11 @@ public class Metier
 		this.hand    = null;
 
 		this.ctrl = ctrl;
+		this.bifurcation = false;
 
 		this.round = 1;
 
-		this.specialTurn = (int) (Math.random() * 10);
+		this.specialTurn = 4;//(int) (Math.random() * 10);
 
 		this.deck.add(new Card(false, -1));
 		this.deck.add(new Card(true , -1));
@@ -136,6 +138,7 @@ public class Metier
 	}
 	
 	public ArrayList<Card> getDeck() { return this.deck; }
+	public boolean  getBifurcation() { return this.bifurcation; }
 
 	public Card getCard(int indice) { return this.deck.get(indice); }
 	public Card getHand() { return this.hand; }
@@ -171,8 +174,9 @@ public class Metier
 	{
 		boolean canPlay = false;
 
-		if ( this.specialTurn -1 == this.discard.size() ) System.out.println("birfurcation"); //this.birfurcation == true;
-
+		if ( this.specialTurn -1 == this.discard.size() ) this.bifurcation = true;
+		else this.bifurcation = false;
+		
 		for ( Card card : this.deck )
 			if ( card.isPrimary() ) 
 			{
@@ -280,7 +284,7 @@ public class Metier
 		return lstAvailable;
 	}
 
-	public ArrayList<Node> getLstNodeEnd()
+	public ArrayList<Node> getLstNodeEnd( boolean bifurcation )
 	{
 		ArrayList<Node> lstTmp = new ArrayList<Node>();
 
@@ -293,50 +297,17 @@ public class Metier
 					cpt++;
 			}
 
-			if(cpt == 1)
+			if( cpt == 1 )
+				lstTmp.add(node);
+			else if( cpt >= 1 && this.ctrl.getBifurcation() )			
 				lstTmp.add(node);
 		}
 
 		if(lstTmp.size() == 0)
 			lstTmp.add(PanelGraph.color == 255 ? this.g.getNode("Mutaa") : this.g.getNode("Tic\u00F3"));
 
+		System.out.println(lstTmp);
 		return lstTmp;
-	}
-
-	public void bifurcation()
-	{
-		// donne la possibilité de partir de n'importe quelle ile pour la prochaine carte
-		// Ajoute un nouveau bout
-	}
-
-	public void calculNbTurn()
-	{
-
-		if ( this.specialTurn -1 == this.discard.size() ) this.bifurcation();
-
-		boolean canPlay = false;
-
-		for ( Card card : this.deck )
-			if ( card.isPrimary() || this.hand.isPrimary() ) { canPlay = true; break; }
-		
-		if ( !canPlay && this.round == 2) this.ctrl.endGame();
-		else if ( !canPlay )
-		{
-			this.round++;
-
-			while ( !this.discard.isEmpty() )
-			{
-				this.deck.add( this.discard.get(0) );
-				this.discard.remove(0);
-			}
-
-			// Manche suivante appelle l'ihm qui affiche un message : this.ctrl.nextRound();
-
-			this.changeColor();
-			this.specialTurn = (int) (Math.random() * 10);
-			
-		}
-		
 	}
 
 	public void changeColor()
