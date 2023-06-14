@@ -204,6 +204,9 @@ public class Metier
 			}
 
 			this.changeColor();
+			// Manche suivante appelle l'ihm qui affiche un message : this.ctrl.nextRound();
+
+			
 			this.specialTurn = (int) (Math.random() * 10);
 			this.drawCard();
 		}
@@ -300,50 +303,10 @@ public class Metier
 		return lstTmp;
 	}
 
-
 	public void bifurcation()
 	{
 		// donne la possibilité de partir de n'importe quelle ile pour la prochaine carte
 		// Ajoute un nouveau bout
-	}
-
-	public void calculNbTurn()
-	{
-
-		if ( this.specialTurn -1 == this.discard.size() ) this.bifurcation();
-
-		boolean canPlay = false;
-
-		for ( Card card : this.deck )
-			if ( card.isPrimary() || this.hand.isPrimary() && this.deck.isEmpty() ) 
-			{
-				canPlay = true;
-				break;
-			}
-		
-		System.out.println( "nb carte primaire ds defausse : " + canPlay );
-		
-		if ( !canPlay && this.round == 2) this.ctrl.endGame();
-		else if ( !canPlay )
-		{
-			this.round++;
-
-			while ( !this.discard.isEmpty() )
-			{
-				this.deck.add( this.discard.get(0) );
-				this.discard.remove(0);
-			}
-
-			// Manche suivante appelle l'ihm qui affiche un message : this.ctrl.nextRound();
-
-			this.changeColor();
-			this.specialTurn = (int) (Math.random() * 10);
-			this.hand = null;
-
-			System.out.println( " derniere carte pioché" );
-			this.drawCard();			
-		}
-		
 	}
 
 	public void changeColor()
