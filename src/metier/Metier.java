@@ -172,10 +172,14 @@ public class Metier
 	{
 		boolean canPlay = false;
 
-		for ( Card c : this.deck )
-			if ( c.isPrimary() ) { canPlay = true; }
+		for ( Card card : this.deck )
+			if ( card.isPrimary() ) 
+			{
+				canPlay = true;
+				break;
+			}
 
-		if ( this.hand != null ) this.discard.add( this.hand );
+		if ( this.hand != null ) this.discard.add( this.hand ); //this.hand = null;
 
 		if ( !this.deck.isEmpty() && canPlay )
 		{
@@ -201,6 +205,7 @@ public class Metier
 
 			this.changeColor();
 			this.specialTurn = (int) (Math.random() * 10);
+			this.drawCard();
 		}
 
 		return null;
@@ -310,7 +315,11 @@ public class Metier
 		boolean canPlay = false;
 
 		for ( Card card : this.deck )
-			if ( card.isPrimary() || this.hand.isPrimary() ) { canPlay = true; break; }
+			if ( card.isPrimary() || this.hand.isPrimary() && this.deck.isEmpty() ) 
+			{
+				canPlay = true;
+				break;
+			}
 		
 		System.out.println( "nb carte primaire ds defausse : " + canPlay );
 		
@@ -329,7 +338,10 @@ public class Metier
 
 			this.changeColor();
 			this.specialTurn = (int) (Math.random() * 10);
-			
+			this.hand = null;
+
+			System.out.println( " derniere carte pioché" );
+			this.drawCard();			
 		}
 		
 	}
