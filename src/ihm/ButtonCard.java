@@ -74,7 +74,6 @@ public class ButtonCard extends JLabel implements MouseMotionListener, MouseList
 			ButtonCard.current = this;
 			ButtonCard.nbBtnReturn++;
 
-			this.ctrl.setHand(this.card);
 		}
 
 	}
