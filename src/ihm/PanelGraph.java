@@ -67,8 +67,7 @@ public class PanelGraph extends JPanel implements ActionListener
 
 		/* Création des composants */
 		this.tabLblCard = new LabelCard[10];
-		for (int i = 0; i < tabLblCard.length; i++)
-		{
+		for (int i = 0; i < tabLblCard.length; i++) {
 			tabLblCard[i] = new LabelCard(this.ctrl.getCard(i), ctrl);
 		}
 		
