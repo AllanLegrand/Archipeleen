@@ -7,6 +7,7 @@ import metier.Node;
 
 
 import ihm.FrameGraph;
+import ihm.Launcher;
 import ihm.PanelGraph;
 
 import java.awt.Toolkit;
@@ -34,12 +35,13 @@ public class Controleur
 
 	public Controleur()
 	{
+		new Launcher(this);
 		this.metier = new Metier( this );
 		this.metier.changeColor();
-		this.ihm    = new FrameGraph( this );
-		
-		this.drawCard();
+		//this.ihm    = new FrameGraph( this );
 	}
+
+	public void setIhm( FrameGraph ihm ) { this.ihm = ihm; }
 
 	public ArrayList<Node> getLstNode() { return this.metier.getLstNode(); }
 	public ArrayList<Edge> getLstEdge() { return this.metier.getLstEdge(); }

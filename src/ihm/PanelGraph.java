@@ -105,6 +105,8 @@ public class PanelGraph extends JPanel implements ActionListener
 
 		this.btnSkip.addActionListener(this);
 
+		this.ctrl.drawCard();
+
 	}
 
 	public void setScore(int score)
