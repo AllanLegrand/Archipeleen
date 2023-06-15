@@ -32,7 +32,7 @@ public class Metier
 	private static final int BLEU = 16711680;
 	private static final int ROUGE = 255;
 
-	protected static String journalDeBord = "";
+	public static String journalDeBord = "";
 
 	public static ArrayList<Integer> tabColor = new ArrayList<Integer>(Arrays.asList(Metier.ROUGE, 16711680));
 
@@ -164,7 +164,7 @@ public class Metier
 		return this.hand;
 	}
 
-	private static ArrayList<String> decomposer(String chaine, char dec) 
+	public static ArrayList<String> decomposer(String chaine, char dec) 
 	{
 		ArrayList<String> tabS = new ArrayList<String>();
 
