@@ -112,8 +112,7 @@ public class Launcher extends JFrame implements ActionListener, ItemListener
 	}
 
     public void itemStateChanged(ItemEvent e) 
-    { 
-		System.out.println(this.lstScenario.getSelectedIndex());
+    {
         // si l'état du combobox est modifiée 
         if ( e.getSource() == this.lstScenario )
             this.btnScenario.setEnabled(true);
