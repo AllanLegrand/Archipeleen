@@ -17,9 +17,9 @@ public class LabelCard extends JLabel
 
 	private Card       card;
 
-	public LabelCard(Card card, Controleur ctrl)
+	public LabelCard(Card card, String s, Controleur ctrl)
 	{
-		super(new ImageIcon(new ImageIcon(card.getPath()).getImage().getScaledInstance((int)(Controleur.WIDTH * 0.08), (int) (Controleur.HEIGHT * 0.18), Image.SCALE_SMOOTH)));
+		super(new ImageIcon(new ImageIcon(s).getImage().getScaledInstance((int)(Controleur.WIDTH * 0.08), (int) (Controleur.HEIGHT * 0.18), Image.SCALE_SMOOTH)));
 
 		this.card = card;
 	}

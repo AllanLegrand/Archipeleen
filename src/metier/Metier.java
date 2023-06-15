@@ -324,7 +324,7 @@ public class Metier
 									this.discard.get(j).isPrimary() )
 								{
 									this.deck.add( this.discard.remove(j) ); 
-									break;
+									//break;
 								}
 					}
 

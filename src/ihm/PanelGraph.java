@@ -71,7 +71,14 @@ public class PanelGraph extends JPanel implements ActionListener
 		/* Création des composants */
 		this.tabLblCard = new LabelCard[10];
 		for (int i = 0; i < tabLblCard.length; i++) {
-			tabLblCard[i] = new LabelCard(this.ctrl.getCard(i), ctrl);
+			try
+			{
+				tabLblCard[i] = new LabelCard(this.ctrl.getCard(i), this.ctrl.getCard(i).getPath(), ctrl);
+			}
+			catch(Exception e)
+			{
+				tabLblCard[i] = new LabelCard(null, "./donnees/images/carte/carte_retournée.png", ctrl);
+			}
 		}
 		
 		this.btnSkip   = new JButton("Passer le tour");
