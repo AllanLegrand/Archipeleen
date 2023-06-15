@@ -252,18 +252,17 @@ public class Metier
 			
 			int color = 0;
 			Node n1, n2;
-
 			boolean red = false, blue = false;
 			
 			// Ajout des arretes coloriées
 			while ( sc.hasNextLine() )
 			{
 				ArrayList<String> tabS = Metier.decomposer( sc.nextLine(), '\t' );
-				
+
 				if ( tabS.size() == 1 && tabS.get(0).equals ("")) break;
 
-				if ( tabS.get(0).equals( "BLEU"  ) ) { color = Metier.RED ; red = true; }
-				if ( tabS.get(0).equals( "ROUGE" ) ) { color = Metier.BLUE; blue = true; }
+				if ( tabS.get(0).equals( "BLEU"  ) ) { color = Metier.RED ; blue = true; }
+				if ( tabS.get(0).equals( "ROUGE" ) ) { color = Metier.BLUE; red  = true; }
 				
 				for ( int cpt = 2; cpt < tabS.size(); cpt++ )
 				{
@@ -275,17 +274,19 @@ public class Metier
 
 			}
 				
-			//if ( red && blue ) this.round = 2;
+			if ( red && blue ) this.round = 2;
 
 			while ( sc.hasNextLine() )
 			{
 				ArrayList<String> tabS = Metier.decomposer( sc.nextLine(), '\t' );
 				
 				if ( tabS.size() == 1 ) { continue; }
-				if ( tabS.get(0).equals( "[TOURS PASSES]" ) ) turn  = Integer.parseInt( tabS.get(1) ) +0;
+				if ( tabS.get(0).equals( "[TOURS]" ) ) 
+					if ( tabS.get(1).equals("BLEU") ) { PanelGraph.color = Metier.BLUE; }
+					else PanelGraph.color = Metier.RED;
 			}
 		}
-		catch (Exception e){ e.printStackTrace(); }
+		catch (Exception e){ e.printStackTrace(); }		
 		
 		// Initialisation de la main, la défausse et la pioche
 		

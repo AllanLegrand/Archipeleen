@@ -2,4 +2,4 @@
 BLEU	Tavula	Tokha	Ticó	Laçao	Milaù	Mutaa	Khont-Rolah
 ROUGE	Tavula	Ticó	Kita	Khont-Rolah	Fuego	Mokah
 
-[TOURS PASSES]	3
+[TOURS]	ROUGE
