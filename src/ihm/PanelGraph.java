@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Label;
+import java.awt.Point;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +28,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JViewport;
 import javax.swing.JLabel;
 
 import controleur.Controleur;
@@ -307,10 +310,17 @@ public class PanelGraph extends JPanel implements ActionListener
 	public void majFrameLog()
 	{
 		this.frameLog = new JFrame("Journal de bord");
-		this.frameLog.setSize(500, Metier.decomposer(Metier.journalDeBord,'\n').size()*40);
+		this.frameLog.setSize(500,300);
 		this.frameLog.setLocation(FrameGraph.width/2-250, FrameGraph.height/2-150);
 		JPanel p = new JPanel();
-		p.setLayout(new GridLayout(Metier.decomposer(Metier.journalDeBord,'\n').size(),1));
+
+		JScrollPane scroll = new JScrollPane(p);
+		JViewport pdv = new JViewport();
+		pdv = scroll.getViewport();
+		pdv.setViewPosition(new Point(30,30));
+		this.add(scroll);
+		
+		p.setLayout(new GridLayout(Metier.decomposer(Metier.journalDeBord,'\n').size(),1,10,10));
 
 		for(String s : Metier.decomposer(Metier.journalDeBord,'\n'))
 			p.add(new JLabel(s));
