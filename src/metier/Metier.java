@@ -249,21 +249,25 @@ public class Metier
 							lstColor.get(color).put(region, new ArrayList<Node>(Arrays.asList(node)));
 					}
 		
+		
+		for(Node node : this.g.getLstNode())
+		{
+			int nbRegion = 0;
+			for(Integer color : lstColor.keySet())
+				if( node.hasEdgeColor(color) > 0 ) 
+					nbRegion++;
+
+			if( nbRegion > 1 )
+				total += 2;
+		}
+			
+
 		for(Integer color : lstColor.keySet())
 		{
 			int nbMaxNode = 0;
 			int nbRegion = 0;
 			for(ArrayList<Node> region : lstColor.get(color).values())
 			{
-				for(Node node : region)
-					for(Integer col : lstColor.keySet())
-						if(col != color)
-							for(ArrayList<Node> reg : lstColor.get(color).values())
-								for(Node n : reg)
-									if(node.equals(n))
-										total += 2;
-
-
 				if(region.size() > 0)
 					nbRegion++;
 				if (region.size() > nbMaxNode)
@@ -316,7 +320,6 @@ public class Metier
 		if(lstTmp.size() == 0)
 			lstTmp.add(PanelGraph.color == 255 ? this.g.getNode("Mutaa") : this.g.getNode("Tic\u00F3"));
 
-		System.out.println(lstTmp);
 		return lstTmp;
 	}
 

@@ -141,7 +141,6 @@ public class PanelGraph extends JPanel implements ActionListener
 			int xEnd   = node2.getPosX() ;
 			int yEnd   = node2.getPosY() ;
 
-			System.out.println(edge.getColor());
 			g2.setColor(new Color(edge.getColor()));
 			g2.setStroke(new BasicStroke(4F));
 			g2.drawLine(xStart, yStart, xEnd, yEnd);
@@ -331,8 +330,6 @@ class GereSelection extends MouseAdapter
 		{
 			if(!node.isDark() && this.estCompris(e.getX(), e.getY(), node) && !node.isSelected())
 				cursor = new Cursor(Cursor.HAND_CURSOR);
-
-			if (node.getId().equals("Mutaa")) System.out.println( "Opacité Mutaa" + node.isDark());
 		}
 
 		this.panel.setCursor(cursor);
