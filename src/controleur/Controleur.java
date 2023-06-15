@@ -39,11 +39,15 @@ public class Controleur
 		this.nbScenario = null;
 
 		new Launcher(this);
+		this.metier = null;
+	}
+
+	public void setScenario( Integer nbScenario )
+	{
+		this.nbScenario = nbScenario;
 		this.metier = new Metier( this, nbScenario );
 		this.metier.changeColor();
 	}
-
-	public void setScenario( Integer nbScenario ) { this.nbScenario = nbScenario; }
 
 	public void setIhm( FrameGraph ihm ) { this.ihm = ihm; }
 

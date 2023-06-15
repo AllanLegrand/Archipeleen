@@ -76,6 +76,7 @@ public class Metier
 		Collections.shuffle(Metier.tabColor);
 		this.generate();
 
+		System.out.println(nbScenario);
 		if ( nbScenario != null ) {this.generate_scenario( nbScenario ); System.out.println("Scenario");}
 	}
 
@@ -421,7 +422,7 @@ public class Metier
 			PanelGraph.color = tabColor.get(this.round - 1);
 	}
 
-	public int getDiscardSize() 
+	public int getDiscardSize()
 	{
 		return this.discard.size();
 	}
@@ -433,7 +434,7 @@ public class Metier
 			PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("log.txt"), "UTF8" ));
 
 			pw.println ( Metier.journalDeBord );
-
+			pw.println ( this.getFinalScore() );
 			pw.close();
 		}
 		catch (Exception e){ e.printStackTrace(); }
