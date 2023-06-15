@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Label;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -24,11 +25,13 @@ import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 
 import controleur.Controleur;
 import metier.Edge;
+import metier.Metier;
 import metier.Node;
 
 /**
@@ -53,6 +56,9 @@ public class PanelGraph extends JPanel implements ActionListener
 
 	private JButton     btnSkip;
 	private JButton     btnDownload;
+	private JButton     btnShowLog;
+
+	private JFrame      frameLog;
 
 	private JLabel      lblScore;
 
@@ -74,6 +80,7 @@ public class PanelGraph extends JPanel implements ActionListener
 		
 		this.btnSkip   = new JButton("Passer le tour");
 		this.btnDownload = new JButton("Télécharcher le journal de bord");
+		this.btnShowLog = new JButton("Afficher le journal de bord");
 
 		this.lblScore  = new JLabel("Score : 0");
 
@@ -91,6 +98,7 @@ public class PanelGraph extends JPanel implements ActionListener
 		panelTmp.add(this.lblScore);
 		panelTmp.add(this.btnSkip);
 		panelTmp.add(this.btnDownload);
+		panelTmp.add(this.btnShowLog);
 
 		this.add(panelTmp, BorderLayout.SOUTH);
 
@@ -107,6 +115,7 @@ public class PanelGraph extends JPanel implements ActionListener
 
 		this.btnSkip.addActionListener(this);
 		this.btnDownload.addActionListener(this);
+		this.btnShowLog.addActionListener(this);
 	}
 
 	public void setScore(String score)
@@ -273,6 +282,9 @@ public class PanelGraph extends JPanel implements ActionListener
 		if(e.getSource() == this.btnSkip)
 		{
 			this.ctrl.drawCard();
+
+			if(this.frameLog != null)
+				majFrameLog();
 			
 			GereSelection.node1 = GereSelection.node2 = null;
 			this.ctrl.majIhm();
@@ -282,6 +294,28 @@ public class PanelGraph extends JPanel implements ActionListener
 		{
 			this.ctrl.dlLogbook();
 		}
+
+		if(e.getSource() == this.btnShowLog) 
+		{
+			if(this.frameLog != null)
+				this.frameLog.dispose();
+			else
+				this.majFrameLog();
+		}
+	}
+
+	public void majFrameLog()
+	{
+		this.frameLog = new JFrame("Journal de bord");
+		this.frameLog.setSize(500, Metier.decomposer(Metier.journalDeBord,'\n').size()*40);
+		this.frameLog.setLocation(FrameGraph.width/2-250, FrameGraph.height/2-150);
+		JPanel p = new JPanel();
+		p.setLayout(new GridLayout(Metier.decomposer(Metier.journalDeBord,'\n').size(),1));
+
+		for(String s : Metier.decomposer(Metier.journalDeBord,'\n'))
+			p.add(new JLabel(s));
+		this.frameLog.add(p);
+		this.frameLog.setVisible(true);
 	}
 }
 
