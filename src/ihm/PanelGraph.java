@@ -67,8 +67,7 @@ public class PanelGraph extends JPanel implements ActionListener
 
 		/* Création des composants */
 		this.tabLblCard = new LabelCard[10];
-		for (int i = 0; i < tabLblCard.length; i++)
-		{
+		for (int i = 0; i < tabLblCard.length; i++) {
 			tabLblCard[i] = new LabelCard(this.ctrl.getCard(i), ctrl);
 		}
 		
@@ -109,9 +108,9 @@ public class PanelGraph extends JPanel implements ActionListener
 
 	}
 
-	public void setScore(int score)
+	public void setScore(String score)
 	{
-		this.lblScore.setText("Score : " + score);
+		this.lblScore.setText(score);
 	}
 
 	@Override
@@ -143,7 +142,6 @@ public class PanelGraph extends JPanel implements ActionListener
 			int xEnd   = node2.getPosX() ;
 			int yEnd   = node2.getPosY() ;
 
-			System.out.println(edge.getColor());
 			g2.setColor(new Color(edge.getColor()));
 			g2.setStroke(new BasicStroke(4F));
 			g2.drawLine(xStart, yStart, xEnd, yEnd);
@@ -333,8 +331,6 @@ class GereSelection extends MouseAdapter
 		{
 			if(!node.isDark() && this.estCompris(e.getX(), e.getY(), node) && !node.isSelected())
 				cursor = new Cursor(Cursor.HAND_CURSOR);
-
-			if (node.getId().equals("Mutaa")) System.out.println( "Opacité Mutaa" + node.isDark());
 		}
 
 		this.panel.setCursor(cursor);

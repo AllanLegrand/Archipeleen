@@ -72,7 +72,7 @@ public class Controleur
 		return this.metier.drawCard();
 	}
 
-	public int getFinalScore() { return this.metier.getFinalScore(); }
+	public String getFinalScore() { return this.metier.getFinalScore(); }
 
 	public ArrayList<Node> getLstNodeEnd()
 	{
