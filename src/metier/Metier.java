@@ -318,10 +318,6 @@ public class Metier
 				{
 					for ( int i = 1; i < tabS.size(); i++)
 					{
-						System.out.println( "cou1 discard : " + this.discard.get(i).getColor());
-					
-						System.out.println( "coul2 txt : " + Card.getColorInt( tabS.get(i).charAt(0) ) );
-					
 						for ( int j=0; j < this.discard.size(); j++)
 							if ( this.discard.get(j).getColor () == Card.getColorInt( tabS.get(i).charAt(0) ) && 
 									this.discard.get(j).isPrimary() )
