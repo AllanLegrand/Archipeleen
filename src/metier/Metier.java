@@ -222,9 +222,9 @@ public class Metier
 		return Metier.journalDeBord;
 	}
 	
-	public int getFinalScore()
+	public String getFinalScore()
 	{
-		int total = 0;
+		int bonusLigne = 0, bonusIle = 0, total = 0;
 
 		// couleur, nombre d'arete colorier de cette couleur, region, liste de noeud de cette region
 		HashMap<Integer, HashMap<String, ArrayList <Node>>> lstColor = new HashMap<Integer, HashMap<String, ArrayList <Node>>>();
@@ -235,8 +235,9 @@ public class Metier
 			for(Integer color : lstColor.keySet())
 				if ( edge.getColor() == color ) 
 				{
-					total += edge.getCost();
+					bonusLigne += edge.getCost();
 				}
+		total += bonusLigne;
 
 		for (String region : this.g.ensRegion.keySet())
 			for(Node node : this.g.ensRegion.get(region))
@@ -258,9 +259,12 @@ public class Metier
 					nbRegion++;
 
 			if( nbRegion > 1 )
-				total += 2;
+				bonusIle += 2;
 		}
-			
+		total += bonusIle;
+
+		int nbMaxNodeBleu = 0, nbRegionBleu = 0;
+		int nbMaxNodeRouge = 0, nbRegionRouge = 0;
 
 		for(Integer color : lstColor.keySet())
 		{
@@ -274,10 +278,23 @@ public class Metier
 					nbMaxNode = region.size();
 			}
 
+			if(!(color == 255))
+			{
+				nbMaxNodeRouge = nbMaxNode;
+				nbRegionRouge = nbRegion;
+			}
+			else
+			{
+				nbMaxNodeBleu = nbMaxNode;
+				nbRegionBleu = nbRegion;
+			}
+
 			total += nbRegion * nbMaxNode;
 		}
 
-		return total;
+		return  "(Ligne bleue : " + nbRegionBleu + " * " + nbMaxNodeBleu + ")  +  " +
+				"(Ligne rouge : " + nbRegionRouge + " * " + nbMaxNodeRouge + ")  +  " +
+				"Bonus : " + (bonusLigne + bonusIle) + "  -->  Total : " + total;
 	}
 
 	public ArrayList<Node> getLstNode() { return this.g.getLstNode(); }

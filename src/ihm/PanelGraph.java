@@ -107,9 +107,9 @@ public class PanelGraph extends JPanel implements ActionListener
 
 	}
 
-	public void setScore(int score)
+	public void setScore(String score)
 	{
-		this.lblScore.setText("Score : " + score);
+		this.lblScore.setText(score);
 	}
 
 	@Override
