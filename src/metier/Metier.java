@@ -29,12 +29,12 @@ import controleur.Controleur;
 
 public class Metier 
 {
-	private static final int BLEU = 16711680;
-	private static final int ROUGE = 255;
+	private static final int BLUE = 16711680;
+	private static final int RED = 255;
 
 	protected static String journalDeBord = "";
 
-	public static ArrayList<Integer> tabColor = new ArrayList<Integer>(Arrays.asList(Metier.ROUGE, 16711680));
+	public static ArrayList<Integer> tabColor = new ArrayList<Integer>(Arrays.asList(Metier.RED, 16711680));
 
 	public static final Map<String, Integer> MAP_CARD_COLOR = new HashMap<String, Integer>() 
 	{
@@ -247,10 +247,12 @@ public class Metier
 		
 		try
 		{
-			Scanner sc = new Scanner ( new FileInputStream ( "./donnees/"+ "scena" + nbScenario + ".txt" ) );
+			Scanner sc = new Scanner ( new FileInputStream ( "./donnees/scenarios/"+ "scena" + nbScenario + ".txt" ) );
 			
 			int color = 0;
 			Node n1, n2;
+
+			boolean red = false, blue = false;
 			
 			// Ajout des arretes coloriées
 			while ( sc.hasNextLine() )
@@ -259,8 +261,8 @@ public class Metier
 				
 				if ( tabS.size() == 1 && tabS.get(0).equals ("")) break;
 
-				if ( tabS.get(0).equals( "BLEU"  ) ) color = Metier.ROUGE;
-				if ( tabS.get(0).equals( "ROUGE" ) ) color = Metier.BLEU;
+				if ( tabS.get(0).equals( "BLEU"  ) ) { color = Metier.RED ; red = true; }
+				if ( tabS.get(0).equals( "ROUGE" ) ) { color = Metier.BLUE; blue = true; }
 				
 				for ( int cpt = 2; cpt < tabS.size(); cpt++ )
 				{
@@ -269,14 +271,16 @@ public class Metier
 
 					n1.hasEdgeBetween( n2 ).setColor( color );
 				}
+
 			}
+				
+			//if ( red && blue ) this.round = 2;
 
 			while ( sc.hasNextLine() )
 			{
 				ArrayList<String> tabS = Metier.decomposer( sc.nextLine(), '\t' );
 				
-				if ( tabS.size() == 1 ) { continue;}
-				if ( tabS.get(0).equals( "[MANCHE]"         ) ) this.round = Integer.parseInt( tabS.get(1) ) -1;
+				if ( tabS.size() == 1 ) { continue; }
 				if ( tabS.get(0).equals( "[TOURS PASSES]" ) ) turn  = Integer.parseInt( tabS.get(1) ) +0;
 			}
 		}
@@ -286,12 +290,13 @@ public class Metier
 		
 		// Permet de définir le nombre de tour passé (en mettant un nb de cartes primaires
 		// dans la défausse )
+		/*
 		for ( int cpt = 0; cpt < this.deck.size(); cpt++ )
 			if ( this.deck.get(cpt).isPrimary() && turn > 0 )
 			{
 				this.discard.add( this.deck.remove( cpt ) );
 				turn--;
-			}
+			} */
 	}
 
 	public String getJournalDeBord() 
