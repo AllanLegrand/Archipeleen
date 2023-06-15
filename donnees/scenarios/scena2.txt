@@ -1,4 +1,6 @@
 [ARETE]
-BLUE	Tavula	Tokha	Ticó	Laçao	Milaù	Mutaa	Khont-Rolah
+BLEU	Milaù	Laçao	Ticó	Kita	Khont-Rolah
 
 [TOURS]	BLEU
+
+[CARTES RESTANTES]	Vert	Jaune

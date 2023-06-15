@@ -54,16 +54,35 @@ public class Card
 	 * Cette méthode donne la couleur en chaine de caractère
 	 * @return retourne le nom de la couleur
 	 */
-	private String getColorName()
+	public String getColorName()
 	{
 		String color = "";
-		switch(this.color)
+		switch( this.color )
 		{
 			case 12560217 -> color = "jaune";
 			case 5214316  -> color = "rose";
 			case 9276528  -> color = "vert";
 			case 10321545 -> color = "brun";
 			default       -> color = "multi";
+		}
+
+		return color;
+	}
+
+	/**
+	 * Cette méthode donne la couleur en chaine de caractère
+	 * @return retourne le nom de la couleur
+	 */
+	public static int getColorInt( String colorName )
+	{
+		int color;
+		switch( colorName.charAt(0) )
+		{
+			case  'J' -> color = 12560217;
+			case  'R' -> color = 5214316;
+			case  'V' -> color = 9276528;
+			case  'B' -> color = 10321545;
+			default -> color = -1;
 		}
 
 		return color;

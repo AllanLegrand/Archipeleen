@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Scanner;
 import java.awt.Color;
+import java.awt.Panel;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
@@ -31,12 +32,12 @@ import controleur.Controleur;
 
 public class Metier 
 {
-	private static final int BLUE = 16711680;
-	private static final int RED = 255;
+	private static final Integer BLUE = 255;
+	private static final Integer RED = 16711680;
 
 	public static String journalDeBord = "";
 
-	public static ArrayList<Integer> tabColor = new ArrayList<Integer>(Arrays.asList(Metier.RED, 16711680));
+	public static ArrayList<Integer> tabColor = new ArrayList<Integer>(Arrays.asList(Metier.BLUE, Metier.RED));
 
 	public static final Map<String, Integer> MAP_CARD_COLOR = new HashMap<String, Integer>() 
 	{
@@ -244,8 +245,6 @@ public class Metier
 
 	public void generate_scenario( int nbScenario )
 	{
-		int round = 0;
-		
 		try
 		{
 			Scanner sc = new Scanner ( new FileInputStream ( "./donnees/scenarios/"+ "scena" + nbScenario + ".txt" ) );
@@ -259,11 +258,12 @@ public class Metier
 			while ( sc.hasNextLine() )
 			{
 				ArrayList<String> tabS = Metier.decomposer( sc.nextLine(), '\t' );
+				System.out.println(tabS);
 
 				if ( tabS.size() == 1 ) break;
 
-				if ( tabS.get(0).equals( "BLEU"  ) ) { color = Metier.RED ; blue = true; }
-				if ( tabS.get(0).equals( "ROUGE" ) ) { color = Metier.BLUE; red  = true; }
+				if ( tabS.get(0).equals( "BLEU"  ) ) { color = Metier.BLUE ; blue = true; }
+				if ( tabS.get(0).equals( "ROUGE" ) ) { color = Metier.RED; red  = true; }
 				
 				for ( int cpt = 2; cpt < tabS.size(); cpt++ )
 				{
@@ -284,24 +284,42 @@ public class Metier
 				
 				if ( tabS.size() == 1 ) { continue; }
 
-				if ( tabS.get(0).equals( "[TOURS]" ) ) 
+				// Gestion de la manche et de la couleur du Joueur
+				if ( tabS.get(0).startsWith( "[T" ) ) 
 					if ( tabS.get(1).equals("BLEU") ) 
 					{
 						PanelGraph.color = Metier.BLUE;
 						
-						if ( Metier.tabColor.get( this.round -1) == Metier.BLUE )
+						if ( Metier.tabColor.get( this.round -1) != Metier.BLUE )
 							Collections.swap( Metier.tabColor, 0, 1 );
 					}
 					else 
 					{
 						PanelGraph.color = Metier.RED;
 
-						if ( Metier.tabColor.get( this.round -1) == Metier.RED )
+						if ( Metier.tabColor.get( this.round -1) != Metier.RED )
 							Collections.swap( Metier.tabColor, 1, 0 );
 					}
+				
+				// Remplissage du deck
+				this.discard.addAll( this.deck );
+				this.deck.clear();
+				
+				/*
+				if ( tabS.get(0).startsWith( "[C" ) )
+				{
+					for ( int i = 1; i < tabS.size(); i++)
+						for ( int j = 1; j < this.discard.size(); j++)
+							if ( this.discard.get(j).getColor() == Card.getColorInt( tabS.get(i) ) )
+								this.deck.add( this.discard.remove(j) ); break;
+				}*/
 			}
 		}
-		catch (Exception e){ e.printStackTrace(); }		
+		catch (Exception e){ e.printStackTrace(); }
+
+		System.out.println(tabColor);
+		System.out.println(this.round);
+		System.out.println(PanelGraph.color);
 		
 		// Initialisation de la main, la défausse et la pioche
 		
