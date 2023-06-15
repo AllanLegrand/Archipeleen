@@ -34,7 +34,11 @@ public class FrameGraph extends JFrame
 
 		this.setTitle("Graph");
 
-		this.setSize(width, height);
+		if(System.getProperty("os.name").equals("Linux"))
+			this.setSize(width, height-25);
+		else 
+			this.setSize(width, height);
+		
 		this.setLocation(0, 0);
 		this.setResizable(false);
 		
