@@ -287,18 +287,19 @@ public class Metier
 				if ( tabS.get(0).equals( "[TOURS]" ) ) 
 					if ( tabS.get(1).equals("BLEU") ) 
 					{
-						PanelGraph.color = Metier.BLUE; 
-						if ( Metier.tabColor.get( this.round -1) == Metier.BLUE ) Collections.swap( Metier.tabColor, 0, 1 );
+						PanelGraph.color = Metier.BLUE;
+						
+						if ( Metier.tabColor.get( this.round -1) == Metier.BLUE )
+							Collections.swap( Metier.tabColor, 0, 1 );
 					}
 					else 
 					{
 						PanelGraph.color = Metier.RED;
-						if ( Metier.tabColor.get( this.round -1) == Metier.RED ) Collections.swap( Metier.tabColor, 1, 0 );
+
+						if ( Metier.tabColor.get( this.round -1) == Metier.RED )
+							Collections.swap( Metier.tabColor, 1, 0 );
 					}
 			}
-
-			System.out.println(Metier.tabColor);
-			System.out.println(this.round -1);
 		}
 		catch (Exception e){ e.printStackTrace(); }		
 		
