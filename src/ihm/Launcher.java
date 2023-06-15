@@ -92,9 +92,8 @@ public class Launcher extends JFrame implements ActionListener, ItemListener
 	{
 		if ( e.getSource() == this.btnPlay )
 		{
-			System.out.println("PLAY");
-			FrameGraph f = new FrameGraph( this.ctrl );
-			this.ctrl.setIhm( f );
+			this.ctrl.setIhm( new FrameGraph( this.ctrl ) );
+			this.ctrl.drawCard();
 			this.dispose();
 		}
 
