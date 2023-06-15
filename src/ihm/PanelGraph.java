@@ -144,7 +144,7 @@ public class PanelGraph extends JPanel implements ActionListener
 			int posY = node.getPosY();
 
 
-			if(this.gs.node1 == null && this.ctrl.getLstNodeEnd( this.ctrl.getBifurcation() ).contains(node))
+			if(this.gs.node1 == null && this.ctrl.getLstNodeEnd().contains(node))
 				this.neutral(node);
 		
 
@@ -260,7 +260,9 @@ public class PanelGraph extends JPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		this.ctrl.drawCard();		
+		this.ctrl.drawCard();
+		
+		GereSelection.node1 = GereSelection.node2 = null;
 		this.ctrl.majIhm();
 	}
 }
@@ -271,9 +273,9 @@ class GereSelection extends MouseAdapter
 
 	PanelGraph panel;
 
-	Node node1;
+	public static Node node1;
 
-	Node node2;
+	public static Node node2;
 
 	int nbEdge;
 
@@ -283,8 +285,8 @@ class GereSelection extends MouseAdapter
 
 		this.panel = panel;
 
-		this.node1 = null;
-		this.node2 = null;
+		GereSelection.node1 = null;
+		GereSelection.node2 = null;
 
 		this.nbEdge = 0;
 	}
@@ -320,6 +322,8 @@ class GereSelection extends MouseAdapter
 		{
 			if(!node.isDark() && this.estCompris(e.getX(), e.getY(), node) && !node.isSelected())
 				cursor = new Cursor(Cursor.HAND_CURSOR);
+
+			if (node.getId().equals("Mutaa")) System.out.println( "Opacité Mutaa" + node.isDark());
 		}
 
 		this.panel.setCursor(cursor);
@@ -338,10 +342,10 @@ class GereSelection extends MouseAdapter
 					break;
 			
 				//sélection de la deuxième node
-				if(this.node1 != null && this.node2 == null && this.ctrl.getLstNodeAvailable(this.node1).contains(node))
+				if(GereSelection.node1 != null && GereSelection.node2 == null && this.ctrl.getLstNodeAvailable(GereSelection.node1).contains(node))
 				{
-					this.node2 = node;
-					this.node2.setSelected();
+					GereSelection.node2 = node;
+					GereSelection.node2.setSelected();
 					Edge edge = node1.hasEdgeBetween(node2);
 
 					if(edge != null && edge.getColor() != PanelGraph.color)
@@ -357,11 +361,11 @@ class GereSelection extends MouseAdapter
 				else
 				{
 					//sélection de la 1ère node
-					if(this.node1 == null && this.ctrl.getLstNodeEnd( this.ctrl.getBifurcation() ).contains(node))
+					if(GereSelection.node1 == null && this.ctrl.getLstNodeEnd().contains(node))
 					{
-						this.node1 = node;
-						this.node1.setSelected();
-						this.panel.lighten(this.node1);
+						GereSelection.node1 = node;
+						GereSelection.node1.setSelected();
+						this.panel.lighten(GereSelection.node1);
 					}
 				}
 
@@ -375,11 +379,11 @@ class GereSelection extends MouseAdapter
 			this.deselect();
 		}
 
-		if(this.node1 == null)
+		if(GereSelection.node1 == null)
 		{
 			for (Node node : this.ctrl.getLstNode()) 
 			{
-				if(!this.ctrl.getLstNodeEnd( this.ctrl.getBifurcation() ).contains(node))
+				if(!this.ctrl.getLstNodeEnd().contains(node))
 				{
 					this.panel.darken(node);
 				}	
@@ -387,17 +391,17 @@ class GereSelection extends MouseAdapter
 		}
 		else
 		{
-			ArrayList<Node> lstNodeAvailable = this.ctrl.getLstNodeAvailable(this.node1);
+			ArrayList<Node> lstNodeAvailable = this.ctrl.getLstNodeAvailable(GereSelection.node1);
 			for (Node node : this.ctrl.getLstNode()) 
 			{
 				
-				if(node.isDark() && lstNodeAvailable.contains(node) && node != this.node1)
+				if(node.isDark() && lstNodeAvailable.contains(node) && node != GereSelection.node1)
 				{
 					this.panel.neutral(node);
 					continue;
 				}
 	
-				if(!node.isDark()&& !lstNodeAvailable.contains(node))
+				if(!node.isDark() && !lstNodeAvailable.contains(node))
 				{
 					this.panel.darken(node);
 					continue;
@@ -411,17 +415,17 @@ class GereSelection extends MouseAdapter
 	
 	public void deselect()
 	{
-		if(this.node1 != null) 
+		if(GereSelection.node1 != null) 
 		{
-			this.node1.setSelected();
-			this.panel.neutral(this.node1);
-			this.node1 = null;
+			GereSelection.node1.setSelected();
+			this.panel.neutral(GereSelection.node1);
+			GereSelection.node1 = null;
 		}
-		if(this.node2 != null)
+		if(GereSelection.node2 != null)
 		{
-			this.node2.setSelected();
-			this.panel.neutral(this.node2);
-			this.node2 = null;
+			GereSelection.node2.setSelected();
+			this.panel.neutral(GereSelection.node2);
+			GereSelection.node2 = null;
 		}
 
 		this.ctrl.majIhm();

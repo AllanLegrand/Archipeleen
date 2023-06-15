@@ -58,7 +58,6 @@ public class Metier
 		this.hand    = null;
 
 		this.ctrl = ctrl;
-		this.bifurcation = false;
 
 		this.round = 1;
 
@@ -138,7 +137,6 @@ public class Metier
 	}
 	
 	public ArrayList<Card> getDeck() { return this.deck; }
-	public boolean  getBifurcation() { return this.bifurcation; }
 
 	public Card getCard(int indice) { return this.deck.get(indice); }
 	public Card getHand() { return this.hand; }
@@ -173,9 +171,6 @@ public class Metier
 	public Card drawCard()
 	{
 		boolean canPlay = false;
-
-		if ( this.specialTurn -1 == this.discard.size() ) this.bifurcation = true;
-		else this.bifurcation = false;
 		
 		for ( Card card : this.deck )
 			if ( card.isPrimary() ) 
@@ -288,7 +283,7 @@ public class Metier
 		return lstAvailable;
 	}
 
-	public ArrayList<Node> getLstNodeEnd( boolean bifurcation )
+	public ArrayList<Node> getLstNodeEnd()
 	{
 		ArrayList<Node> lstTmp = new ArrayList<Node>();
 
@@ -302,8 +297,6 @@ public class Metier
 			}
 
 			if( cpt == 1 )
-				lstTmp.add(node);
-			else if( cpt >= 1 && this.ctrl.getBifurcation() )			
 				lstTmp.add(node);
 		}
 
