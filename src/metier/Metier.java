@@ -34,7 +34,7 @@ public class Metier
 	private static final int BLEU = 16711680;
 	private static final int ROUGE = 255;
 
-	protected static String journalDeBord = "";
+	public static String journalDeBord = "";
 
 	public static ArrayList<Integer> tabColor = new ArrayList<Integer>(Arrays.asList(Metier.ROUGE, 16711680));
 
@@ -58,7 +58,7 @@ public class Metier
 	private int round;
 	private int specialTurn; // utiliser pour determinerla bifurcation
 
-	public Metier(Controleur ctrl) 
+	public Metier(Controleur ctrl, Integer nbScenario) 
 	{
 		this.g = new Graph();
 
@@ -77,6 +77,9 @@ public class Metier
 
 		Collections.shuffle(Metier.tabColor);
 		this.generate();
+
+		System.out.println(nbScenario);
+		if ( nbScenario != null ) {this.generate_scenario( nbScenario ); System.out.println("Scenario");}
 	}
 
 	/**
@@ -166,7 +169,7 @@ public class Metier
 		return this.hand;
 	}
 
-	private static ArrayList<String> decomposer(String chaine, char dec) 
+	public static ArrayList<String> decomposer(String chaine, char dec) 
 	{
 		ArrayList<String> tabS = new ArrayList<String>();
 
@@ -240,7 +243,7 @@ public class Metier
 		return null;
 	}
 
-	public void generer_scenario( int nbScenario )
+	public void generate_scenario( int nbScenario )
 	{
 		int turn = 0;
 		
@@ -373,15 +376,8 @@ public class Metier
 				"Bonus : " + (bonusLigne + bonusIle) + "  -->  Total : " + total;
 	}
 
-	public ArrayList<Node> getLstNode() 
-	{
-		return this.g.getLstNode();
-	}
-
-	public ArrayList<Edge> getLstEdge() 
-	{
-		return this.g.getLstEdge();
-	}
+	public ArrayList<Node> getLstNode() { return this.g.getLstNode(); }
+	public ArrayList<Edge> getLstEdge() { return this.g.getLstEdge(); }
 
 	public ArrayList<Node> getLstNodeAvailable(Node node) 
 	{
@@ -428,7 +424,7 @@ public class Metier
 			PanelGraph.color = tabColor.get(this.round - 1);
 	}
 
-	public int getDiscardSize() 
+	public int getDiscardSize()
 	{
 		return this.discard.size();
 	}
