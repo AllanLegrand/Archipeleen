@@ -4,7 +4,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import java.awt.Color;
-import java.awt.GridLayout;
 import java.awt.Toolkit;
 
 import controleur.Controleur;

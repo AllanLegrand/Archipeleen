@@ -35,7 +35,9 @@ public class Metier
 	private static final Integer BLUE = 255;
 	private static final Integer RED = 16711680;
 
-	public static String journalDeBord = "";
+	public static String journalDeBord1 = "               DEBUT\n\nConstruction de la première ligne : \n\n";
+	public static String journalDeBord2 = "\nConstruction de la deuxième ligne : \n\n";
+	public static boolean estPremiereLigne = true;
 
 	public static ArrayList<Integer> tabColor = new ArrayList<Integer>(Arrays.asList(Metier.BLUE, Metier.RED));
 
@@ -57,7 +59,6 @@ public class Metier
 	private ArrayList<Card> discard;
 
 	private int round;
-	private int specialTurn; // utiliser pour determinerla bifurcation
 
 	public Metier(Controleur ctrl, Integer nbScenario) 
 	{
@@ -70,8 +71,6 @@ public class Metier
 		this.ctrl = ctrl;
 
 		this.round = 1;
-
-		this.specialTurn = 4;// (int) (Math.random() * 10);
 
 		this.deck.add(new Card(false, -1));
 		this.deck.add(new Card(true, -1));
@@ -214,14 +213,20 @@ public class Metier
 		{
 			Card card = this.deck.remove((int) (Math.random() * this.deck.size()));
 
-			journalDeBord += card.toString() + "\n";
+			if(Metier.estPremiereLigne)
+				journalDeBord1 += "La " + card.toString() + " à été pioché\n";
+			else
+				journalDeBord2 += "La " + card.toString() + " à été pioché\n";
 			this.hand = card;
 
 			return card;
 		}
 
 		if (!canPlay && this.round == 2)
+		{
+			journalDeBord2 += "\n              FIN\n";
 			this.ctrl.endGame();
+		}
 		else if (!canPlay) 
 		{
 			this.round++;
@@ -233,10 +238,9 @@ public class Metier
 			}
 
 			this.changeColor();
+			Metier.estPremiereLigne = false;
 
 			// Manche suivante appelle l'ihm qui affiche un message : this.ctrl.nextRound();
-
-			this.specialTurn = (int) (Math.random() * 10);
 			this.drawCard();
 		}
 
@@ -334,9 +338,13 @@ public class Metier
 			} */
 	}
 
-	public String getJournalDeBord() 
+	public String getJournalDeBord1() 
 	{
-		return Metier.journalDeBord;
+		return Metier.journalDeBord1;
+	}
+	public String getJournalDeBord2() 
+	{
+		return Metier.journalDeBord2;
 	}
 	
 	public String getFinalScore()
@@ -380,7 +388,7 @@ public class Metier
 		}
 		total += bonusIle;
 
-		int nbMaxNodeBleu = 0, nbRegionBleu = 0;
+		int nbMaxNodeBleu  = 0, nbRegionBleu  = 0;
 		int nbMaxNodeRouge = 0, nbRegionRouge = 0;
 
 		for(Integer color : lstColor.keySet())
@@ -398,12 +406,12 @@ public class Metier
 			if(!(color == 255))
 			{
 				nbMaxNodeRouge = nbMaxNode;
-				nbRegionRouge = nbRegion;
+				nbRegionRouge  = nbRegion;
 			}
 			else
 			{
 				nbMaxNodeBleu = nbMaxNode;
-				nbRegionBleu = nbRegion;
+				nbRegionBleu  = nbRegion;
 			}
 
 			total += nbRegion * nbMaxNode;
@@ -490,7 +498,8 @@ public class Metier
 			PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("log.txt"), "UTF8" ));
 
 			pw.println (this.getDate());
-			pw.println ( Metier.journalDeBord );
+			pw.println ( Metier.journalDeBord1 );
+			pw.println ( Metier.journalDeBord2 );
 			pw.println ( this.getFinalScore());
 
 			pw.close();

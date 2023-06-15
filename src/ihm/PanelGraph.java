@@ -9,20 +9,16 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Label;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -307,14 +303,25 @@ public class PanelGraph extends JPanel implements ActionListener
 	public void majFrameLog()
 	{
 		this.frameLog = new JFrame("Journal de bord");
-		this.frameLog.setSize(500, Metier.decomposer(Metier.journalDeBord,'\n').size()*40);
+		this.frameLog.setSize(700,Metier.decomposer(this.ctrl.getJournalDeBord1(),'\n').size()*25);
 		this.frameLog.setLocation(FrameGraph.width/2-250, FrameGraph.height/2-150);
-		JPanel p = new JPanel();
-		p.setLayout(new GridLayout(Metier.decomposer(Metier.journalDeBord,'\n').size(),1));
+		this.frameLog.setLayout(new GridLayout(1, 2));
+		JPanel p1 = new JPanel();
+		JPanel p2 = new JPanel();
 
-		for(String s : Metier.decomposer(Metier.journalDeBord,'\n'))
-			p.add(new JLabel(s));
-		this.frameLog.add(p);
+		p1.setLayout(new GridLayout(Metier.decomposer(this.ctrl.getJournalDeBord1(),'\n').size(),1));
+		p2.setLayout(new GridLayout(Metier.decomposer(this.ctrl.getJournalDeBord2(),'\n').size(),1));
+
+		for(String s : Metier.decomposer(this.ctrl.getJournalDeBord1(),'\n'))
+		{
+			p1.add(new JLabel(s));
+		}
+		for(String s : Metier.decomposer(this.ctrl.getJournalDeBord2(),'\n'))
+		{
+			p2.add(new JLabel(s));
+		}
+		this.frameLog.add(p1);
+		this.frameLog.add(p2);
 		this.frameLog.setVisible(true);
 	}
 }

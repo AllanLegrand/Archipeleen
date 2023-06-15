@@ -8,12 +8,9 @@ import metier.Node;
 
 import ihm.FrameGraph;
 import ihm.Launcher;
-import ihm.PanelGraph;
 
 import java.awt.Toolkit;
 import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
 
 /**
  * @author Allan LEGRAND
@@ -87,10 +84,8 @@ public class Controleur
 		return this.metier.getLstNodeEnd();
 	}
 
-	public String getJournalDeBord()
-	{
-		return this.metier.getJournalDeBord();
-	}
+	public String getJournalDeBord1() {return this.metier.getJournalDeBord1();}
+	public String getJournalDeBord2() {return this.metier.getJournalDeBord2();}
 
 	public int getDiscardSize() { return this.metier.getDiscardSize(); }
 
