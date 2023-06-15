@@ -438,7 +438,6 @@ public class Metier
 			PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("log.txt"), "UTF8" ));
 
 			pw.println ( Metier.journalDeBord );
-
 			pw.close();
 		}
 		catch (Exception e){ e.printStackTrace(); }
