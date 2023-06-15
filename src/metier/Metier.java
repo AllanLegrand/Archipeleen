@@ -26,20 +26,12 @@ import controleur.Controleur;
 
 public class Metier 
 {
-	private Graph g;
-	private Controleur ctrl;
-
-	private ArrayList<Card> deck;
-	private Card hand;
-	private ArrayList<Card> discard;
-
-	private int round;
-	private int specialTurn; // utiliser pour determinerla bifurcation
+	private static final int BLEU = 16711680;
+	private static final int ROUGE = 255;
 
 	protected static String journalDeBord = "";
-	private boolean bifurcation;
 
-	public static ArrayList<Integer> tabColor = new ArrayList<Integer>(Arrays.asList(255, 16711680));
+	public static ArrayList<Integer> tabColor = new ArrayList<Integer>(Arrays.asList(Metier.ROUGE, 16711680));
 
 	public static final Map<String, Integer> MAP_CARD_COLOR = new HashMap<String, Integer>() 
 	{
@@ -50,6 +42,16 @@ public class Metier
 			put("Brun", 10321545);
 		}
 	};
+
+	private Graph g;
+	private Controleur ctrl;
+
+	private ArrayList<Card> deck;
+	private Card hand;
+	private ArrayList<Card> discard;
+
+	private int round;
+	private int specialTurn; // utiliser pour determinerla bifurcation
 
 	public Metier(Controleur ctrl) 
 	{
@@ -231,6 +233,59 @@ public class Metier
 		}
 
 		return null;
+	}
+
+	public void generer_scenario( int nbScenario )
+	{
+		int turn = 0;
+		
+		try
+		{
+			Scanner sc = new Scanner ( new FileInputStream ( "./donnees/"+ "scena" + nbScenario + ".txt" ) );
+			
+			int color = 0;
+			Node n1, n2;
+			
+			// Ajout des arretes coloriées
+			while ( sc.hasNextLine() )
+			{
+				ArrayList<String> tabS = Metier.decomposer( sc.nextLine(), '\t' );
+				
+				if ( tabS.size() == 1 && tabS.get(0).equals ("")) break;
+
+				if ( tabS.get(0).equals( "BLEU"  ) ) color = Metier.ROUGE;
+				if ( tabS.get(0).equals( "ROUGE" ) ) color = Metier.BLEU;
+				
+				for ( int cpt = 2; cpt < tabS.size(); cpt++ )
+				{
+					n1 = this.g.getNode( tabS.get(cpt) );
+					n2 = this.g.getNode( tabS.get(cpt-1) );
+
+					n1.hasEdgeBetween( n2 ).setColor( color );
+				}
+			}
+
+			while ( sc.hasNextLine() )
+			{
+				ArrayList<String> tabS = Metier.decomposer( sc.nextLine(), '\t' );
+				
+				if ( tabS.size() == 1 ) { continue;}
+				if ( tabS.get(0).equals( "[MANCHE]"         ) ) this.round = Integer.parseInt( tabS.get(1) ) -1;
+				if ( tabS.get(0).equals( "[TOURS PASSES]" ) ) turn  = Integer.parseInt( tabS.get(1) ) +0;
+			}
+		}
+		catch (Exception e){ e.printStackTrace(); }
+		
+		// Initialisation de la main, la défausse et la pioche
+		
+		// Permet de définir le nombre de tour passé (en mettant un nb de cartes primaires
+		// dans la défausse )
+		for ( int cpt = 0; cpt < this.deck.size(); cpt++ )
+			if ( this.deck.get(cpt).isPrimary() && turn > 0 )
+			{
+				this.discard.add( this.deck.remove( cpt ) );
+				turn--;
+			}
 	}
 
 	public String getJournalDeBord() 
