@@ -64,7 +64,7 @@ public class Graph
 	 * Elle reprend les paramètres du constructeur Road
 	 * @see Edge
 	 */
-	public void addEdge(String id, Node n1, Node n2, int cost) { this.lstEdge.add(new Edge(id, n1, n2, cost)); }
+	public void addEdge(String id, Node n1, Node n2, int cost, int color) { this.lstEdge.add(new Edge(id, n1, n2, cost, color)); }
 
 	/**
 	 * Cette méthode retourne une île {@code Island} de l'archipel via un indice
@@ -107,7 +107,7 @@ public class Graph
 	 */
 	public boolean coloring(Edge edge)
 	{
-		if ( edge.getColor() != Color.LIGHT_GRAY.getRGB()) return false;
+		if ( edge.getColor() != Color.LIGHT_GRAY.getRGB() && edge.getColor() != Color.BLACK.getRGB()) return false;
 
 		if ( edge.isCrossed(this.lstEdge)) return false;
 

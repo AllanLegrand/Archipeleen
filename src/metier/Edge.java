@@ -26,7 +26,7 @@ public class Edge
 	 * @param color la couleur de la route en {@code int}
 	 * @param cost le bonus au niveau du score de la route 
 	 */
-	public Edge(String id, Node n1, Node n2, int cost)
+	public Edge(String id, Node n1, Node n2, int cost, int color)
 	{
 		this.id = id;
 		this.n1 = n1;
@@ -34,7 +34,7 @@ public class Edge
 
 		this.cost = cost;
 
-		this.color = Color.LIGHT_GRAY.getRGB();
+		this.color = color;
 
 		this.n1.addEdge(this);
 		this.n2.addEdge(this);
