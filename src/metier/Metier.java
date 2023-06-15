@@ -57,6 +57,7 @@ public class Metier
 	private ArrayList<Card> deck;
 	private Card hand;
 	private ArrayList<Card> discard;
+	private static ArrayList<Card> lstCarte;
 
 	private int round;
 
@@ -78,6 +79,8 @@ public class Metier
 		Collections.shuffle(Metier.tabColor);
 		this.generate();
 
+		Metier.lstCarte = new ArrayList<Card>();
+		Metier.lstCarte.addAll(this.deck);
 		if ( nbScenario != null ) {this.generate_scenario( nbScenario ); }
 	}
 
@@ -162,7 +165,7 @@ public class Metier
 
 	public Card getCard(int indice) 
 	{
-		return this.deck.get(indice);
+		return Metier.lstCarte.get(indice);
 	}
 
 	public Card getHand() 
