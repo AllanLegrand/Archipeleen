@@ -260,6 +260,15 @@ public class Metier
 			int nbRegion = 0;
 			for(ArrayList<Node> region : lstColor.get(color).values())
 			{
+				for(Node node : region)
+					for(Integer col : lstColor.keySet())
+						if(col != color)
+							for(ArrayList<Node> reg : lstColor.get(color).values())
+								for(Node n : reg)
+									if(node.equals(n))
+										total += 2;
+
+
 				if(region.size() > 0)
 					nbRegion++;
 				if (region.size() > nbMaxNode)
