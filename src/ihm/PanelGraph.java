@@ -282,9 +282,6 @@ public class PanelGraph extends JPanel implements ActionListener
 		if(e.getSource() == this.btnSkip)
 		{
 			this.ctrl.drawCard();
-
-			if(this.frameLog != null)
-				majFrameLog();
 			
 			GereSelection.node1 = GereSelection.node2 = null;
 			this.ctrl.majIhm();
@@ -298,7 +295,10 @@ public class PanelGraph extends JPanel implements ActionListener
 		if(e.getSource() == this.btnShowLog) 
 		{
 			if(this.frameLog != null)
+			{
 				this.frameLog.dispose();
+				this.frameLog = null;
+			}
 			else
 				this.majFrameLog();
 		}
