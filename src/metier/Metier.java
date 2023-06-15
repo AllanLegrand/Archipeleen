@@ -437,10 +437,15 @@ public class Metier
 	public String getDate()
 	{
 		GregorianCalendar gc = new GregorianCalendar();
+
+		int hour = gc.get(Calendar.HOUR);
+		if(gc.get(Calendar.AM_PM) == 1)
+			hour += 12;
+
 		return  "" + String.format("%02d", gc.get(Calendar.DAY_OF_MONTH)) + 
 				"/" + String.format("%02d", gc.get(Calendar.MONTH) + 1) + "/" + 
 				gc.get(Calendar.YEAR) + "  " + 
-				String.format("%02d", gc.get(Calendar.HOUR)) + ":" + 
+				String.format("%02d", hour) + ":" + 
 				String.format("%02d", gc.get(Calendar.MINUTE)) + ":" + 
 				String.format("%02d", gc.get(Calendar.SECOND)) + "\n";
 	}
