@@ -86,7 +86,6 @@ public class Launcher extends JFrame implements ActionListener, ItemListener
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.setVisible(true);
-		System.out.println(this.lstScenario.getSelectedIndex());
 	}
 
 	public void actionPerformed( ActionEvent e ) 
@@ -112,7 +111,7 @@ public class Launcher extends JFrame implements ActionListener, ItemListener
 	}
 
     public void itemStateChanged(ItemEvent e) 
-    {
+    { 
         // si l'état du combobox est modifiée 
         if ( e.getSource() == this.lstScenario )
             this.btnScenario.setEnabled(true);
