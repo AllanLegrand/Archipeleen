@@ -244,7 +244,7 @@ public class Metier
 
 	public void generate_scenario( int nbScenario )
 	{
-		int turn = 0;
+		int round = 0;
 		
 		try
 		{
@@ -255,11 +255,12 @@ public class Metier
 			boolean red = false, blue = false;
 			
 			// Ajout des arretes coloriées
+			sc.nextLine();
 			while ( sc.hasNextLine() )
 			{
 				ArrayList<String> tabS = Metier.decomposer( sc.nextLine(), '\t' );
 
-				if ( tabS.size() == 1 && tabS.get(0).equals ("")) break;
+				if ( tabS.size() == 1 ) break;
 
 				if ( tabS.get(0).equals( "BLEU"  ) ) { color = Metier.RED ; blue = true; }
 				if ( tabS.get(0).equals( "ROUGE" ) ) { color = Metier.BLUE; red  = true; }
@@ -275,15 +276,29 @@ public class Metier
 			}
 				
 			if ( red && blue ) this.round = 2;
+			else this.round = 1;
 
 			while ( sc.hasNextLine() )
 			{
 				ArrayList<String> tabS = Metier.decomposer( sc.nextLine(), '\t' );
 				
 				if ( tabS.size() == 1 ) { continue; }
+
 				if ( tabS.get(0).equals( "[TOURS]" ) ) 
-					if ( tabS.get(1).equals("BLEU") ) { PanelGraph.color = Metier.BLUE; }
-					else PanelGraph.color = Metier.RED;
+					if ( tabS.get(1).equals("BLEU") ) 
+					{
+						PanelGraph.color = Metier.BLUE;
+						
+						if ( Metier.tabColor.get( this.round -1) == Metier.BLUE )
+							Collections.swap( Metier.tabColor, 0, 1 );
+					}
+					else 
+					{
+						PanelGraph.color = Metier.RED;
+
+						if ( Metier.tabColor.get( this.round -1) == Metier.RED )
+							Collections.swap( Metier.tabColor, 1, 0 );
+					}
 			}
 		}
 		catch (Exception e){ e.printStackTrace(); }		
@@ -347,7 +362,7 @@ public class Metier
 		}
 		total += bonusIle;
 
-		int nbMaxNodeBleu = 0, nbRegionBleu = 0;
+		int nbMaxNodeBleu  = 0, nbRegionBleu  = 0;
 		int nbMaxNodeRouge = 0, nbRegionRouge = 0;
 
 		for(Integer color : lstColor.keySet())
@@ -365,12 +380,12 @@ public class Metier
 			if(!(color == 255))
 			{
 				nbMaxNodeRouge = nbMaxNode;
-				nbRegionRouge = nbRegion;
+				nbRegionRouge  = nbRegion;
 			}
 			else
 			{
 				nbMaxNodeBleu = nbMaxNode;
-				nbRegionBleu = nbRegion;
+				nbRegionBleu  = nbRegion;
 			}
 
 			total += nbRegion * nbMaxNode;
@@ -437,10 +452,15 @@ public class Metier
 	public String getDate()
 	{
 		GregorianCalendar gc = new GregorianCalendar();
+
+		int hour = gc.get(Calendar.HOUR);
+		if(gc.get(Calendar.AM_PM) == 1)
+			hour += 12;
+
 		return  "" + String.format("%02d", gc.get(Calendar.DAY_OF_MONTH)) + 
 				"/" + String.format("%02d", gc.get(Calendar.MONTH) + 1) + "/" + 
 				gc.get(Calendar.YEAR) + "  " + 
-				String.format("%02d", gc.get(Calendar.HOUR)) + ":" + 
+				String.format("%02d", hour) + ":" + 
 				String.format("%02d", gc.get(Calendar.MINUTE)) + ":" + 
 				String.format("%02d", gc.get(Calendar.SECOND)) + "\n";
 	}
