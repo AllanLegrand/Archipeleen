@@ -361,7 +361,7 @@ public class Metier
 		}
 		total += bonusIle;
 
-		int nbMaxNodeBleu = 0, nbRegionBleu = 0;
+		int nbMaxNodeBleu  = 0, nbRegionBleu  = 0;
 		int nbMaxNodeRouge = 0, nbRegionRouge = 0;
 
 		for(Integer color : lstColor.keySet())
@@ -379,12 +379,12 @@ public class Metier
 			if(!(color == 255))
 			{
 				nbMaxNodeRouge = nbMaxNode;
-				nbRegionRouge = nbRegion;
+				nbRegionRouge  = nbRegion;
 			}
 			else
 			{
 				nbMaxNodeBleu = nbMaxNode;
-				nbRegionBleu = nbRegion;
+				nbRegionBleu  = nbRegion;
 			}
 
 			total += nbRegion * nbMaxNode;
