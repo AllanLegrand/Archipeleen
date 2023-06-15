@@ -2,6 +2,7 @@ package metier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Scanner;
 import java.awt.Color;
@@ -10,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
+import java.util.GregorianCalendar;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -431,14 +433,27 @@ public class Metier
 		return this.discard.size();
 	}
 
+	public String getDate()
+	{
+		GregorianCalendar gc = new GregorianCalendar();
+		return  "" + String.format("%02d", gc.get(Calendar.DAY_OF_MONTH)) + 
+				"/" + String.format("%02d", gc.get(Calendar.MONTH) + 1) + "/" + 
+				gc.get(Calendar.YEAR) + "  " + 
+				String.format("%02d", gc.get(Calendar.HOUR)) + ":" + 
+				String.format("%02d", gc.get(Calendar.MINUTE)) + ":" + 
+				String.format("%02d", gc.get(Calendar.SECOND)) + "\n";
+	}
+
 	public void dlLogbook()
 	{
 		try
 		{
 			PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("log.txt"), "UTF8" ));
 
+			pw.println (this.getDate());
 			pw.println ( Metier.journalDeBord );
-			pw.println ( this.getFinalScore() );
+			pw.println ( this.getFinalScore());
+
 			pw.close();
 		}
 		catch (Exception e){ e.printStackTrace(); }
