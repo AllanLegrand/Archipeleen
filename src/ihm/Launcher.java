@@ -95,6 +95,7 @@ public class Launcher extends JFrame implements ActionListener, ItemListener
 		{
 			this.ctrl.setIhm( new FrameGraph( this.ctrl ) );
 			this.ctrl.setScenario( null );
+			this.ctrl.drawCard();
 			this.dispose();
 		}
 
