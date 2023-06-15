@@ -277,6 +277,8 @@ public class PanelGraph extends JPanel implements ActionListener
 	{
 		if(e.getSource() == this.btnSkip)
 		{
+			if(Metier.estPremiereLigne) {Metier.journalDeBord1 += "Le joueur passe son tour\n";}
+			else {Metier.journalDeBord2 += "Le joueur passe son tour\n";}
 			this.ctrl.drawCard();
 			
 			GereSelection.node1 = GereSelection.node2 = null;
@@ -304,7 +306,7 @@ public class PanelGraph extends JPanel implements ActionListener
 	{
 		this.frameLog = new JFrame("Journal de bord");
 		this.frameLog.setSize(700,Metier.decomposer(this.ctrl.getJournalDeBord1(),'\n').size()*25);
-		this.frameLog.setLocation(FrameGraph.width/2-250, FrameGraph.height/2-150);
+		this.frameLog.setLocation(FrameGraph.width/2-400, FrameGraph.height/2-300);
 		this.frameLog.setLayout(new GridLayout(1, 2));
 		JPanel p1 = new JPanel();
 		JPanel p2 = new JPanel();
