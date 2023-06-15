@@ -86,6 +86,11 @@ public class Controleur
 
 	public int getDiscardSize() { return this.metier.getDiscardSize(); }
 
+	public void dlLogbook()
+	{
+		this.metier.dlLogbook();
+	}
+
 
 	public static void main(String args[]) 
 	{
