@@ -73,9 +73,14 @@ public class Launcher extends JFrame implements ActionListener, ItemListener
 		this.add(panelFlow, BorderLayout.NORTH);
 
 		panelFlow = new JPanel();
-		panelFlow.add( new JLabel("Partie en solo : "));
-		panelFlow.add(this.btnPlay);
-		this.add(panelFlow, BorderLayout.CENTER);
+		panelFlow.add( this.btnPlay);
+
+		JPanel panelGrid = new JPanel();
+		panelGrid.setLayout( new GridLayout(2,1,6,0) );
+		panelGrid.add( new JLabel("Partie en solo : "), JLabel.CENTER );
+		panelGrid.add( panelFlow );
+
+		this.add(panelGrid, BorderLayout.CENTER);
 		
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
