@@ -52,6 +52,7 @@ public class PanelGraph extends JPanel implements ActionListener
 	private LabelCard[] tabLblCard;
 
 	private JButton     btnSkip;
+	private JButton     btnDownload;
 
 	private JLabel      lblScore;
 
@@ -72,6 +73,7 @@ public class PanelGraph extends JPanel implements ActionListener
 		}
 		
 		this.btnSkip   = new JButton("Passer le tour");
+		this.btnDownload = new JButton("Télécharcher le journal de bord");
 
 		this.lblScore  = new JLabel("Score : 0");
 
@@ -88,6 +90,7 @@ public class PanelGraph extends JPanel implements ActionListener
 
 		panelTmp.add(this.lblScore);
 		panelTmp.add(this.btnSkip);
+		panelTmp.add(this.btnDownload);
 
 		this.add(panelTmp, BorderLayout.SOUTH);
 
@@ -103,6 +106,7 @@ public class PanelGraph extends JPanel implements ActionListener
 		this.addMouseMotionListener(gs);
 
 		this.btnSkip.addActionListener(this);
+		this.btnDownload.addActionListener(this);
 
 		this.ctrl.drawCard();
 
@@ -269,10 +273,18 @@ public class PanelGraph extends JPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		this.ctrl.drawCard();
-		
-		GereSelection.node1 = GereSelection.node2 = null;
-		this.ctrl.majIhm();
+		if(e.getSource() == this.btnSkip)
+		{
+			this.ctrl.drawCard();
+			
+			GereSelection.node1 = GereSelection.node2 = null;
+			this.ctrl.majIhm();
+		}
+
+		if(e.getSource() == this.btnDownload) 
+		{
+			this.ctrl.dlLogbook();
+		}
 	}
 }
 

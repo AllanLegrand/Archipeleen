@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.Scanner;
 import java.awt.Color;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.nio.charset.Charset;
 
 import java.util.HashMap;
@@ -371,5 +374,18 @@ public class Metier
 	public int getDiscardSize() 
 	{
 		return this.discard.size();
+	}
+
+	public void dlLogbook()
+	{
+		try
+		{
+			PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("log.txt"), "UTF8" ));
+
+			pw.println ( Metier.journalDeBord );
+
+			pw.close();
+		}
+		catch (Exception e){ e.printStackTrace(); }
 	}
 }
