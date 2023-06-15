@@ -262,7 +262,6 @@ public class Metier
 			while ( sc.hasNextLine() )
 			{
 				ArrayList<String> tabS = Metier.decomposer( sc.nextLine(), '\t' );
-				System.out.println(tabS);
 
 				if ( tabS.size() == 1 ) break;
 
@@ -309,21 +308,32 @@ public class Metier
 				this.discard.addAll( this.deck );
 				this.deck.clear();
 				
-				/*
+				
 				if ( tabS.get(0).startsWith( "[C" ) )
 				{
 					for ( int i = 1; i < tabS.size(); i++)
-						for ( int j = 1; j < this.discard.size(); j++)
-							if ( this.discard.get(j).getColor() == Card.getColorInt( tabS.get(i) ) )
-								this.deck.add( this.discard.remove(j) ); break;
-				}*/
+					{
+						System.out.println( "cou1 discard : " + this.discard.get(i).getColor());
+					
+						System.out.println( "coul2 txt : " + Card.getColorInt( tabS.get(i).charAt(0) ) );
+					
+						for ( int j=0; j < this.discard.size(); j++)
+							if ( this.discard.get(j).getColor () == Card.getColorInt( tabS.get(i).charAt(0) ) && 
+									this.discard.get(j).isPrimary() )
+								{
+									this.deck.add( this.discard.remove(j) ); 
+									break;
+								}
+					}
+
+				}
+
 			}
 		}
 		catch (Exception e){ e.printStackTrace(); }
 
-		System.out.println(tabColor);
-		System.out.println(this.round);
-		System.out.println(PanelGraph.color);
+		System.out.println( "Discar : " + this.discard);
+		System.out.println( "Deck : " + this.deck);
 		
 		// Initialisation de la main, la défausse et la pioche
 		

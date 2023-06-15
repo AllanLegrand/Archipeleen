@@ -73,10 +73,10 @@ public class Card
 	 * Cette méthode donne la couleur en chaine de caractère
 	 * @return retourne le nom de la couleur
 	 */
-	public static int getColorInt( String colorName )
+	public static int getColorInt( char colorName )
 	{
 		int color;
-		switch( colorName.charAt(0) )
+		switch( colorName )
 		{
 			case  'J' -> color = 12560217;
 			case  'R' -> color = 5214316;
