@@ -86,25 +86,26 @@ public class Launcher extends JFrame implements ActionListener, ItemListener
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.setVisible(true);
+		System.out.println(this.lstScenario.getSelectedIndex());
 	}
 
 	public void actionPerformed( ActionEvent e ) 
 	{
 		if ( e.getSource() == this.btnPlay )
 		{
-			System.out.println("PLAY");
-			FrameGraph f = new FrameGraph( this.ctrl );
-			this.ctrl.setIhm( f );
+			this.ctrl.setIhm( new FrameGraph( this.ctrl ) );
+			this.ctrl.setScenario( null );
 			this.dispose();
 		}
 
-		//if ( e.getSource() == this.btnScenario )
-			// Lance le scenario this.lstScenario.getSelectedItem() +1
+		if ( e.getSource() == this.btnScenario )
+			this.ctrl.setScenario( this.lstScenario.getSelectedIndex() );
 
 	}
 
     public void itemStateChanged(ItemEvent e) 
     { 
+		System.out.println(this.lstScenario.getSelectedIndex());
         // si l'état du combobox est modifiée 
         if ( e.getSource() == this.lstScenario )
             this.btnScenario.setEnabled(true);

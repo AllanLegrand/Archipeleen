@@ -32,14 +32,18 @@ public class Controleur
 
 	private Metier     metier;
 	private FrameGraph ihm;
+	private Integer nbScenario;
 
 	public Controleur()
 	{
+		this.nbScenario = null;
+
 		new Launcher(this);
-		this.metier = new Metier( this );
+		this.metier = new Metier( this, nbScenario );
 		this.metier.changeColor();
-		//this.ihm    = new FrameGraph( this );
 	}
+
+	public void setScenario( Integer nbScenario ) { this.nbScenario = nbScenario; }
 
 	public void setIhm( FrameGraph ihm ) { this.ihm = ihm; }
 
@@ -86,10 +90,7 @@ public class Controleur
 
 	public int getDiscardSize() { return this.metier.getDiscardSize(); }
 
-	public void dlLogbook()
-	{
-		this.metier.dlLogbook();
-	}
+	public void dlLogbook() { this.metier.dlLogbook(); }
 
 
 	public static void main(String args[]) 
