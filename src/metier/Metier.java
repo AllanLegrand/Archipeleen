@@ -78,8 +78,7 @@ public class Metier
 		Collections.shuffle(Metier.tabColor);
 		this.generate();
 
-		System.out.println(nbScenario);
-		if ( nbScenario != null ) {this.generate_scenario( nbScenario ); System.out.println("Scenario");}
+		if ( nbScenario != null ) {this.generate_scenario( nbScenario ); }
 	}
 
 	/**
