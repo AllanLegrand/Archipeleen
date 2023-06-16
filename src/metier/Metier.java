@@ -32,8 +32,8 @@ import controleur.Controleur;
 
 public class Metier 
 {
-	private static final Integer BLUE = 255;
-	private static final Integer RED = 16711680;
+	public static final Integer BLUE = 255;
+	public static final Integer RED = 16711680;
 
 	public static String logBook1 = "               DEBUT\n\nConstruction de la première ligne : \n\n";
 	public static String logBook2 = "\nConstruction de la deuxième ligne : \n\n";
@@ -245,8 +245,9 @@ public class Metier
 			this.changeColor();
 			Metier.isFirstLine = false;
 
-			// Manche suivante appelle l'ihm qui affiche un message : this.ctrl.nextRound();
 			this.drawCard();
+
+			this.ctrl.nextRound();
 		}
 
 		return null;
