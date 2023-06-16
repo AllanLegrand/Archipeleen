@@ -1,0 +1,6 @@
+[ARETE]
+BLEU	Mutaa	Milaù
+
+[TOURS]	BLEU
+
+[CARTES RESTANTES]	Yellow	Green	Brown

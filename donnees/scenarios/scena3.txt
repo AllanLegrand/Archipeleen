@@ -4,4 +4,4 @@ ROUGE	Tavula	Ticó	Kita	Khont-Rolah	Fuego	Mokah
 
 [TOURS]	BLEU
 
-[CARTES RESTANTES]	Jaune
+[CARTES RESTANTES]	Yellow

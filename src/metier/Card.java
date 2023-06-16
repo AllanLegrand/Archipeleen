@@ -78,11 +78,11 @@ public class Card
 		int color;
 		switch( colorName )
 		{
-			case  'J' -> color = 12560217;
-			case  'R' -> color = 5214316;
-			case  'V' -> color = 9276528;
-			case  'B' -> color = 10321545;
-			default -> color = -1;
+			case 'Y' -> color = 12560217;
+			case 'P' -> color = 5214316;
+			case 'G' -> color = 9276528;
+			case 'B' -> color = 10321545;
+			default       -> color = -1;
 		}
 
 		return color;

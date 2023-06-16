@@ -3,4 +3,4 @@ BLEU	Milaù	Laçao	Ticó	Kita	Khont-Rolah	Mutaa
 
 [TOURS]	BLEU
 
-[CARTES RESTANTES]	Jaune	Violet	Jaune
+[CARTES RESTANTES]	Yellow	Purple	Yellow
