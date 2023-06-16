@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * @author Ashanti NJANJA
  * 
  * @see Metier
- * @see FrameGra(ph
+ * @see FrameGraphe
  */
 
 public class Controleur
@@ -84,8 +84,8 @@ public class Controleur
 		return this.metier.getLstNodeEnd();
 	}
 
-	public String getJournalDeBord1() {return this.metier.getJournalDeBord1();}
-	public String getJournalDeBord2() {return this.metier.getJournalDeBord2();}
+	public String getLogBook1() {return this.metier.getLogBook1();}
+	public String getLogBook2() {return this.metier.getLogBook2();}
 
 	public int getDiscardSize() { return this.metier.getDiscardSize(); }
 

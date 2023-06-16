@@ -349,11 +349,11 @@ public class Metier
 			} */
 	}
 
-	public String getlogBook1() 
+	public String getLogBook1() 
 	{
 		return Metier.logBook1;
 	}
-	public String getlogBook2() 
+	public String getLogBook2() 
 	{
 		return Metier.logBook2;
 	}

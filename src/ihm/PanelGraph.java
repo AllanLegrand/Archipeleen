@@ -277,8 +277,8 @@ public class PanelGraph extends JPanel implements ActionListener
 	{
 		if(e.getSource() == this.btnSkip)
 		{
-			if(Metier.estPremiereLigne) {Metier.journalDeBord1 += "Le joueur passe son tour\n";}
-			else {Metier.journalDeBord2 += "Le joueur passe son tour\n";}
+			if(Metier.isFirstLine) {Metier.logBook1 += "Le joueur passe son tour\n";}
+			else {Metier.logBook2 += "Le joueur passe son tour\n";}
 			this.ctrl.drawCard();
 			
 			ManageMouse.node1 = ManageMouse.node2 = null;
@@ -305,20 +305,20 @@ public class PanelGraph extends JPanel implements ActionListener
 	public void majFrameLog()
 	{
 		this.frameLog = new JFrame("Journal de bord");
-		this.frameLog.setSize(700,Metier.decomposer(this.ctrl.getJournalDeBord1(),'\n').size()*25);
+		this.frameLog.setSize(700,Metier.decomposer(this.ctrl.getLogBook1(),'\n').size()*25);
 		this.frameLog.setLocation(FrameGraph.width/2-400, FrameGraph.height/2-300);
 		this.frameLog.setLayout(new GridLayout(1, 2));
 		JPanel p1 = new JPanel();
 		JPanel p2 = new JPanel();
 
-		p1.setLayout(new GridLayout(Metier.decomposer(this.ctrl.getJournalDeBord1(),'\n').size(),1));
-		p2.setLayout(new GridLayout(Metier.decomposer(this.ctrl.getJournalDeBord2(),'\n').size(),1));
+		p1.setLayout(new GridLayout(Metier.decomposer(this.ctrl.getLogBook1(),'\n').size(),1));
+		p2.setLayout(new GridLayout(Metier.decomposer(this.ctrl.getLogBook2(),'\n').size(),1));
 
-		for(String s : Metier.decomposer(this.ctrl.getJournalDeBord1(),'\n'))
+		for(String s : Metier.decomposer(this.ctrl.getLogBook1(),'\n'))
 		{
 			p1.add(new JLabel(s));
 		}
-		for(String s : Metier.decomposer(this.ctrl.getJournalDeBord2(),'\n'))
+		for(String s : Metier.decomposer(this.ctrl.getLogBook2(),'\n'))
 		{
 			p2.add(new JLabel(s));
 		}
@@ -352,7 +352,7 @@ class ManageMouse extends MouseAdapter
 		this.nbEdge = 0;
 	}
 
-	public boolean estCompris(int x, int y, Node node)
+	public boolean isBetween(int x, int y, Node node)
 	{
 		BufferedImage image;
 		try {
@@ -381,7 +381,7 @@ class ManageMouse extends MouseAdapter
 
 		for (Node node : this.ctrl.getLstNode()) 
 		{
-			if(!node.isDark() && this.estCompris(e.getX(), e.getY(), node) && !node.isSelected())
+			if(!node.isDark() && this.isBetween(e.getX(), e.getY(), node) && !node.isSelected())
 				cursor = new Cursor(Cursor.HAND_CURSOR);
 		}
 
@@ -395,7 +395,7 @@ class ManageMouse extends MouseAdapter
 		for (Node node : this.ctrl.getLstNode()) 
 		{
 
-			if(!node.isDark() && this.estCompris(e.getX(), e.getY(), node))
+			if(!node.isDark() && this.isBetween(e.getX(), e.getY(), node))
 			{
 				if(node1 == node)
 					break;
