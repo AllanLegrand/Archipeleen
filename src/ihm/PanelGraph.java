@@ -70,9 +70,8 @@ public class PanelGraph extends JPanel implements ActionListener
 
 		/* Création des composants */
 		this.tabLblCard = new LabelCard[10];
-		for (int i = 0; i < tabLblCard.length; i++) {
+		for (int i = 0; i < tabLblCard.length; i++)
 			tabLblCard[i] = new LabelCard(this.ctrl.getCard(i), ctrl);
-		}
 		
 		this.btnSkip   = new JButton("Passer le tour");
 		this.btnDownload = new JButton("Télécharcher le journal de bord");
@@ -330,15 +329,15 @@ public class PanelGraph extends JPanel implements ActionListener
 
 class ManageMouse extends MouseAdapter
 {
-	Controleur ctrl;
+	private Controleur ctrl;
 
-	PanelGraph panel;
+	private PanelGraph panel;
 
 	public static Node node1;
 
 	public static Node node2;
 
-	int nbEdge;
+	private int nbEdge;
 
 	public ManageMouse(Controleur ctrl, PanelGraph panel)
 	{
@@ -472,7 +471,7 @@ class ManageMouse extends MouseAdapter
 	}
 
 	
-	public void deselect()
+	private void deselect()
 	{
 		if(ManageMouse.node1 != null) 
 		{
