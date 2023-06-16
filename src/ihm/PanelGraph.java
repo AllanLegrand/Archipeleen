@@ -58,7 +58,7 @@ public class PanelGraph extends JPanel implements ActionListener
 
 	private JLabel      lblScore;
 
-	private GereSelection gs;
+	private ManageMouse ms;
 
 	private int startColor;
 
@@ -105,9 +105,9 @@ public class PanelGraph extends JPanel implements ActionListener
 
 
 		/* Activation des composants */
-		gs = new GereSelection(ctrl, this);
-		this.addMouseListener(gs);
-		this.addMouseMotionListener(gs);
+		ms = new ManageMouse(ctrl, this);
+		this.addMouseListener(ms);
+		this.addMouseMotionListener(ms);
 
 		this.btnSkip.addActionListener(this);
 		this.btnDownload.addActionListener(this);
@@ -159,7 +159,7 @@ public class PanelGraph extends JPanel implements ActionListener
 			int posY = node.getPosY();
 
 
-			if(this.gs.node1 == null && this.ctrl.getLstNodeEnd().contains(node))
+			if(this.ms.node1 == null && this.ctrl.getLstNodeEnd().contains(node))
 				this.neutral(node);
 		
 
@@ -195,7 +195,7 @@ public class PanelGraph extends JPanel implements ActionListener
 
 	public void darken(Node node)
 	{
-		if(node.isDark() || (this.gs != null && node == this.gs.node1)) return;
+		if(node.isDark() || (this.ms != null && node == this.ms.node1)) return;
 		BufferedImage imgTmp;
 		try {
 			imgTmp = ImageIO.read(new File("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png"));
@@ -281,7 +281,7 @@ public class PanelGraph extends JPanel implements ActionListener
 			else {Metier.journalDeBord2 += "Le joueur passe son tour\n";}
 			this.ctrl.drawCard();
 			
-			GereSelection.node1 = GereSelection.node2 = null;
+			ManageMouse.node1 = ManageMouse.node2 = null;
 			this.ctrl.majIhm();
 		}
 
@@ -328,7 +328,7 @@ public class PanelGraph extends JPanel implements ActionListener
 	}
 }
 
-class GereSelection extends MouseAdapter
+class ManageMouse extends MouseAdapter
 {
 	Controleur ctrl;
 
@@ -340,14 +340,14 @@ class GereSelection extends MouseAdapter
 
 	int nbEdge;
 
-	public GereSelection(Controleur ctrl, PanelGraph panel)
+	public ManageMouse(Controleur ctrl, PanelGraph panel)
 	{
 		this.ctrl  = ctrl;
 
 		this.panel = panel;
 
-		GereSelection.node1 = null;
-		GereSelection.node2 = null;
+		ManageMouse.node1 = null;
+		ManageMouse.node2 = null;
 
 		this.nbEdge = 0;
 	}
@@ -401,10 +401,10 @@ class GereSelection extends MouseAdapter
 					break;
 			
 				//sélection de la deuxième node
-				if(GereSelection.node1 != null && GereSelection.node2 == null && this.ctrl.getLstNodeAvailable(GereSelection.node1).contains(node))
+				if(ManageMouse.node1 != null && ManageMouse.node2 == null && this.ctrl.getLstNodeAvailable(ManageMouse.node1).contains(node))
 				{
-					GereSelection.node2 = node;
-					GereSelection.node2.setSelected();
+					ManageMouse.node2 = node;
+					ManageMouse.node2.setSelected();
 					Edge edge = node1.hasEdgeBetween(node2);
 
 					if(edge != null && edge.getColor() != PanelGraph.color)
@@ -420,11 +420,11 @@ class GereSelection extends MouseAdapter
 				else
 				{
 					//sélection de la 1ère node
-					if(GereSelection.node1 == null && this.ctrl.getLstNodeEnd().contains(node))
+					if(ManageMouse.node1 == null && this.ctrl.getLstNodeEnd().contains(node))
 					{
-						GereSelection.node1 = node;
-						GereSelection.node1.setSelected();
-						this.panel.lighten(GereSelection.node1);
+						ManageMouse.node1 = node;
+						ManageMouse.node1.setSelected();
+						this.panel.lighten(ManageMouse.node1);
 					}
 				}
 
@@ -438,7 +438,7 @@ class GereSelection extends MouseAdapter
 			this.deselect();
 		}
 
-		if(GereSelection.node1 == null)
+		if(ManageMouse.node1 == null)
 		{
 			for (Node node : this.ctrl.getLstNode()) 
 			{
@@ -450,11 +450,11 @@ class GereSelection extends MouseAdapter
 		}
 		else
 		{
-			ArrayList<Node> lstNodeAvailable = this.ctrl.getLstNodeAvailable(GereSelection.node1);
+			ArrayList<Node> lstNodeAvailable = this.ctrl.getLstNodeAvailable(ManageMouse.node1);
 			for (Node node : this.ctrl.getLstNode()) 
 			{
 				
-				if(node.isDark() && lstNodeAvailable.contains(node) && node != GereSelection.node1)
+				if(node.isDark() && lstNodeAvailable.contains(node) && node != ManageMouse.node1)
 				{
 					this.panel.neutral(node);
 					continue;
@@ -474,17 +474,17 @@ class GereSelection extends MouseAdapter
 	
 	public void deselect()
 	{
-		if(GereSelection.node1 != null) 
+		if(ManageMouse.node1 != null) 
 		{
-			GereSelection.node1.setSelected();
-			this.panel.neutral(GereSelection.node1);
-			GereSelection.node1 = null;
+			ManageMouse.node1.setSelected();
+			this.panel.neutral(ManageMouse.node1);
+			ManageMouse.node1 = null;
 		}
-		if(GereSelection.node2 != null)
+		if(ManageMouse.node2 != null)
 		{
-			GereSelection.node2.setSelected();
-			this.panel.neutral(GereSelection.node2);
-			GereSelection.node2 = null;
+			ManageMouse.node2.setSelected();
+			this.panel.neutral(ManageMouse.node2);
+			ManageMouse.node2 = null;
 		}
 
 		this.ctrl.majIhm();
