@@ -50,11 +50,10 @@ public class Launcher extends JFrame implements ActionListener, ItemListener
 		//this.setBackground( new Image() );
 
 		/* Création des composants */
-		this.btnPlay = new JButton( "Jouer" );
+		this.btnPlay = new JButton( "Jouer une partie Solo" );
 		this.btnScenario = new JButton( "Jouer un Scenario" );
-		this.btnScenario.setEnabled(false);
-
-		String[] libScenario = { "Route Bonus", "Cycle (avec 1 couleurs)", "Cycle (avec 2 couleurs)", "Fin de partie"};
+		
+		String[] libScenario = { "Route Bonus", "Cycle (avec 1 couleurs)", "Cycle (avec 2 couleurs)" };
 		this.lstScenario = new JComboBox<String>( libScenario );
 		this.lstScenario.isEditable();
 
@@ -76,7 +75,6 @@ public class Launcher extends JFrame implements ActionListener, ItemListener
 
 		JPanel panelGrid = new JPanel();
 		panelGrid.setLayout( new GridLayout(2,1,6,0) );
-		panelGrid.add( new JLabel("Partie en solo : "), JLabel.CENTER );
 		panelGrid.add( panelFlow );
 
 		this.add(panelGrid, BorderLayout.CENTER);

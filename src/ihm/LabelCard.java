@@ -17,6 +17,11 @@ public class LabelCard extends JLabel
 
 	private Card       card;
 
+	/**
+	 * Cette classe s'occupe de l'affichage des cartes dans l'IHM. Elle possède : 
+	 * <p>l'attribut card {@code Card}
+	 * <p>l'attribut nbLblReturn en {@code int}
+	 */
 	public LabelCard(Card card, Controleur ctrl)
 	{
 		super(new ImageIcon(new ImageIcon(card.getPath()).getImage().getScaledInstance((int)(Controleur.WIDTH * 0.08), (int) (Controleur.HEIGHT * 0.18), Image.SCALE_SMOOTH)));

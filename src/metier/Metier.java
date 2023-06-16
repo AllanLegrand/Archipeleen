@@ -333,20 +333,6 @@ public class Metier
 		}
 		catch (Exception e){ e.printStackTrace(); }
 
-		System.out.println( "Discar : " + this.discard);
-		System.out.println( "Deck : " + this.deck);
-		
-		// Initialisation de la main, la défausse et la pioche
-		
-		// Permet de définir le nombre de tour passé (en mettant un nb de cartes primaires
-		// dans la défausse )
-		/*
-		for ( int cpt = 0; cpt < this.deck.size(); cpt++ )
-			if ( this.deck.get(cpt).isPrimary() && turn > 0 )
-			{
-				this.discard.add( this.deck.remove( cpt ) );
-				turn--;
-			} */
 	}
 
 	public String getLogBook1() 
