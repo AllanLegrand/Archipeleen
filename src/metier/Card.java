@@ -23,6 +23,10 @@ public class Card
 		this.color = color;
 	}
 
+	/**
+	 * Cette méthode renvoie si les cartes ont la meme couleurs
+	 * @return retourne si les cartes ont la meme couleurs
+	 */
 	public boolean isEqualsColor(int color)
 	{
 		return this.color == -1 || color == this.color;
@@ -88,6 +92,11 @@ public class Card
 		return color;
 	}
 
+	/**
+	 * Cette méthode renvoie si les cartes sont égales sur la base de la direction 
+	 * qu'elles ont 
+	 * @return retourne si les cartes sont égales
+	 */
 	public boolean equals(Card card) 
 	{
 		return this.getPath().equals(card.getPath());

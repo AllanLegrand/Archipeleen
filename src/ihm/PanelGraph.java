@@ -113,6 +113,10 @@ public class PanelGraph extends JPanel implements ActionListener
 		this.btnShowLog.addActionListener(this);
 	}
 
+	/**
+	 * Modifie le texte du score affiché
+	 * @param score le score
+	 */
 	public void setScore(String score)
 	{
 		this.lblScore.setText(score);
@@ -192,6 +196,10 @@ public class PanelGraph extends JPanel implements ActionListener
 		}
 	}
 
+	/**
+	 * Assombrie l'île {@code Island} entrée
+	 * @param node île entrée
+	 */
 	public void darken(Node node)
 	{
 		if(node.isDark() || (this.ms != null && node == this.ms.node1)) return;
@@ -221,6 +229,10 @@ public class PanelGraph extends JPanel implements ActionListener
 		node.setDark(true);
 	}
 
+	/**
+	 * Met en surbrillance l'île {@code Island} entrée
+	 * @param node île entrée
+	 */
 	public void lighten(Node node)
 	{
 		BufferedImage imgTmp;
@@ -256,12 +268,18 @@ public class PanelGraph extends JPanel implements ActionListener
 		node.setDark(false);
 	}
 
+	/**
+	 * Remet la couleur d'origine de l'île {@code Island}
+	 */
 	public void neutral(Node node)
 	{
 		node.setImage(new ImageIcon("./donnees/images/images reduites/iles 80%/" + node.getId() + ".png").getImage());
 		node.setDark(false);
 	}
 
+	/**
+	 * Repaint la carte
+	 */
 	public void repaintCard()
 	{
 		for (LabelCard labelCard : tabLblCard)
@@ -295,12 +313,20 @@ public class PanelGraph extends JPanel implements ActionListener
 			{
 				this.frameLog.dispose();
 				this.frameLog = null;
+				this.btnShowLog.setText("Afficher le journal de bord");
 			}
 			else
+			{
 				this.majFrameLog();
+				this.btnShowLog.setText("Enlever le journal de bord");
+			}
 		}
 	}
 
+	/**
+	 * Crée une nouvelle fenetre qui retrace toutes les actions que le joueur
+	 * a éffectué
+	 */
 	public void majFrameLog()
 	{
 		this.frameLog = new JFrame("Journal de bord");
@@ -351,6 +377,13 @@ class ManageMouse extends MouseAdapter
 		this.nbEdge = 0;
 	}
 
+	/**
+	 * Cette méthode permet de savoir si le curseur se trouve sur une île {@code Island}
+	 * en utilisant la position de l'image d'une île
+	 * 
+	 * @return retourne true si le curseur se trouve sur une île
+	 * @see Island
+	 */
 	public boolean isBetween(int x, int y, Node node)
 	{
 		BufferedImage image;
@@ -470,7 +503,10 @@ class ManageMouse extends MouseAdapter
 		this.ctrl.majIhm();
 	}
 
-	
+	/**
+	 * Cette méthode permet de déselectionner les îles {@code Island}
+	 * non-sélectionnées en la remettant d'une couleur neutre
+	 */
 	private void deselect()
 	{
 		if(ManageMouse.node1 != null) 
