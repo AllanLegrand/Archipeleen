@@ -58,11 +58,19 @@ public class FrameGraph extends JFrame
 		this.setVisible(true);
 	}
 
+	/**
+	 * Modifie le score
+	 * @param score le score entré
+	 */
 	public void setScore(String score)
 	{
 		this.panelGraph.setScore(score);
 	}
 
+	/**
+	 * Affiche un message pour preciser la seconde manche
+	 * au joueur
+	 */
 	public void nextRound()
 	{
 		String sMess = "        PROCHAIN TOUR\nVous jouez la couleur " + ( PanelGraph.color == Metier.BLUE ? "bleu" : "rouge" ) + 
@@ -70,12 +78,19 @@ public class FrameGraph extends JFrame
 		JOptionPane.showMessageDialog(null, sMess );
 	}
 
+	/**
+	 * Affiche un message pour preciser la fin de partie
+	 * au joueur
+	 */
 	public void endGame()
 	{
 		JOptionPane.showMessageDialog(null, "La partie est finie\n" + this.ctrl.getFinalScore());
 		PanelGraph.color = 0;
 	}
 
+	/**
+	 * Recharge l'affichage du jeu 
+	 */
 	public void repaintPanel()
 	{
 		super.repaint();
