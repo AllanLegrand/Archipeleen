@@ -20,8 +20,8 @@ import controleur.Controleur;
 
 public class FrameGraph extends JFrame
 {
-	protected static int width  = Toolkit.getDefaultToolkit().getScreenSize().width;
-    protected static int height = Toolkit.getDefaultToolkit().getScreenSize().height;
+	protected static int width  = Controleur.WIDTH ;
+    protected static int height = Controleur.HEIGHT;
 
 	private Controleur ctrl;
 

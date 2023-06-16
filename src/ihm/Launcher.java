@@ -28,8 +28,8 @@ import controleur.Controleur;
 
 public class Launcher extends JFrame implements ActionListener, ItemListener
 {
-	private static int width  = Toolkit.getDefaultToolkit().getScreenSize().width / 2;
-	private static int height = Toolkit.getDefaultToolkit().getScreenSize().height / 2;
+	private static int width  = Controleur.WIDTH  /2;
+	private static int height = Controleur.HEIGHT /2;
 
 	private Controleur ctrl;
 	private JButton btnPlay;
@@ -44,8 +44,8 @@ public class Launcher extends JFrame implements ActionListener, ItemListener
 		this.ctrl = ctrl;
 
 		this.setTitle("Launcheur");
-		this.setSize(width, height);
-		this.setLocation(0, 0);
+		this.setSize( Launcher.width, Launcher.height );
+		this.setLocation( Launcher.width - Launcher.width /2 , Launcher.height - Launcher.height /2);
 		this.setResizable(false);		
 		//this.setBackground( new Image() );
 
