@@ -46,7 +46,7 @@ public class Card
 	 */
 	public String getPath()
 	{
-		String color = this.getColorName();
+		String color = Card.getColorName(this.getColor());
 		return "./donnees/images/carte/bord_" + (isPrimary ? "noir" : "blanc") + "_fond_" + color + ".png";
 	}
 
@@ -54,10 +54,10 @@ public class Card
 	 * Cette méthode donne la couleur en chaine de caractère
 	 * @return retourne le nom de la couleur
 	 */
-	public String getColorName()
+	public static String getColorName( int intColor )
 	{
 		String color = "";
-		switch( this.color )
+		switch( intColor )
 		{
 			case 12560217 -> color = "jaune";
 			case 5214316  -> color = "rose";
@@ -95,6 +95,6 @@ public class Card
 
 	public String toString()
 	{ 
-		return "Carte " + this.getColorName() + (this.isPrimary ? " primaire"  : " non primaire");
+		return "Carte " + Card.getColorName( this.getColor() ) + (this.isPrimary ? " primaire"  : " non primaire");
 	}
 }

@@ -60,10 +60,9 @@ public class Controleur
 		return this.metier.getLstNodeAvailable(node);
 	}
 	
-	public void majIhm()
-	{
-		this.ihm.repaintPanel();
-	}
+	public void majIhm() { this.ihm.repaintPanel(); }
+
+	public void nextRound() { this.ihm.nextRound(); }
 
 	public void endGame()
 	{

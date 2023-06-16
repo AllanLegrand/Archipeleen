@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Toolkit;
 
 import controleur.Controleur;
+import metier.Metier;
 
 /**
  * @author Allan LEGRAND
@@ -60,6 +61,13 @@ public class FrameGraph extends JFrame
 	public void setScore(String score)
 	{
 		this.panelGraph.setScore(score);
+	}
+
+	public void nextRound()
+	{
+		String sMess = "        PROCHAIN TOUR\nVous jouez la couleur " + ( PanelGraph.color == Metier.BLUE ? "bleu" : "rouge" ) + 
+					   "\n        Départ à " + ( PanelGraph.color == Metier.BLUE ? "Mutaa" : "Tico" );
+		JOptionPane.showMessageDialog(null, sMess );
 	}
 
 	public void endGame()
