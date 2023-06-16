@@ -35,9 +35,9 @@ public class Metier
 	private static final Integer BLUE = 255;
 	private static final Integer RED = 16711680;
 
-	public static String journalDeBord1 = "               DEBUT\n\nConstruction de la première ligne : \n\n";
-	public static String journalDeBord2 = "\nConstruction de la deuxième ligne : \n\n";
-	public static boolean estPremiereLigne = true;
+	public static String logBook1 = "               DEBUT\n\nConstruction de la première ligne : \n\n";
+	public static String logBook2 = "\nConstruction de la deuxième ligne : \n\n";
+	public static boolean isFirstLine = true;
 
 	public static ArrayList<Integer> tabColor = new ArrayList<Integer>(Arrays.asList(Metier.BLUE, Metier.RED));
 
@@ -218,10 +218,10 @@ public class Metier
 		{
 			Card card = this.deck.remove((int) (Math.random() * this.deck.size()));
 
-			if(Metier.estPremiereLigne)
-				journalDeBord1 += "La " + card.toString() + " à été pioché\n";
+			if(Metier.isFirstLine)
+				logBook1 += "La " + card.toString() + " à été pioché\n";
 			else
-				journalDeBord2 += "La " + card.toString() + " à été pioché\n";
+				logBook2 += "La " + card.toString() + " à été pioché\n";
 			this.hand = card;
 
 			return card;
@@ -229,7 +229,7 @@ public class Metier
 
 		if (!canPlay && this.round == 2)
 		{
-			journalDeBord2 += "\n              FIN\n";
+			logBook2 += "\n              FIN\n";
 			this.ctrl.endGame();
 		}
 		else if (!canPlay) 
@@ -243,7 +243,7 @@ public class Metier
 			}
 
 			this.changeColor();
-			Metier.estPremiereLigne = false;
+			Metier.isFirstLine = false;
 
 			// Manche suivante appelle l'ihm qui affiche un message : this.ctrl.nextRound();
 			this.drawCard();
@@ -349,13 +349,13 @@ public class Metier
 			} */
 	}
 
-	public String getJournalDeBord1() 
+	public String getlogBook1() 
 	{
-		return Metier.journalDeBord1;
+		return Metier.logBook1;
 	}
-	public String getJournalDeBord2() 
+	public String getlogBook2() 
 	{
-		return Metier.journalDeBord2;
+		return Metier.logBook2;
 	}
 	
 	public String getFinalScore()
@@ -509,8 +509,8 @@ public class Metier
 			PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("log.txt"), "UTF8" ));
 
 			pw.println (this.getDate());
-			pw.println ( Metier.journalDeBord1 );
-			pw.println ( Metier.journalDeBord2 );
+			pw.println ( Metier.logBook1 );
+			pw.println ( Metier.logBook2 );
 			pw.println ( this.getFinalScore());
 
 			pw.close();
