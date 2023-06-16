@@ -257,7 +257,7 @@ public class Metier
 	{
 		try
 		{
-			Scanner sc = new Scanner ( new FileInputStream ( "./donnees/scenarios/"+ "scena" + nbScenario + ".txt" ) );
+			Scanner sc = new Scanner ( new FileInputStream ( "./donnees/scenarios/"+ "scena" + nbScenario + ".txt" ), Charset.forName("UTF-8") );
 			
 			int color = 0;
 			Node n1, n2;
@@ -268,7 +268,6 @@ public class Metier
 			while ( sc.hasNextLine() )
 			{
 				ArrayList<String> tabS = Metier.decomposer( sc.nextLine(), '\t' );
-
 				if ( tabS.size() == 1 ) break;
 
 				if ( tabS.get(0).equals( "BLEU"  ) ) { color = Metier.BLUE ; blue = true; }
