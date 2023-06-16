@@ -51,8 +51,8 @@ public class Card
 	}
 
 	/**
-	 * Cette méthode donne la couleur en chaine de caractère
-	 * @return retourne le nom de la couleur
+	 * Cette méthode donne la couleur en chaine de caractère {@code String}
+	 * @return retourne le nom de la couleur 
 	 */
 	public static String getColorName( int intColor )
 	{
