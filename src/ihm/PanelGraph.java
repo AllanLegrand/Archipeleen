@@ -135,7 +135,7 @@ public class PanelGraph extends JPanel implements ActionListener
 		g2.drawLine((int)(Controleur.WIDTH/2.5), (int)(Controleur.HEIGHT/2.8), (int) (Controleur.WIDTH / 1.5), 0);
 		g2.drawLine((int)(Controleur.WIDTH/2.5), (int)(Controleur.HEIGHT/2.8), (int) (Controleur.WIDTH / 1.5), Controleur.HEIGHT);
 		
-		if(this.startColor != PanelGraph.color)
+		if(this.startColor != PanelGraph.color && PanelGraph.color != 0)
 		{
 			this.repaintCard();
 			this.startColor = PanelGraph.color;
